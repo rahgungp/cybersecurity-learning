@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 07 — Secure Architecture & Zero Trust · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praktik Minggu 07 — Designing a Zero Trust Architecture · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 07: merancang arsitektur Zero Trust untuk University Smart Campus, mengintegrasikan Module 02-06.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item current" data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item current" data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,56 +65,62 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 07</p>
-      <h1>Secure Architecture & Zero Trust</h1>
-
+<div class="content">
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 07 · MODULE 07</p>
+      <h1>Designing a Zero Trust Architecture</h1>
+      <div class="meta-row"><span class="pill">⏱ 60 menit</span><span class="pill">Kelompok 2 orang</span>
+      <span class="pill">Output: Secure Network Design</span><span class="pill">Skenario: University Smart Campus</span></div>
       <div class="block" data-locked-unless="week07:practice">
-        
-        <h2 style="margin-top:0">🧪 Secure Network Architecture</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Secure Network Design</span></div>
+        <div class="callout"><strong>📌 Hubungan dengan Materi:</strong> Praktik ini mengintegrasikan SELURUH hasil Module 02–07 — Risk Register, Attack Surface Map, Access Control Matrix, prinsip kriptografi, dan temuan network security — menjadi satu rancangan arsitektur Zero Trust.</div>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu merancang diagram arsitektur jaringan aman yang menerapkan Defense in Depth dan prinsip Zero Trust untuk University Smart Campus.</p>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu merancang diagram jaringan aman sederhana yang menerapkan prinsip Defense in Depth, DMZ, dan Zero Trust.</p>
+        <div class="scenario-box"><h4>🏫 Ringkasan Temuan UND Sejauh Ini (Module 02–06)</h4>
+        <ul style="font-size:.86rem;margin:0;padding-left:18px">
+          <li>Risk Register: server SIAKAD unpatched (HIGH), CCTV default credential (MEDIUM)</li>
+          <li>Attack Surface: subdomain lama terlupakan, shadow IT cloud storage</li>
+          <li>Access Control: RBAC terlalu luas, tidak ada MFA pada sistem manapun</li>
+          <li>Network: satu VLAN untuk semua, tidak ada IDS/IPS, ARP spoofing terdeteksi pada lab</li>
+        </ul></div>
 
-        <h3>Scenario</h3>
-        <p>Sebuah startup fintech kecil membutuhkan arsitektur jaringan untuk: website publik, API backend, database pelanggan, dan akses remote untuk tim developer.</p>
+        <div class="step-counter-reset">
+          <div class="step-block"><h4>TENTUKAN ZONA SEGMENTASI</h4><p>Rancang minimal 4 zona segmentasi untuk UND (mis. Guest/Student Wi-Fi, Staff Network, Server/Data Zone, Admin/Privileged Zone) dan asset apa saja yang masuk tiap zona.</p></div>
+          <div class="step-block"><h4>TENTUKAN IDENTITY &amp; ACCESS CONTROL</h4><p>Untuk setiap zona, tentukan mekanisme autentikasi yang diperlukan (password only / MFA wajib) merujuk Access Control Matrix Module 04.</p></div>
+          <div class="step-block"><h4>TENTUKAN KONTROL PERIMETER &amp; MONITORING</h4><p>Tempatkan firewall, IDS/IPS pada diagram, serta tentukan titik mana yang memerlukan monitoring aktif berdasarkan Risk Register.</p></div>
+          <div class="step-block"><h4>TERAPKAN LEAST PRIVILEGE ANTAR-ZONA</h4><p>Tentukan aturan komunikasi APA SAJA yang diizinkan antar zona (mis. Guest Wi-Fi TIDAK boleh langsung mengakses Server Zone).</p></div>
+          <div class="step-block"><h4>GAMBAR DIAGRAM ARSITEKTUR</h4><p>Gabungkan seluruh keputusan di atas menjadi satu diagram arsitektur (boleh sketsa tangan, draw.io, atau sejenisnya) lengkap dengan keterangan.</p></div>
+        </div>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Alat gambar diagram apa pun (kertas, draw.io, atau sejenisnya)</li></ul>
+        <div class="output-box"><h4>📋 EXPECTED OUTPUT — Secure Network Design (UND)</h4><ul>
+          <li>Diagram arsitektur jaringan dengan minimal 4 zona segmentasi</li>
+          <li>Tabel mekanisme autentikasi per zona (merujuk Module 04)</li>
+          <li>Penempatan firewall, IDS/IPS, dan titik monitoring</li>
+          <li>Aturan komunikasi antar-zona berbasis least privilege</li>
+          <li>Paragraf justifikasi: bagaimana desain ini mencegah skenario mirip Colonial Pipeline/Target terjadi di UND</li>
+        </ul></div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Aktivitas perancangan berbasis skenario tertulis, tidak memerlukan infrastruktur nyata.</div>
-
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Tentukan komponen mana yang berada di DMZ dan mana yang di jaringan internal.</li><li>Tentukan penempatan firewall dan segmentation antar zona.</li><li>Tentukan bagaimana developer mengakses sistem secara remote dengan aman (misal VPN + MFA).</li><li>Terapkan prinsip Zero Trust pada mekanisme autentikasi dan otorisasi akses.</li><li>Sertakan komponen monitoring (misal logging/IDS) pada diagram.</li></ol>
-
-        <h3>Expected Output</h3>
-        <p>Diagram jaringan aman (boleh sketsa/gambar) lengkap dengan penjelasan penempatan firewall, DMZ, segmentation, remote access, dan monitoring.</p>
-
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengapa database pelanggan sebaiknya tidak diletakkan langsung di DMZ?</li><li>Bagaimana prinsip least privilege diterapkan pada akses developer ke server produksi?</li></ul>
-
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Apa risiko jika API backend diletakkan di DMZ yang sama dengan website publik tanpa segmentation tambahan?</li><li>Sebutkan satu contoh kontrol yang mencerminkan Defense in Depth pada rancanganmu.</li></ol>
-
-        <h3>Assignment</h3>
-        <p>Kumpulkan diagram jaringan aman beserta penjelasan tertulis (setengah - satu halaman) tentang pertimbangan keamanan di setiap zona.</p>
-
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> DMZ & internal network dipisahkan</label></li><li><label><input type="checkbox"> Firewall ditempatkan sesuai</label></li><li><label><input type="checkbox"> Remote access aman didefinisikan</label></li><li><label><input type="checkbox"> Prinsip Zero Trust dijelaskan</label></li><li><label><input type="checkbox"> Monitoring disertakan</label></li></ul>
-
-        <button class="btn btn-primary" data-complete="week07:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Zona mana pada rancanganmu yang paling ketat kontrolnya, dan mengapa?</li>
+          <li>Bagaimana rancangan ini secara spesifik mengatasi temuan "satu VLAN untuk semua" dari Module 06?</li>
+          <li>Apa satu langkah PALING PERTAMA yang realistis dilakukan UND untuk mulai bermigrasi ke arsitektur ini, mengingat anggaran terbatas?</li>
+        </ol>
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Minimal 4 zona segmentasi dirancang dengan asset yang jelas</label></li>
+          <li><label><input type="checkbox"> Mekanisme autentikasi per zona ditentukan (merujuk Module 04)</label></li>
+          <li><label><input type="checkbox"> Firewall/IDS/IPS/monitoring ditempatkan pada diagram</label></li>
+          <li><label><input type="checkbox"> Aturan komunikasi antar-zona least privilege dijelaskan</label></li>
+          <li><label><input type="checkbox"> Diagram final rapi dan dapat dipahami tanpa penjelasan tambahan</label></li>
+        </ul>
+        <div class="callout warn" style="margin-top:16px"><strong>📁 Portfolio Note:</strong> Secure Network Design ini akan diuji langsung pada UTS (Module 08) dan menjadi salah satu komponen utama Final Project (Module 16).</div>
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week07:practice" data-complete-label="Practice Completed ✓">✓ Tandai Praktik Selesai</button>
       </div>
-
-      <div class="block" style="display:flex;justify-content:space-between">
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week07.html">← Kembali ke Materi Minggu 07</a>
+        <a class="btn btn-outline" href="../weeks/week08.html">Lanjut ke Minggu 08 (UTS) →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -128,5 +138,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

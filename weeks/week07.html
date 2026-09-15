@@ -1,15 +1,108 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minggu 07 — Secure Architecture & Zero Trust · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minggu 07 — Secure Architecture &amp; Zero Trust · COM Cybersecurity Learning</title>
+<meta name="description" content="Module 07: Defense in Depth, microsegmentation, Zero Trust Architecture (NIST SP 800-207), dan perancangan arsitektur jaringan aman.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+/* === Shared Week Supplemental Styles (established in Week 01) === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
-</head>
-<body>
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-node.hl-warn{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
 
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.controls-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-blue{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.ctrl-gray{background:var(--locked-gray-soft);border-color:var(--locked-gray)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}.ctrl-blue h4{color:var(--learn-blue)}.ctrl-gray h4{color:var(--locked-gray)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+.ctrl-col p{font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-green{background:var(--signal-soft);color:var(--signal)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+.matrix-wrap{display:flex;justify-content:center;margin:14px 0}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .controls-4{grid-template-columns:1fr 1fr}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +122,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item current" data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item current" data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,57 +152,177 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">MODULE 07 · MINGGU KE-07</p>
-      <h1>Secure Architecture & Zero Trust</h1>
-      <div class="meta-row">
-        <span class="pill">NIST</span>
-        <span class="pill">Output: Secure Network Design</span>
+<div class="content">
+      <p class="eyebrow">MODULE 07 · MINGGU KE-07 · LEVEL: ANALYZE / EVALUATE</p>
+      <h1>Secure Architecture &amp; Zero Trust</h1>
+      <div class="meta-row"><span class="pill">NIST SP 800-207</span><span class="pill">Defense in Depth</span>
+      <span class="pill">Microsegmentation</span><span class="pill">Output: Secure Network Design</span></div>
+
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">PRASYARAT</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 04 (Access Control) + Minggu 06 (Network Security)</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">NEXT →</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 08 — UTS (Cybersecurity Assessment)</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Module 07 adalah <strong>puncak sintesis</strong> dari Module 02–06: access control (04), cryptography (05), dan network security (06) digabungkan menjadi satu filosofi arsitektur menyeluruh. Ini juga persiapan langsung menuju UTS (Module 08), yang akan menguji kemampuan mahasiswa mengintegrasikan seluruh konsep sejauh ini.</p>
       </div>
 
       <div class="block" data-locked-unless="week07:material">
         <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Menjelaskan prinsip Defense in Depth.</li><li>Menjelaskan fungsi DMZ dan network segmentation dalam arsitektur aman.</li><li>Menjelaskan prinsip Zero Trust: Never Trust, Always Verify.</li><li>Merancang diagram jaringan aman sederhana untuk sebuah skenario.</li></ul>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi</th><th>Bloom's Level</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Menjelaskan prinsip Defense in Depth dan penerapannya secara berlapis</td><td>Understand</td></tr>
+            <tr><td>2</td><td>Membedakan network segmentation tradisional dengan microsegmentation</td><td>Analyze</td></tr>
+            <tr><td>3</td><td>Menjelaskan lima pilar Zero Trust Architecture menurut NIST SP 800-207</td><td>Understand</td></tr>
+            <tr><td>4</td><td>Menganalisis mengapa model perimeter-based security tidak lagi memadai</td><td>Analyze</td></tr>
+            <tr><td>5</td><td>Mengevaluasi kesiapan sebuah organisasi untuk migrasi ke Zero Trust</td><td>Evaluate</td></tr>
+            <tr><td>6</td><td>Merancang diagram arsitektur jaringan aman untuk sebuah organisasi</td><td>Create</td></tr>
+          </tbody>
+        </table>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>Defense in Depth</h3><p>Defense in Depth adalah strategi menerapkan berlapis-lapis kontrol keamanan, sehingga jika satu lapisan gagal, lapisan berikutnya tetap dapat mencegah atau membatasi dampak serangan — analog dengan benteng yang memiliki banyak lapisan pertahanan, bukan hanya satu gerbang.</p><h3>DMZ & Segmentation</h3><p>Demilitarized Zone (DMZ) adalah segmen jaringan terpisah yang menempatkan server yang perlu diakses dari internet (misal web server) di luar jaringan internal, sehingga jika server tersebut dikompromikan, penyerang tidak langsung mendapat akses ke jaringan internal yang lebih sensitif.</p><h3>Zero Trust Architecture</h3><p>Zero Trust adalah model keamanan dengan prinsip 'Never Trust, Always Verify' — tidak ada pengguna atau perangkat yang dipercaya secara default, bahkan jika sudah berada di dalam jaringan internal. Setiap permintaan akses harus diverifikasi ulang berdasarkan identitas, kondisi perangkat, dan konteks, dengan akses yang diberikan seminimal mungkin (least privilege).</p>
-        <div class="diagram"><svg viewBox="0 0 520 260" width="460" xmlns="http://www.w3.org/2000/svg">
-  <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--ink-soft)"/></marker></defs>
-  <text x="30" y="20" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Internet</text>
-  <line x1="60" y1="28" x2="60" y2="55" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#a2)"/>
-  <rect x="15" y="55" width="90" height="36" rx="6" fill="none" stroke="var(--threat-red)" stroke-width="2"/>
-  <text x="60" y="77" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Firewall</text>
-  <line x1="60" y1="91" x2="60" y2="118" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#a2)"/>
-  <rect x="10" y="118" width="220" height="90" rx="6" fill="none" stroke="var(--warn-amber)" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="120" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--warn-amber)">DMZ</text>
-  <rect x="25" y="145" width="90" height="40" rx="6" fill="none" stroke="var(--learn-blue)" stroke-width="2"/>
-  <text x="70" y="169" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Web Server</text>
-  <rect x="130" y="145" width="90" height="40" rx="6" fill="none" stroke="var(--learn-blue)" stroke-width="2"/>
-  <text x="175" y="169" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Reverse Proxy</text>
-  <line x1="230" y1="163" x2="270" y2="163" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#a2)"/>
-  <rect x="270" y="118" width="230" height="90" rx="6" fill="none" stroke="var(--signal)" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="385" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--signal)">Internal Network</text>
-  <rect x="285" y="145" width="95" height="40" rx="6" fill="none" stroke="var(--pine-600)" stroke-width="2"/>
-  <text x="332" y="169" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">App Server</text>
-  <rect x="390" y="145" width="95" height="40" rx="6" fill="none" stroke="var(--pine-600)" stroke-width="2"/>
-  <text x="437" y="169" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Database</text>
-</svg></div>
-        <h3>Example</h3><p>Sebuah universitas menempatkan portal pendaftaran online (yang diakses publik) pada DMZ dengan firewall terpisah, sementara sistem informasi akademik internal (yang menyimpan data lengkap mahasiswa) berada pada jaringan internal yang hanya bisa diakses melalui reverse proxy dan autentikasi tambahan dari DMZ.</p>
-        <h3>Case Study</h3><p>Sebuah perusahaan menerapkan model Zero Trust setelah insiden di mana akun karyawan yang bekerja remote dikompromikan dan digunakan untuk mengakses seluruh sumber daya internal tanpa verifikasi tambahan karena dianggap 'sudah terhubung ke VPN perusahaan'. Setelah menerapkan Zero Trust, setiap permintaan akses — meski berasal dari VPN — tetap diverifikasi ulang berdasarkan identitas, kondisi perangkat, dan kebutuhan akses spesifik.</p>
-        <h3>Key Takeaways</h3><ul style="list-style:disc;margin-left:20px"><li>Defense in Depth mengandalkan banyak lapisan kontrol, bukan satu titik pertahanan.</li><li>DMZ memisahkan layanan publik dari jaringan internal yang lebih sensitif.</li><li>Zero Trust tidak memberi kepercayaan otomatis meskipun pengguna sudah berada 'di dalam' jaringan.</li><li>Arsitektur aman dirancang dengan mempertimbangkan segmentation, monitoring, dan least privilege sejak awal.</li></ul>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 01</span>
+        <h2 style="margin-top:6px">Defense in Depth</h2>
+        <p>Defense in Depth menerapkan kontrol berlapis sehingga kegagalan satu lapisan tidak berarti kompromi total. Setiap module sejauh ini sebenarnya sudah membahas satu lapisan:</p>
+        <div class="matrix-wrap" style="display:block">
+        <svg viewBox="0 0 460 260" width="100%" style="max-width:420px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Layer defense in depth dari perimeter hingga data">
+          <rect x="10" y="10" width="440" height="240" rx="8" fill="none" stroke="var(--threat-red)" stroke-width="1.5"/>
+          <text x="230" y="26" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--threat-red)">PERIMETER (Module 06: Firewall)</text>
+          <rect x="30" y="36" width="400" height="190" rx="8" fill="none" stroke="var(--warn-amber)" stroke-width="1.5"/>
+          <text x="230" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--warn-amber)">NETWORK (Module 06: Segmentation/IDS)</text>
+          <rect x="50" y="62" width="360" height="140" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="1.5"/>
+          <text x="230" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--learn-blue)">ENDPOINT (Module 10: EDR)</text>
+          <rect x="70" y="88" width="320" height="90" rx="8" fill="none" stroke="var(--signal)" stroke-width="1.5"/>
+          <text x="230" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--signal)">APPLICATION (Module 09: WAF/OWASP)</text>
+          <rect x="90" y="114" width="280" height="55" rx="8" fill="var(--pine-800)" stroke="var(--pine-600)" stroke-width="1.5"/>
+          <text x="230" y="135" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#fff">DATA</text>
+          <text x="230" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#BFEFDA">(Module 04: Access Control</text>
+          <text x="230" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#BFEFDA">+ Module 05: Encryption)</text>
+        </svg>
+        </div>
+        <p style="font-size:.72rem;color:var(--ink-soft);text-align:center">Figure 1. Defense in Depth — setiap layer memetakan ke module yang telah dipelajari. Source: Author's illustration based on NIST SP 800-53 control families.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 02</span>
+        <h2 style="margin-top:6px">Dari Segmentation ke Microsegmentation</h2>
+        <p>Network segmentation (Module 06) memisahkan jaringan menjadi zona besar (VLAN mahasiswa, staf, server). <strong>Microsegmentation</strong> membawa prinsip ini ke level jauh lebih granular — setiap workload atau bahkan setiap aplikasi individual memiliki kebijakan akses sendiri, umumnya diterapkan melalui software-defined networking, terlepas dari topologi jaringan fisik.</p>
+        <div class="sub-note">⚠️ Dengan microsegmentation, bahkan dua server dalam VLAN yang sama tidak otomatis saling percaya — setiap komunikasi tetap harus diverifikasi sesuai kebijakan eksplisit.</div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 03</span>
+        <h2 style="margin-top:6px">Mengapa Perimeter-Based Security Gagal</h2>
+        <p>Model keamanan tradisional mengasumsikan: "di dalam jaringan = tepercaya, di luar = tidak tepercaya" — cukup jaga perimeter (firewall) dengan ketat. Asumsi ini gagal karena:</p>
+        <ul style="list-style:disc;margin-left:20px">
+          <li><strong>Cloud &amp; remote work</strong> — "perimeter" tidak lagi jelas batasnya (lih. Module 03: cloud attack surface)</li>
+          <li><strong>Insider threat &amp; credential compromise</strong> — begitu penyerang mendapat kredensial sah (lih. Module 04), mereka "di dalam" perimeter dan dipercaya begitu saja</li>
+          <li><strong>Lateral movement</strong> — sekali masuk, penyerang bergerak bebas jika tidak ada verifikasi internal (lih. kasus Target, Module 04)</li>
+        </ul>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 04</span>
+        <h2 style="margin-top:6px">Zero Trust Architecture — NIST SP 800-207</h2>
+        <p>Prinsip inti Zero Trust: <strong>"Never Trust, Always Verify"</strong> — tidak ada pengguna, perangkat, atau aplikasi yang dipercaya secara default, bahkan yang sudah "di dalam" jaringan. NIST SP 800-207 mendefinisikan tujuh tenet dasar; berikut lima yang paling fundamental untuk konteks perkuliahan ini:</p>
+        <div class="controls-3">
+          <div class="ctrl-col ctrl-blue"><h4>🆔 IDENTITY-CENTRIC</h4><p>Verifikasi berbasis identitas (Module 04), bukan lokasi jaringan</p></div>
+          <div class="ctrl-col ctrl-prev"><h4>🔁 CONTINUOUS VERIFICATION</h4><p>Setiap request diverifikasi ulang, bukan sekali saat login</p></div>
+          <div class="ctrl-col ctrl-det"><h4>📱 DEVICE POSTURE</h4><p>Kondisi keamanan perangkat (patch, antivirus) turut dinilai sebelum akses diberikan</p></div>
+          <div class="ctrl-col ctrl-cor"><h4>🔒 LEAST PRIVILEGE ACCESS</h4><p>Akses granular per sesi/request, bukan akses luas sekali diberikan (Module 04)</p></div>
+          <div class="ctrl-col ctrl-gray"><h4>📋 POLICY ENFORCEMENT</h4><p>Kebijakan dievaluasi secara dinamis oleh Policy Decision/Enforcement Point</p></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 05</span>
+        <h2 style="margin-top:6px">Real-World Case Studies</h2>
+        <div class="case-card">
+          <div class="case-head"><span class="case-tag case-green">CASE 01 · ZERO TRUST PIONEER</span><strong style="font-size:.92rem">Google BeyondCorp</strong></div>
+          <div class="case-body">
+            <p>Setelah mengalami serangan bertarget canggih (Operation Aurora, 2009), Google membangun ulang arsitektur keamanan internalnya menjadi BeyondCorp — salah satu implementasi Zero Trust paling awal dan terdokumentasi secara publik. Karyawan Google dapat mengakses aplikasi internal dari jaringan mana pun (termasuk kafe publik) tanpa VPN tradisional, karena setiap request diverifikasi berdasarkan identitas pengguna DAN kondisi perangkat — bukan berdasarkan "apakah terhubung ke jaringan kantor".</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">PEMICU</span><p>Serangan bertarget (APT) yang berhasil menembus perimeter tradisional</p></div>
+              <div class="ca-item"><span class="ca-key">PENDEKATAN</span><p>Menghilangkan konsep "jaringan internal tepercaya", verifikasi identity + device posture untuk setiap akses</p></div>
+              <div class="ca-item"><span class="ca-key">HASIL</span>Model ini kemudian menjadi rujukan industri dan mendasari banyak standar Zero Trust modern, termasuk NIST SP 800-207</div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Lesson Learned:</strong> Zero Trust bukan sekadar produk yang dibeli, melainkan perubahan filosofi arsitektur menyeluruh — dari "amankan perimeter" menjadi "verifikasi setiap akses".</div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-head"><span class="case-tag case-red">CASE 02 · KEGAGALAN SINGLE POINT OF TRUST</span><strong style="font-size:.92rem">Colonial Pipeline Ransomware (2021)</strong></div>
+          <div class="case-body">
+            <p>Penyerang mendapatkan akses awal ke jaringan Colonial Pipeline melalui satu akun VPN lama yang tidak lagi aktif digunakan namun kredensialnya masih valid dan TIDAK dilindungi MFA. Begitu masuk, tidak ada verifikasi tambahan yang mencegah penyerang menyebar dan akhirnya melumpuhkan sistem operasional, memaksa penghentian sementara jalur pipa bahan bakar utama Amerika Serikat.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">SINGLE POINT OF TRUST</span><p>Satu VPN account = akses dipercaya penuh tanpa verifikasi lanjutan</p></div>
+              <div class="ca-item"><span class="ca-key">JIKA ZERO TRUST DITERAPKAN</span><p>MFA wajib + continuous verification + microsegmentation akan memutus rantai serangan di titik yang jauh lebih awal</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT</span><p>Penghentian operasional pipa bahan bakar, dampak ekonomi nasional, pembayaran ransom ~$4,4 juta (sebagian dipulihkan FBI)</p></div>
+            </div>
+            <div class="callout warn" style="margin-top:10px"><strong>Lesson Learned:</strong> Satu titik kepercayaan yang tidak diverifikasi ulang (legacy VPN account tanpa MFA) cukup menjadi pintu masuk menuju insiden berskala nasional.</div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>🔍 Think Like a Security Analyst</h2>
+        <div class="callout" style="margin-bottom:14px"><strong>Skenario:</strong> UND mempertimbangkan migrasi ke Zero Trust setelah menyadari temuan Module 04 (RBAC terlalu luas) dan Module 06 (satu VLAN untuk semua). Rektorat bertanya: "Apakah kita perlu membeli produk 'Zero Trust' baru, atau cukup memperbaiki yang sudah ada?"</div>
+        <div class="analyst-box">
+          <h4>💡 Pertanyaan Analisis — Zero Trust UND</h4>
+          <details><summary>1. Bagaimana kamu menjawab pertanyaan rektorat tersebut?</summary><div class="analyst-answer">Zero Trust adalah filosofi arsitektur, bukan produk tunggal. UND dapat mulai dengan memperbaiki fondasi yang sudah dibahas: menerapkan least privilege &amp; RBAC granular (Module 04), MFA wajib untuk sistem sensitif, dan microsegmentation bertahap (Module 06/07) — tanpa harus membeli "solusi Zero Trust" mahal sekaligus.</div></details>
+          <details><summary>2. Elemen Zero Trust mana yang paling murah dan cepat diterapkan UND, dan mana yang paling mahal/lama?</summary><div class="analyst-answer">Murah &amp; cepat: MFA wajib (mis. via Google Workspace yang sudah dipakai) dan perbaikan RBAC. Mahal &amp; lama: microsegmentation penuh dan device posture checking otomatis memerlukan investasi infrastruktur/tools baru.</div></details>
+          <details><summary>3. Hubungkan kasus Colonial Pipeline dengan kondisi VPN dosen UND (Module 04: semua dosen punya akses VPN tanpa MFA).</summary><div class="analyst-answer">Pola identik: satu akun VPN tanpa MFA = titik kepercayaan tunggal yang rapuh. Jika kredensial salah satu dosen bocor (phishing, Module 01), penyerang mendapat akses jaringan penuh tanpa verifikasi tambahan — persis skenario Colonial Pipeline.</div></details>
+        </div>
+      </div><!-- end locked block -->
+
+      <div class="block" data-locked-unless="week07:material">
+        <h2>📝 Knowledge Check</h2>
+        <p style="margin-bottom:16px;font-size:.88rem">Ujilah pemahaman Anda. Jawab semua pertanyaan lalu klik Submit Quiz untuk melihat skor dan pembahasan.</p>
+        <div data-quiz="week07"></div>
       </div>
 
-      
+      <div class="block" data-locked-unless="week07:material">
+        <h2>🏁 Key Takeaways</h2>
+        <div class="key-box"><h4>MODULE 07 — CORE INSIGHTS</h4><ul>
+          <li>Defense in Depth mengintegrasikan seluruh kontrol dari Module 02–06 menjadi satu arsitektur berlapis.</li>
+          <li>Microsegmentation memperhalus network segmentation hingga level workload/aplikasi individual.</li>
+          <li>Model perimeter-based security gagal menghadapi cloud, remote work, dan credential compromise.</li>
+          <li>Zero Trust ("Never Trust, Always Verify") menekankan identity-centric security, continuous verification, device posture, dan least privilege.</li>
+          <li>Zero Trust adalah filosofi arsitektur bertahap (lih. Google BeyondCorp), bukan satu produk yang langsung dibeli.</li>
+          <li>Satu titik kepercayaan yang tidak diverifikasi ulang (lih. Colonial Pipeline) dapat menjadi celah menuju insiden berskala besar.</li>
+        </ul></div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📖 Glossary</h2>
+        <div class="glossary-grid">
+          <div class="g-item"><span class="g-term">Defense in Depth</span><p class="g-def">Strategi keamanan berlapis sehingga kegagalan satu lapisan tidak berarti kompromi total sistem.</p></div>
+          <div class="g-item"><span class="g-term">Microsegmentation</span><p class="g-def">Segmentasi jaringan granular hingga level workload/aplikasi individual, umumnya via software-defined networking.</p></div>
+          <div class="g-item"><span class="g-term">Zero Trust</span><p class="g-def">Model keamanan "Never Trust, Always Verify" — tidak ada entitas yang dipercaya secara default.</p></div>
+          <div class="g-item"><span class="g-term">Device Posture</span><p class="g-def">Penilaian kondisi keamanan perangkat (patch, antivirus, konfigurasi) sebelum akses diberikan.</p></div>
+          <div class="g-item"><span class="g-term">Policy Enforcement Point</span><p class="g-def">Komponen dalam Zero Trust Architecture yang mengevaluasi dan menegakkan kebijakan akses secara dinamis.</p></div>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📚 References</h2>
+        <ul class="ref-list">
+          <li><strong>NIST SP 800-207</strong> — NIST. (2020). <em>Zero Trust Architecture</em>. <a href="https://csrc.nist.gov/pubs/sp/800/207/final" target="_blank" rel="noopener">csrc.nist.gov</a></li>
+          <li><strong>Google BeyondCorp</strong> — Google Research. (2014). <em>BeyondCorp: A New Approach to Enterprise Security</em>. <a href="https://research.google/pubs/beyondcorp-a-new-approach-to-enterprise-security/" target="_blank" rel="noopener">research.google</a></li>
+          <li><strong>CISA Zero Trust Maturity Model</strong> — CISA. <a href="https://www.cisa.gov/zero-trust-maturity-model" target="_blank" rel="noopener">cisa.gov</a></li>
+          <li><strong>Colonial Pipeline Incident</strong> — CISA/FBI Joint Advisory. (2021). <em>DarkSide Ransomware</em>. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-131a" target="_blank" rel="noopener">cisa.gov</a></li>
+        </ul>
+      </div>
+
       <div class="block" style="background:var(--signal-soft);border-color:var(--signal)">
         <h2 style="margin-bottom:6px">READY FOR PRACTICE?</h2>
-        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Secure Network Architecture</strong> untuk menerapkan konsep secara hands-on.</p>
+        <p>Lanjutkan ke <strong>Designing a Zero Trust Architecture</strong> untuk merancang arsitektur jaringan aman bagi University Smart Campus — sintesis dari Module 02–07.</p>
         <a class="btn btn-primary" href="../practical/practical-07.html" data-practice-link>🧪 MULAI PRAKTIK</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -129,5 +340,19 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+<script type="application/json" data-quiz-data="week07">
+{
+  "passScore": 70,
+  "questions": [
+    {"q":"Prinsip inti Zero Trust Architecture adalah...","options":["A. Percaya penuh pada traffic internal jaringan","B. Never Trust, Always Verify — tidak ada entitas yang dipercaya secara default, bahkan yang sudah di dalam jaringan","C. Hanya memverifikasi pengguna saat login pertama kali","D. Menghilangkan kebutuhan autentikasi sama sekali"],"correct":1},
+    {"q":"Microsegmentation berbeda dari network segmentation tradisional (VLAN) karena...","options":["A. Microsegmentation lebih murah","B. Microsegmentation menerapkan kebijakan akses hingga level workload/aplikasi individual, bukan hanya zona besar","C. VLAN lebih granular dari microsegmentation","D. Keduanya adalah istilah yang identik"],"correct":1},
+    {"q":"Mengapa model perimeter-based security tidak lagi memadai di era modern?","options":["A. Karena firewall sudah tidak digunakan lagi","B. Karena cloud, remote work, dan credential compromise membuat batas 'internal vs eksternal' menjadi kabur","C. Karena semua ancaman sekarang berasal dari luar jaringan","D. Karena perimeter security tidak pernah efektif sejak awal"],"correct":1},
+    {"q":"NIST SP 800-207 adalah rujukan utama untuk...","options":["A. Password hashing","B. Zero Trust Architecture","C. Incident response","D. Digital forensics"],"correct":1},
+    {"q":"Google BeyondCorp memungkinkan karyawan mengakses aplikasi internal tanpa VPN tradisional karena...","options":["A. Google menghapus seluruh kebutuhan autentikasi","B. Setiap akses diverifikasi berdasarkan identitas pengguna dan device posture, bukan berdasarkan lokasi jaringan","C. Google tidak lagi menggunakan firewall","D. BeyondCorp hanya berlaku untuk jaringan kantor fisik"],"correct":1},
+    {"q":"[SKENARIO] Sebuah rumah sakit menerapkan segmentasi VLAN dasar namun masih mengizinkan semua perangkat dalam VLAN yang sama untuk saling berkomunikasi bebas. Bagaimana microsegmentation dapat memperbaiki risiko ini?","options":["A. Microsegmentation tidak relevan untuk rumah sakit","B. Microsegmentation dapat membatasi komunikasi antar perangkat individual (mis. alat medis tidak perlu berkomunikasi dengan komputer admin) meski berada di VLAN yang sama","C. Microsegmentation hanya berlaku untuk cloud, bukan on-premise","D. Solusi terbaik adalah menghapus seluruh VLAN"],"correct":1},
+    {"q":"[SKENARIO] Karyawan yang resign 3 bulan lalu ternyata akunnya belum di-deactivate dan masih memiliki akses VPN aktif tanpa MFA. Prinsip Zero Trust mana yang paling relevan mencegah eksploitasi kondisi ini?","options":["A. Device posture semata","B. Kombinasi Least Privilege Access (segera cabut akses saat offboarding) dan Continuous Verification/MFA (memastikan kredensial lama tidak cukup untuk mendapat akses)","C. Zero Trust tidak dapat mencegah masalah offboarding","D. Cukup mengganti firewall perimeter"],"correct":1},
+    {"q":"[HOTS] Sebuah organisasi kecil dengan anggaran terbatas ingin mulai bermigrasi ke Zero Trust namun khawatir biayanya terlalu besar untuk diterapkan sekaligus. Strategi MANA yang paling realistis?","options":["A. Menunda migrasi sampai anggaran besar tersedia untuk implementasi penuh sekaligus","B. Memulai bertahap dari kontrol dengan risk-reduction tertinggi dan biaya rendah (MFA wajib, perbaikan RBAC/least privilege) sebelum berinvestasi pada microsegmentation penuh atau tools Zero Trust khusus","C. Membeli produk 'Zero Trust' termahal yang tersedia di pasar tanpa analisis kebutuhan","D. Zero Trust hanya cocok untuk perusahaan besar seperti Google"],"correct":1}
+  ]
+}
+</script>
+</body></html>

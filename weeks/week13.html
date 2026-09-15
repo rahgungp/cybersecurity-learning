@@ -1,15 +1,108 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minggu 13 — Cyber Attack Lifecycle · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
+<meta name="description" content="Module 13: Cyber Kill Chain 7 tahap, perbandingan dengan MITRE ATT&CK, dan pemetaan attack chain skenario nyata.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+/* === Shared Week Supplemental Styles (established in Week 01) === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
-</head>
-<body>
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-node.hl-warn{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
 
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.controls-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-blue{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.ctrl-gray{background:var(--locked-gray-soft);border-color:var(--locked-gray)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}.ctrl-blue h4{color:var(--learn-blue)}.ctrl-gray h4{color:var(--locked-gray)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+.ctrl-col p{font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-green{background:var(--signal-soft);color:var(--signal)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+.matrix-wrap{display:flex;justify-content:center;margin:14px 0}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .controls-4{grid-template-columns:1fr 1fr}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +122,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item current" data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item current" data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,37 +152,165 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">MODULE 13 · MINGGU KE-13</p>
+<div class="content">
+      <p class="eyebrow">MODULE 13 · MINGGU KE-13 · LEVEL: ANALYZE</p>
       <h1>Cyber Attack Lifecycle</h1>
-      <div class="meta-row">
-        <span class="pill">MITRE ATT&CK</span>
-        <span class="pill">Output: Attack-Chain Mapping</span>
+      <div class="meta-row"><span class="pill">Cyber Kill Chain</span><span class="pill">MITRE ATT&amp;CK</span>
+      <span class="pill">ATT&amp;CK Navigator</span><span class="pill">Output: Attack-Chain Mapping</span></div>
+
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">PRASYARAT</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 12 — Incident Response Playbook</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">NEXT MODULE →</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 14 — Digital Forensics Fundamentals</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Insiden UND pada Module 12 terjadi melalui serangkaian tahap yang dapat dipetakan secara formal. Module 13 memformalkan cara berpikir ini menggunakan dua kerangka pelengkap: Cyber Kill Chain (model linear klasik) dan MITRE ATT&amp;CK (basis pengetahuan granular) — keduanya akan digunakan langsung pada investigasi forensik Module 14.</p>
       </div>
 
       <div class="block" data-locked-unless="week13:material">
         <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Menjelaskan tahapan cyber attack lifecycle secara konseptual.</li><li>Menghubungkan setiap tahap serangan dengan tactics dan techniques MITRE ATT&CK.</li><li>Memetakan skenario insiden ke dalam attack chain yang terstruktur.</li><li>Mengusulkan deteksi dan mitigasi untuk tiap tahap serangan.</li></ul>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi</th><th>Bloom's Level</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Menjelaskan tujuh tahap Cyber Kill Chain</td><td>Understand</td></tr>
+            <tr><td>2</td><td>Membandingkan Cyber Kill Chain dengan MITRE ATT&amp;CK sebagai dua model berbeda</td><td>Analyze</td></tr>
+            <tr><td>3</td><td>Menjelaskan perbedaan Lifecycle Model dengan Adversary Behavior Knowledge Base</td><td>Understand</td></tr>
+            <tr><td>4</td><td>Memetakan skenario insiden ke tahap Kill Chain dan teknik ATT&amp;CK yang sesuai</td><td>Apply</td></tr>
+            <tr><td>5</td><td>Mengevaluasi pada tahap mana deteksi paling efektif dilakukan untuk sebuah serangan</td><td>Evaluate</td></tr>
+          </tbody>
+        </table>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>Tahapan Cyber Attack Lifecycle</h3><p>Reconnaissance: penyerang mengumpulkan informasi tentang target. Initial Access: penyerang mendapatkan pijakan awal (misal melalui phishing). Execution: menjalankan kode berbahaya pada sistem target. Persistence: memastikan tetap memiliki akses meski sistem di-restart. Privilege Escalation: meningkatkan hak akses dari user biasa menjadi admin/root. Lateral Movement: berpindah ke sistem lain dalam jaringan yang sama. Exfiltration: mencuri data keluar dari jaringan target. Impact: dampak akhir yang dirasakan organisasi, misal enkripsi data atau gangguan layanan.</p><h3>Menghubungkan dengan MITRE ATT&CK</h3><p>Setiap tahapan attack lifecycle di atas dapat dipetakan ke Tactics dalam MITRE ATT&CK, dan setiap tactic memiliki beberapa Techniques spesifik yang mendeskripsikan cara umum penyerang mencapai tujuan tersebut. Pemetaan ini membantu tim keamanan merancang deteksi dan mitigasi yang ditargetkan pada tiap tahap, bukan hanya bereaksi setelah dampak terjadi.</p>
-        <div class="diagram"><svg viewBox="0 0 626 210" width="100%" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--ink-soft)"/></marker></defs><rect x="10" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="76.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Reconnaissance</text><line x1="142" y1="37.0" x2="168" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="168" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="234.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Initial Access</text><line x1="300" y1="37.0" x2="326" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="326" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="392.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Execution</text><line x1="458" y1="37.0" x2="484" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="484" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="550.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Persistence</text><line x1="76.0" y1="64" x2="76.0" y2="110" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="10" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="76.0" y="130.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Privilege</text><text x="76.0" y="144.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Escalation</text><line x1="142" y1="137.0" x2="168" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="168" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="234.0" y="130.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Lateral</text><text x="234.0" y="144.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Movement</text><line x1="300" y1="137.0" x2="326" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="326" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="392.0" y="137.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Exfiltration</text><line x1="458" y1="137.0" x2="484" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="484" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="550.0" y="137.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Impact</text></svg></div>
-        <h3>Example</h3><p>Pada sebuah insiden, penyerang memulai dengan mengumpulkan informasi karyawan dari LinkedIn (Reconnaissance), mengirim email phishing bertarget (Initial Access), menjalankan skrip berbahaya saat lampiran dibuka (Execution), menanamkan diri pada startup registry (Persistence), lalu memanfaatkan kredensial admin lokal yang lemah untuk privilege escalation, sebelum akhirnya bergerak ke server file (Lateral Movement) dan mengunggah data ke luar (Exfiltration).</p>
-        <h3>Case Study</h3><p>Tim respons insiden menganalisis serangan pada sebuah perusahaan dan berhasil memetakan setiap tahap ke MITRE ATT&CK: Initial Access melalui phishing attachment, Execution melalui macro berbahaya, dan Lateral Movement menggunakan kredensial yang dicuri dari satu komputer untuk mengakses server file bersama. Pemetaan ini membantu tim menentukan bahwa deteksi paling efektif untuk mencegah insiden serupa adalah memperkuat filter email dan menonaktifkan macro secara default, alih-alih hanya berfokus pada tahap akhir (Impact).</p>
-        <h3>Key Takeaways</h3><ul style="list-style:disc;margin-left:20px"><li>Cyber attack lifecycle menggambarkan tahapan serangan dari awal hingga dampak akhir.</li><li>Setiap tahap dapat dipetakan ke Tactics & Techniques MITRE ATT&CK untuk analisis terstruktur.</li><li>Deteksi dini pada tahap awal (Reconnaissance/Initial Access) jauh lebih murah dibanding menangani Impact.</li><li>Memahami attack chain membantu merancang kontrol yang tepat sasaran di setiap tahap.</li></ul>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 01</span>
+        <h2 style="margin-top:6px">Cyber Kill Chain (Lockheed Martin)</h2>
+        <div class="threat-chain" role="img" aria-label="Cyber Kill Chain 7 tahap">
+          <div class="tc-step"><span class="tc-label">RECON</span>Kumpulkan info target<div class="tc-eg">OSINT, LinkedIn, subdomain</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">WEAPONIZATION</span>Siapkan payload<div class="tc-eg">Malware + exploit digabung</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">DELIVERY</span>Kirim ke target<div class="tc-eg">Email, USB, web</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">EXPLOITATION</span>Manfaatkan kerentanan<div class="tc-eg">Payload dieksekusi</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">INSTALLATION</span>Tanam persistence<div class="tc-eg">Backdoor, RAT</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">C2</span>Kendali dari attacker<div class="tc-eg">Beacon periodik</div></div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step"><span class="tc-label">ACTIONS ON OBJECTIVES</span>Tujuan akhir tercapai<div class="tc-eg">Eksfiltrasi, enkripsi, sabotase</div></div>
+        </div>
+        <div class="sub-note">⚠️ Prinsip kunci Kill Chain: <strong>memutus rantai di TAHAP MANAPUN menggagalkan seluruh serangan</strong> — inilah dasar filosofi Defense in Depth (Module 07): setiap lapisan adalah kesempatan memutus rantai.</div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 02</span>
+        <h2 style="margin-top:6px">Kill Chain vs MITRE ATT&amp;CK</h2>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Aspek</th><th>Cyber Kill Chain</th><th>MITRE ATT&amp;CK</th></tr></thead>
+            <tbody>
+              <tr><td>Sifat</td><td>Model linear tetap, 7 tahap urutan</td><td>Matriks Tactic × Technique, tidak harus linear</td></tr>
+              <tr><td>Sumber</td><td>Konseptual (Lockheed Martin, 2011)</td><td>Berbasis observasi nyata ribuan insiden, terus diperbarui</td></tr>
+              <tr><td>Detail</td><td>Tahap umum (7 kategori luas)</td><td>Granular: Tactic → Technique → Sub-technique → Procedure</td></tr>
+              <tr><td>Kegunaan Utama</td><td>Komunikasi konsep tingkat tinggi ke manajemen</td><td>Detection engineering, threat hunting, referensi teknis SOC</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.84rem">Analoginya: Kill Chain seperti <em>peta jalan umum</em> (Recon → ... → Objectives), sementara ATT&amp;CK seperti <em>GPS detail</em> yang mencatat setiap kemungkinan rute dan teknik spesifik yang benar-benar pernah digunakan kelompok penyerang nyata di setiap tahap tersebut.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 03</span>
+        <h2 style="margin-top:6px">Memetakan Insiden UND ke Kedua Model</h2>
+        <p>Menggunakan insiden Module 12 (kompromi kredensial dosen.budi):</p>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Kill Chain Stage</th><th>ATT&amp;CK Tactic</th><th>Evidence dari Log Module 12</th></tr></thead>
+            <tbody>
+              <tr><td>Delivery/Exploitation (diasumsikan sebelumnya)</td><td>Initial Access</td><td>Kredensial dosen.budi dikompromikan (metode tidak diketahui dari log VPN saja)</td></tr>
+              <tr><td>Installation</td><td>Persistence</td><td>Tidak eksplisit di log — perlu investigasi forensik lanjutan (Module 14)</td></tr>
+              <tr><td>C2</td><td>Command and Control</td><td>Login VPN dari IP asing pukul 3 pagi</td></tr>
+              <tr><td>Actions on Objectives</td><td>Impact / Exfiltration</td><td>Update grade table + export full student data</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 04</span>
+        <h2 style="margin-top:6px">Real-World Case Study</h2>
+        <div class="case-card">
+          <div class="case-head"><span class="case-tag case-red">CASE · APT DENGAN MOTIF GANDA</span><strong style="font-size:.92rem">APT41 (Terdokumentasi Mandiant &amp; DOJ)</strong></div>
+          <div class="case-body">
+            <p>APT41 adalah kelompok yang terdokumentasi luas oleh firma intelijen ancaman (Mandiant) dan dakwaan resmi Departemen Kehakiman AS (2020) sebagai kelompok terkait negara yang unik karena menjalankan operasi spionase yang disponsori negara SEKALIGUS kejahatan siber bermotif finansial menggunakan TTP dan infrastruktur yang sama. Mereka terdokumentasi menargetkan lebih dari 100 organisasi di berbagai negara, memanfaatkan supply-chain compromise dan vulnerability pada aplikasi web sebagai vektor Initial Access yang konsisten.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">INITIAL ACCESS</span><p>Vulnerable web applications, supply-chain compromise</p></div>
+              <div class="ca-item"><span class="ca-key">TTP KONSISTEN</span><p>Menggunakan toolset dan infrastruktur yang sama lintas operasi spionase dan kriminal</p></div>
+              <div class="ca-item"><span class="ca-key">RELEVANSI ATT&amp;CK</span><p>TTP APT41 terdokumentasi lengkap di MITRE ATT&amp;CK sebagai grup G0096</p></div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Lesson Learned:</strong> Memetakan TTP kelompok penyerang nyata ke ATT&amp;CK memungkinkan organisasi membangun deteksi proaktif berdasarkan pola yang benar-benar pernah digunakan di dunia nyata, bukan asumsi teoretis.</div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>🔍 Think Like a Security Analyst</h2>
+        <div class="callout" style="margin-bottom:14px"><strong>Skenario:</strong> Berdasarkan tabel pemetaan UND di atas, terlihat ada "gap" pada tahap Installation/Persistence — log VPN tidak cukup untuk mengonfirmasi tahap ini terjadi.</div>
+        <div class="analyst-box">
+          <h4>💡 Pertanyaan Analisis — Attack Lifecycle UND</h4>
+          <details><summary>1. Mengapa penting mengisi gap ini sebelum insiden dianggap "selesai ditangani"?</summary><div class="analyst-answer">Jika persistence benar-benar ditanam (mis. backdoor tambahan), penyerang bisa kembali mengakses sistem meski password sudah diganti — Eradication (Module 12) tidak lengkap tanpa memastikan seluruh mekanisme persistence telah dihilangkan.</div></details>
+          <details><summary>2. Sumber data apa (di luar log VPN) yang diperlukan untuk mengisi gap tahap Installation?</summary><div class="analyst-answer">Log endpoint (proses yang berjalan, scheduled tasks, registry run keys — Module 10), yang akan diperoleh melalui investigasi digital forensics mendalam pada Module 14.</div></details>
+          <details><summary>3. Pada tahap Kill Chain mana intervensi PALING MURAH dan EFEKTIF untuk mencegah insiden serupa di masa depan bagi UND?</summary><div class="analyst-answer">Initial Access/Delivery — MFA wajib (Module 04) akan mencegah kredensial curian saja cukup untuk login VPN, memutus rantai di tahap paling awal sebelum tahap-tahap berikutnya (yang jauh lebih sulit dideteksi/dihentikan) sempat terjadi.</div></details>
+        </div>
+      </div><!-- end locked block -->
+
+      <div class="block" data-locked-unless="week13:material">
+        <h2>📝 Knowledge Check</h2>
+        <p style="margin-bottom:16px;font-size:.88rem">Ujilah pemahaman Anda. Jawab semua pertanyaan lalu klik Submit Quiz untuk melihat skor dan pembahasan.</p>
+        <div data-quiz="week13"></div>
       </div>
 
-      
+      <div class="block" data-locked-unless="week13:material">
+        <h2>🏁 Key Takeaways</h2>
+        <div class="key-box"><h4>MODULE 13 — CORE INSIGHTS</h4><ul>
+          <li>Cyber Kill Chain adalah model linear 7 tahap: Recon → Weaponization → Delivery → Exploitation → Installation → C2 → Actions on Objectives.</li>
+          <li>Memutus rantai di tahap manapun menggagalkan seluruh serangan — dasar filosofi Defense in Depth.</li>
+          <li>MITRE ATT&amp;CK adalah basis pengetahuan granular berbasis observasi nyata, melengkapi Kill Chain yang lebih konseptual.</li>
+          <li>Kill Chain baik untuk komunikasi manajemen; ATT&amp;CK baik untuk detection engineering teknis.</li>
+          <li>Kelompok penyerang nyata (lih. APT41) memiliki TTP yang terdokumentasi dan dapat dipetakan langsung ke ATT&amp;CK.</li>
+          <li>Deteksi pada tahap paling awal (Initial Access) jauh lebih murah dan efektif dibanding menangani Actions on Objectives.</li>
+        </ul></div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📖 Glossary</h2>
+        <div class="glossary-grid">
+          <div class="g-item"><span class="g-term">Cyber Kill Chain</span><p class="g-def">Model linear 7 tahap yang menggambarkan urutan serangan siber dari reconnaissance hingga tujuan akhir.</p></div>
+          <div class="g-item"><span class="g-term">Weaponization</span><p class="g-def">Tahap menggabungkan exploit dengan payload malware menjadi senjata siap kirim.</p></div>
+          <div class="g-item"><span class="g-term">Tactic (ATT&amp;CK)</span><p class="g-def">Tujuan taktis penyerang pada satu tahap serangan (mis. Initial Access, Persistence).</p></div>
+          <div class="g-item"><span class="g-term">Technique (ATT&amp;CK)</span><p class="g-def">Cara spesifik mencapai tujuan tactic tertentu.</p></div>
+          <div class="g-item"><span class="g-term">Adversary Behavior Knowledge Base</span><p class="g-def">Basis pengetahuan yang mendokumentasikan perilaku nyata penyerang, seperti MITRE ATT&amp;CK.</p></div>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📚 References</h2>
+        <ul class="ref-list">
+          <li><strong>Lockheed Martin — Cyber Kill Chain</strong> — Lockheed Martin Corporation. <a href="https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html" target="_blank" rel="noopener">lockheedmartin.com</a></li>
+          <li><strong>MITRE ATT&amp;CK</strong> — MITRE Corporation. <a href="https://attack.mitre.org" target="_blank" rel="noopener">attack.mitre.org</a></li>
+          <li><strong>APT41 (G0096)</strong> — MITRE ATT&amp;CK Groups. <a href="https://attack.mitre.org/groups/G0096/" target="_blank" rel="noopener">attack.mitre.org/groups/G0096</a></li>
+          <li><strong>DOJ — APT41 Indictment</strong> — U.S. Department of Justice. (2020). <em>Seven International Cyber Defendants Indicted</em>. <a href="https://www.justice.gov/opa/pr/seven-international-cyber-defendants-including-apt41-actors-charged-connection-computer" target="_blank" rel="noopener">justice.gov</a></li>
+        </ul>
+      </div>
+
       <div class="block" style="background:var(--signal-soft);border-color:var(--signal)">
         <h2 style="margin-bottom:6px">READY FOR PRACTICE?</h2>
-        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Attack Chain Mapping</strong> untuk menerapkan konsep secara hands-on.</p>
+        <p>Lanjutkan ke <strong>Attack Chain Mapping</strong> untuk memetakan skenario insiden secara lengkap menggunakan MITRE ATT&amp;CK Navigator.</p>
         <a class="btn btn-primary" href="../practical/practical-13.html" data-practice-link>🧪 MULAI PRAKTIK</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -109,5 +328,19 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+<script type="application/json" data-quiz-data="week13">
+{
+  "passScore": 70,
+  "questions": [
+    {"q":"Tahap 'Weaponization' pada Cyber Kill Chain berarti...","options":["A. Mengumpulkan informasi tentang target","B. Menggabungkan exploit dengan malware payload menjadi senjata siap kirim","C. Mengirim payload ke target","D. Mencapai tujuan akhir serangan"],"correct":1},
+    {"q":"Perbedaan mendasar Cyber Kill Chain dan MITRE ATT&CK adalah...","options":["A. Keduanya identik","B. Kill Chain adalah model linear konseptual 7 tahap, ATT&CK adalah basis pengetahuan granular berbasis observasi nyata yang tidak harus linear","C. ATT&CK hanya berlaku untuk malware, Kill Chain untuk semua serangan","D. Kill Chain dibuat oleh MITRE, ATT&CK oleh Lockheed Martin"],"correct":1},
+    {"q":"Prinsip kunci dari Cyber Kill Chain adalah...","options":["A. Serangan tidak dapat dihentikan setelah dimulai","B. Memutus rantai serangan di tahap manapun dapat menggagalkan keseluruhan serangan","C. Hanya tahap terakhir yang penting untuk dipertahankan","D. Kill Chain hanya relevan untuk ransomware"],"correct":1},
+    {"q":"Dalam MITRE ATT&CK, 'Technique' merujuk pada...","options":["A. Tujuan taktis umum penyerang","B. Cara spesifik untuk mencapai tujuan tactic tertentu","C. Nama kelompok penyerang","D. Skor keparahan kerentanan"],"correct":1},
+    {"q":"APT41 unik didokumentasikan karena...","options":["A. Hanya melakukan spionase, tidak pernah kejahatan finansial","B. Menjalankan operasi spionase yang disponsori negara SEKALIGUS kejahatan siber finansial menggunakan TTP dan infrastruktur yang sama","C. Tidak pernah menggunakan supply-chain compromise","D. Hanya menargetkan satu negara"],"correct":1},
+    {"q":"[SKENARIO] Investigasi menunjukkan sebuah organisasi berhasil mendeteksi email phishing (Delivery stage) namun gagal mendeteksi bahwa lampiran tersebut sempat dibuka oleh satu karyawan (Exploitation stage). Apa implikasi dari 'gap deteksi' pada tahap Exploitation ini?","options":["A. Tidak ada implikasi karena Delivery sudah terdeteksi","B. Organisasi tidak dapat memastikan apakah rantai serangan terhenti di situ atau berlanjut ke Installation/C2 — perlu investigasi forensik endpoint karyawan tersebut untuk memastikan","C. Deteksi pada tahap Delivery selalu cukup untuk seluruh insiden","D. Exploitation stage tidak relevan jika Delivery sudah diblokir"],"correct":1},
+    {"q":"[SKENARIO] Sebuah SOC ingin membangun aturan deteksi baru berdasarkan laporan bahwa sebuah kelompok APT tertentu sering menggunakan teknik 'scheduled task' untuk persistence. Sumber MANA yang paling tepat untuk mencari detail teknis teknik ini guna membangun deteksi?","options":["A. Cyber Kill Chain, karena mencakup detail teknis tiap teknik","B. MITRE ATT&CK, karena menyediakan detail granular per teknik (termasuk sub-technique dan prosedur spesifik yang diobservasi) yang dapat langsung digunakan untuk detection engineering","C. Tidak perlu sumber tambahan, cukup asumsi umum","D. Framework NIST SP 800-30"],"correct":1},
+    {"q":"[HOTS] Mengapa kombinasi Cyber Kill Chain DAN MITRE ATT&CK (bukan salah satu saja) memberikan nilai lebih besar bagi tim keamanan dibanding menggunakan hanya satu framework?","options":["A. Menggunakan dua framework selalu lebih baik tanpa alasan spesifik","B. Kill Chain memberikan kerangka komunikasi tingkat tinggi yang mudah dipahami manajemen/stakeholder non-teknis, sementara ATT&CK memberikan detail teknis granular untuk detection engineering dan threat hunting oleh analis — keduanya melayani audiens dan tujuan berbeda yang saling melengkapi","C. Kedua framework sebenarnya sama sehingga kombinasi tidak memberi nilai tambah","D. Kill Chain sudah usang dan seharusnya tidak digunakan sama sekali"],"correct":1}
+  ]
+}
+</script>
+</body></html>

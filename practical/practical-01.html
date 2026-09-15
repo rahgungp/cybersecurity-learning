@@ -3,10 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 01 — Introduction to Cybersecurity · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
+<title>Praktik Minggu 01 — Threat Landscape Analysis · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 01: Threat Landscape Analysis menggunakan skenario University Smart Campus — asset identification, CIA mapping, attack surface, dan threat actor analysis.">
 <link rel="stylesheet" href="../assets/css/style.css">
-
+<style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style>
 </head>
 <body>
 
@@ -29,29 +43,45 @@
     </div>
   </div>
 </nav>
+
 <section class="section" style="padding-top:36px">
   <div class="wrap detail-layout">
-    
+
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item current" data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li>
+    <li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li>
+    <li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li>
+    <li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li>
+    <li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li>
+    <li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li>
+    <li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li>
+    <li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li>
+    <li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li>
+    <li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li>
+    <li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li>
+    <li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li>
+    <li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li>
+    <li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li>
+    <li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li>
+    <li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,54 +91,213 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
+
     <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 01</p>
-      <h1>Introduction to Cybersecurity</h1>
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 01 · MODULE 01</p>
+      <h1>Threat Landscape Analysis</h1>
+      <div class="meta-row">
+        <span class="pill">⏱ 45–60 menit</span>
+        <span class="pill">Individual / Kelompok 2 orang</span>
+        <span class="pill">Output: Threat Landscape Analysis Report</span>
+        <span class="pill">Skenario: University Smart Campus</span>
+      </div>
 
       <div class="block" data-locked-unless="week01:practice">
-        
-        <h2 style="margin-top:0">🧪 Security Asset Identification</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Security Asset Identification</span></div>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu mengidentifikasi, mengelompokkan, dan menilai aset informasi pada sebuah organisasi, serta menentukan aspek CIA yang paling relevan untuk tiap aset.</p>
+        <div class="callout">
+          <strong>📌 Hubungan dengan Materi:</strong> Praktik ini menerapkan konsep dari Module 01: CIA Triad, asset identification, attack surface, threat actor, dan security controls — menggunakan satu skenario organisasi yang akan terus digunakan hingga Module 16.
+        </div>
 
-        <h3>Scenario</h3>
-        <p>Sebuah klinik kesehatan kecil memiliki: sistem rekam medis elektronik, resepsionis dengan komputer pendaftaran, Wi-Fi tamu, printer jaringan, dan akun media sosial klinik.</p>
+        <!-- OBJECTIVE -->
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu melakukan <strong>Threat Landscape Analysis</strong> terhadap sebuah organisasi digital dengan mengidentifikasi asset, memetakan attack surface, mengidentifikasi threat actor, menganalisis implikasi CIA Triad, dan merekomendasikan security control dasar — seperti seorang junior cybersecurity analyst.</p>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Worksheet klasifikasi aset (disediakan)</li><li>Kertas/spreadsheet sederhana</li></ul>
+        <!-- SCENARIO -->
+        <div class="scenario-box">
+          <h4>🏫 Skenario: University Smart Campus</h4>
+          <p style="font-size:.86rem;margin-bottom:8px">Universitas Nusantara Digital (UND) adalah universitas swasta dengan 8.000 mahasiswa aktif. UND baru saja bertransisi ke digital-first campus. Infrastruktur digital yang dimiliki:</p>
+          <div style="overflow-x:auto">
+            <table class="tbl" style="margin:0">
+              <thead><tr><th>#</th><th>Sistem / Asset</th><th>Pengguna</th><th>Data yang Dikelola</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Website publik UND</td><td>Publik, calon mahasiswa</td><td>Informasi umum, pengumuman</td></tr>
+                <tr><td>2</td><td>SIAKAD (Sistem Informasi Akademik)</td><td>Mahasiswa, dosen, admin</td><td>Nilai, KRS, rekam akademik, data pribadi</td></tr>
+                <tr><td>3</td><td>LMS (Moodle / e-learning)</td><td>Mahasiswa, dosen</td><td>Materi kuliah, tugas, nilai kuis</td></tr>
+                <tr><td>4</td><td>Email institusional (Google Workspace)</td><td>Semua civitas</td><td>Komunikasi internal, dokumen</td></tr>
+                <tr><td>5</td><td>WiFi kampus (2 SSID: staff + guest)</td><td>Mahasiswa, tamu</td><td>Network traffic</td></tr>
+                <tr><td>6</td><td>VPN untuk dosen &amp; admin remote</td><td>Dosen, admin IT</td><td>Akses ke sistem internal</td></tr>
+                <tr><td>7</td><td>Cloud storage (Google Drive)</td><td>Semua civitas</td><td>Dokumen, proposal, penelitian</td></tr>
+                <tr><td>8</td><td>Database server (on-premise)</td><td>Sistem backend</td><td>Data SIAKAD, keuangan, mahasiswa</td></tr>
+                <tr><td>9</td><td>Sistem CCTV IoT (32 kamera)</td><td>Security &amp; fasilitas</td><td>Rekaman video 24/7</td></tr>
+                <tr><td>10</td><td>Sistem pembayaran SPP online</td><td>Mahasiswa, keuangan</td><td>Data pembayaran, nomor rekening</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.78rem;margin:8px 0 0;color:var(--ink-soft)"><strong>Konteks tambahan:</strong> IT team UND terdiri dari 3 orang. Budget keamanan terbatas. Tidak ada dedicated security team. Beberapa sistem menggunakan software yang belum diperbarui dalam 2 tahun terakhir.</p>
+        </div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Aktivitas individu, tidak memerlukan akses sistem nyata — seluruhnya berbasis skenario tertulis.</div>
+        <!-- TOOLS & ENVIRONMENT -->
+        <h3>Tools &amp; Environment</h3>
+        <div class="callout warn">
+          Aktivitas ini berbasis analisis skenario tertulis — tidak memerlukan akses sistem nyata, scanning, atau interaksi dengan infrastruktur aktif. Gunakan spreadsheet, kertas, atau tool kolaborasi seperti Google Sheets / Notion untuk menyusun output.
+        </div>
+        <ul style="list-style:disc;margin-left:20px">
+          <li>Spreadsheet (Google Sheets, Excel, atau LibreOffice Calc)</li>
+          <li>Template output yang disediakan di bawah</li>
+          <li>Materi Module 01 (week01.html) sebagai referensi</li>
+        </ul>
 
+        <!-- INSTRUCTIONS -->
         <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Daftar seluruh aset yang disebutkan pada skenario.</li><li>Kelompokkan tiap aset ke dalam kategori: Data, Perangkat Keras, Perangkat Lunak, Layanan/Akun.</li><li>Tentukan nilai aset (Low/Medium/High) berdasarkan dampak jika aset tersebut hilang atau bocor.</li><li>Tentukan aspek CIA yang paling relevan untuk tiap aset dan jelaskan alasannya.</li></ol>
+        <div class="step-counter-reset">
 
-        <h3>Expected Output</h3>
-        <p>Tabel aset lengkap dengan kategori, nilai aset, dan aspek CIA yang paling relevan beserta alasan singkat untuk masing-masing baris.</p>
+          <div class="step-block">
+            <h4>ASSET INVENTORY — Identifikasi &amp; Klasifikasi Asset</h4>
+            <p>Untuk setiap sistem pada skenario UND, lengkapi tabel berikut:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li><strong>Kategori asset:</strong> Information / Technology / Human / Physical / Business</li>
+              <li><strong>Nilai asset (Low / Medium / High / Critical):</strong> berdasarkan dampak jika hilang atau dikompromikan</li>
+              <li><strong>CIA prioritas:</strong> Confidentiality / Integrity / Availability — pilih yang paling kritis untuk asset tersebut</li>
+              <li><strong>Justifikasi singkat:</strong> satu kalimat mengapa CIA tersebut diprioritaskan</li>
+            </ul>
+            <div class="template-block">
+              <span class="tpl-label">TEMPLATE — ASSET INVENTORY TABLE</span>
+              #  |  Nama Asset  |  Kategori  |  Nilai Asset  |  CIA Prioritas  |  Justifikasi
+              ---|--------------|------------|---------------|-----------------|-------------
+              1  |  Website UND |  Technology|  Medium       |  Availability   |  Downtime merusak reputasi &amp; proses pendaftaran
+              2  |  SIAKAD      |  ...       |  ...          |  ...            |  ...
+              (lengkapi untuk seluruh 10 asset)
+            </div>
+          </div>
 
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Aset mana yang menurutmu paling kritis bagi operasional klinik? Mengapa?</li><li>Apakah ada aset yang nilainya berbeda tergantung waktu (misal jam operasional)?</li></ul>
+          <div class="step-block">
+            <h4>ATTACK SURFACE MAPPING — Identifikasi Entry Point</h4>
+            <p>Dari daftar 10 asset di atas, identifikasi <strong>entry point yang paling berisiko</strong>:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li>Sistem mana yang <em>internet-facing</em>? (dapat diakses langsung dari luar kampus)</li>
+              <li>Sistem mana yang memiliki akses dari banyak pengguna yang berbeda trust level?</li>
+              <li>Sistem mana yang terhubung ke sistem lain (lateral movement risk)?</li>
+              <li>Buat daftar minimal <strong>5 entry point paling berisiko</strong> dengan penjelasan mengapa.</li>
+            </ul>
+            <div class="template-block">
+              <span class="tpl-label">TEMPLATE — TOP 5 HIGH-RISK ENTRY POINTS</span>
+              1. [Nama sistem] — [Alasan: internet-facing, many users, connected to critical DB, ...]
+              2. ...
+              3. ...
+              4. ...
+              5. ...
+            </div>
+          </div>
 
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Apa perbedaan mendasar antara Confidentiality dan Integrity pada kasus rekam medis elektronik?</li><li>Mengapa Wi-Fi tamu tetap perlu dianggap sebagai aset yang perlu dilindungi?</li></ol>
+          <div class="step-block">
+            <h4>THREAT ACTOR ANALYSIS — Siapa yang Mungkin Menyerang?</h4>
+            <p>Berdasarkan profil UND (universitas, budget terbatas, data mahasiswa), identifikasi:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li><strong>3 threat actor</strong> yang paling mungkin menargetkan UND</li>
+              <li>Untuk setiap threat actor: motivasi, asset target, dan kemungkinan TTP (tactic/teknik)</li>
+              <li>Contoh: "Cybercriminal group — Ransomware pada SIAKAD untuk meminta tebusan"</li>
+            </ul>
+            <div class="template-block">
+              <span class="tpl-label">TEMPLATE — THREAT ACTOR TABLE</span>
+              Threat Actor  |  Motivasi       |  Asset Target  |  TTP yang Mungkin
+              --------------|-----------------|----------------|------------------
+              Cybercriminal |  Finansial      |  Database UND  |  Ransomware via phishing email
+              ...           |  ...            |  ...           |  ...
+            </div>
+          </div>
 
-        <h3>Assignment</h3>
-        <p>Susun laporan singkat (1 halaman) hasil identifikasi aset dalam format tabel, dilengkapi rekomendasi satu kontrol keamanan dasar untuk aset dengan nilai High.</p>
+          <div class="step-block">
+            <h4>INCIDENT SCENARIO ANALYSIS — Analisis dengan CIA Triad</h4>
+            <p>Pilih <strong>2 dari 3 skenario insiden berikut</strong> dan analisis menggunakan CIA Triad:</p>
+            <div style="overflow-x:auto">
+              <table class="tbl">
+                <thead><tr><th>Skenario</th><th>Deskripsi</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>A</strong></td><td>Seorang mahasiswa berhasil login ke akun SIAKAD teman sekelas dan mengubah nilai ujian menjadi lebih tinggi. Perubahan tidak terdeteksi selama 2 minggu.</td></tr>
+                  <tr><td><strong>B</strong></td><td>Ransomware menginfeksi server database UND dan mengenkripsi seluruh data SIAKAD. Mahasiswa tidak dapat mengakses KRS selama masa registrasi semester.</td></tr>
+                  <tr><td><strong>C</strong></td><td>Data 8.000 mahasiswa UND (nama, NIM, nomor telepon, email) ditemukan dijual di forum online oleh pihak yang tidak dikenal.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Untuk setiap skenario yang dipilih, jawab:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li>Aspek CIA mana yang dilanggar? (bisa lebih dari satu)</li>
+              <li>Asset mana yang terdampak?</li>
+              <li>Apa dampak teknis dan dampak bisnis/akademis?</li>
+              <li>Security control apa yang seharusnya mencegah/mendeteksi insiden ini?</li>
+            </ul>
+          </div>
 
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> Semua aset pada skenario terdaftar</label></li><li><label><input type="checkbox"> Setiap aset memiliki kategori</label></li><li><label><input type="checkbox"> Setiap aset memiliki nilai (Low/Medium/High)</label></li><li><label><input type="checkbox"> Setiap aset memiliki aspek CIA yang relevan + alasan</label></li></ul>
+          <div class="step-block">
+            <h4>SECURITY CONTROL RECOMMENDATION — Prioritaskan Kontrol</h4>
+            <p>Berdasarkan analisis Anda, rekomendasikan <strong>5 security control prioritas tinggi</strong> untuk UND dengan budget terbatas. Untuk setiap kontrol:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li>Jenis kontrol (Preventive / Detective / Corrective)</li>
+              <li>Asset atau risiko yang dimitigasi</li>
+              <li>Estimasi kesulitan implementasi (Easy / Medium / Hard)</li>
+              <li>Justifikasi singkat mengapa ini prioritas</li>
+            </ul>
+            <div class="template-block">
+              <span class="tpl-label">TEMPLATE — SECURITY CONTROL RECOMMENDATIONS</span>
+              #  |  Kontrol                    |  Jenis      |  Mitigasi          |  Difficulty  |  Justifikasi
+              ---|-----------------------------|-----------  |--------------------|--------------|-------------
+              1  |  MFA pada semua akun admin  |  Preventive |  Credential attack |  Easy        |  Murah, efektif melawan phishing
+              2  |  ...                        |  ...        |  ...               |  ...         |  ...
+            </div>
+          </div>
 
-        <button class="btn btn-primary" data-complete="week01:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
-      </div>
+        </div><!-- end step-counter-reset -->
 
-      <div class="block" style="display:flex;justify-content:space-between">
+        <!-- EXPECTED OUTPUT -->
+        <div class="output-box">
+          <h4>📋 EXPECTED OUTPUT — Threat Landscape Analysis Report</h4>
+          <ul>
+            <li>Tabel Asset Inventory (10 asset, lengkap dengan nilai &amp; CIA mapping)</li>
+            <li>Daftar Top 5 Entry Point / Attack Surface dengan justifikasi</li>
+            <li>Tabel Threat Actor Analysis (3 threat actor)</li>
+            <li>Analisis 2 Incident Scenario menggunakan CIA Triad</li>
+            <li>Tabel 5 Security Control Recommendations</li>
+            <li>Paragraf refleksi: "Sebagai security analyst, apa yang paling mengejutkan dari analisis ini?"</li>
+          </ul>
+        </div>
+
+        <!-- ANALYSIS QUESTIONS -->
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Dari seluruh asset UND, mana yang menurut Anda paling kritis dari perspektif keamanan organisasi, dan mengapa?</li>
+          <li>Bagaimana kondisi IT team yang hanya 3 orang memengaruhi attack surface dan kemampuan deteksi insiden UND?</li>
+          <li>Jika Anda harus memilih <em>satu</em> security control yang paling berdampak untuk UND dengan budget sangat terbatas, kontrol apa yang dipilih dan mengapa?</li>
+        </ol>
+
+        <!-- SELF-CHECK -->
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Semua 10 asset telah diidentifikasi dan diklasifikasi dengan nilai &amp; CIA mapping</label></li>
+          <li><label><input type="checkbox"> 5 entry point / attack surface berisiko tinggi telah diidentifikasi dengan justifikasi</label></li>
+          <li><label><input type="checkbox"> 3 threat actor telah dianalisis dengan motivasi, target, dan TTP</label></li>
+          <li><label><input type="checkbox"> 2 incident scenario telah dianalisis menggunakan CIA Triad</label></li>
+          <li><label><input type="checkbox"> 5 security control recommendations telah dibuat dengan prioritas dan justifikasi</label></li>
+          <li><label><input type="checkbox"> Paragraf refleksi telah ditulis</label></li>
+          <li><label><input type="checkbox"> Semua analisis menggunakan terminologi cybersecurity yang benar dari Module 01</label></li>
+        </ul>
+
+        <!-- NOTE -->
+        <div class="callout warn" style="margin-top:16px">
+          <strong>📁 Portfolio Note:</strong> Output praktik ini — <em>Threat Landscape Analysis</em> untuk University Smart Campus — akan menjadi dasar analisis pada Module 02 (Risk Assessment) dan modul-modul berikutnya. Simpan dengan baik dan kembangkan secara bertahap sepanjang semester.
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week01:practice" data-complete-label="Practice Completed ✓">
+          ✓ Tandai Praktik Selesai
+        </button>
+
+      </div><!-- end locked block -->
+
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week01.html">← Kembali ke Materi Minggu 01</a>
+        <a class="btn btn-outline" href="../weeks/week02.html">Lanjut ke Minggu 02 →</a>
       </div>
-    </div>
-  </div>
+    </div><!-- end .content -->
+  </div><!-- end .wrap.detail-layout -->
 </section>
 
 <footer>

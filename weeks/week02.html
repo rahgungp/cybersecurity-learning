@@ -4,9 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minggu 02 — Asset, Threat, Vulnerability & Risk · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
+<meta name="description" content="Module 02: Asset classification, threat source taxonomy (NIST SP 800-30), vulnerability, risk matrix, risk treatment, dan risk register menggunakan ISO/IEC 27005.">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* === Shared Week Supplemental Styles (established in Week 01) === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-node.hl-warn{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
+
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.controls-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-blue{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.ctrl-gray{background:var(--locked-gray-soft);border-color:var(--locked-gray)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}.ctrl-blue h4{color:var(--learn-blue)}.ctrl-gray h4{color:var(--locked-gray)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+.ctrl-col p{font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-green{background:var(--signal-soft);color:var(--signal)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+.matrix-wrap{display:flex;justify-content:center;margin:14px 0}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .controls-4{grid-template-columns:1fr 1fr}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style>
 </head>
 <body>
 
@@ -29,29 +130,29 @@
     </div>
   </div>
 </nav>
+
 <section class="section" style="padding-top:36px">
   <div class="wrap detail-layout">
-    
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item current" data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item current" data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -62,32 +163,426 @@
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
     <div class="content">
-      <p class="eyebrow">MODULE 02 · MINGGU KE-02</p>
-      <h1>Asset, Threat, Vulnerability & Risk</h1>
+
+      <p class="eyebrow">MODULE 02 · MINGGU KE-02 · LEVEL: UNDERSTAND / APPLY</p>
+      <h1>Asset, Threat, Vulnerability &amp; Risk</h1>
       <div class="meta-row">
-        <span class="pill">NIST CSF</span><span class="pill">Risk Matrix</span>
-        <span class="pill">Output: Risk Assessment Sederhana</span>
+        <span class="pill">NIST SP 800-30</span>
+        <span class="pill">ISO/IEC 27005</span>
+        <span class="pill">Risk Matrix</span>
+        <span class="pill">Output: Risk Register</span>
       </div>
 
+      <!-- MODULE CONTEXT -->
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">PRASYARAT</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 01 — CIA Triad, Asset, Threat, Vulnerability, Risk (Konsep Dasar)</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">NEXT MODULE →</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 03 — Threat Landscape &amp; Attack Surface</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Module 01 memperkenalkan rantai konsep asset → threat → vulnerability → attack → impact → risk secara konseptual. Module 02 memperdalamnya menjadi <strong>metodologi risk assessment formal</strong> mengikuti NIST SP 800-30 dan ISO/IEC 27005 — kerangka kerja yang akan terus digunakan hingga Module 16 (Final Project) setiap kali mahasiswa perlu menilai dan memprioritaskan risiko keamanan.</p>
+      </div>
+
+      <!-- MAIN CONTENT (LOCKED) -->
       <div class="block" data-locked-unless="week02:material">
-        <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Menjelaskan hubungan antara asset, threat, vulnerability, exploit, attack, impact, dan risk.</li><li>Menjelaskan konsep security control sebagai mitigasi risiko.</li><li>Menggunakan risk matrix (likelihood × impact) untuk menentukan level risiko.</li><li>Melakukan basic risk assessment terhadap skenario sederhana.</li></ul>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>Rantai Konsep: Asset ke Risk</h3><p>Sebuah aset (asset) memiliki nilai bagi organisasi. Ancaman (threat) adalah potensi kejadian yang dapat merugikan aset tersebut. Kerentanan (vulnerability) adalah kelemahan pada aset yang dapat dimanfaatkan. Ketika threat memanfaatkan vulnerability melalui sebuah exploit, terjadilah attack, yang menghasilkan impact terhadap organisasi. Kombinasi kemungkinan (likelihood) dan dampak (impact) menentukan risk, yang kemudian dikelola melalui security control.</p><h3>Threat Actor</h3><p>Threat actor adalah pihak yang berpotensi melancarkan ancaman — mulai dari individu iseng (script kiddie), kelompok kriminal siber yang mencari keuntungan finansial, hingga insider (karyawan atau mantan karyawan) yang memiliki akses sah namun disalahgunakan.</p><h3>Vulnerability & Exploit</h3><p>Vulnerability adalah celah — bisa berupa kesalahan konfigurasi, software yang belum di-patch, atau kelemahan proses. Exploit adalah cara atau alat yang digunakan untuk memanfaatkan vulnerability tersebut agar menghasilkan akses atau dampak yang tidak diinginkan.</p><h3>Risk Matrix</h3><p>Risk matrix adalah alat sederhana untuk memprioritaskan risiko dengan mengalikan (secara kualitatif) Likelihood (kemungkinan terjadi) dan Impact (dampak jika terjadi), masing-masing dikategorikan Low/Medium/High. Risiko dengan Likelihood dan Impact tinggi menjadi prioritas utama untuk dimitigasi.</p><h3>Security Control</h3><p>Security control adalah langkah yang diambil untuk mengurangi risiko — dapat berupa kontrol preventif (mencegah, misal firewall), detektif (mendeteksi, misal IDS), atau korektif (memulihkan, misal backup dan disaster recovery).</p>
-        <div class="diagram"><svg viewBox="0 0 626 210" width="100%" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--ink-soft)"/></marker></defs><rect x="10" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="76.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Asset</text><line x1="142" y1="37.0" x2="168" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="168" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="234.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Threat</text><line x1="300" y1="37.0" x2="326" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="326" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="392.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Vulnerability</text><line x1="458" y1="37.0" x2="484" y2="37.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="484" y="10" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="550.0" y="37.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Exploit</text><line x1="76.0" y1="64" x2="76.0" y2="110" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="10" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="76.0" y="137.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Attack</text><line x1="142" y1="137.0" x2="168" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="168" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="234.0" y="137.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Impact</text><line x1="300" y1="137.0" x2="326" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="326" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="392.0" y="137.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Risk</text><line x1="458" y1="137.0" x2="484" y2="137.0" stroke="var(--ink-soft)" stroke-width="2" marker-end="url(#arrow)"/><rect x="484" y="110" width="132" height="54" rx="7" fill="none" stroke="var(--pine-600)" stroke-width="2"/><text x="550.0" y="130.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Security</text><text x="550.0" y="144.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="var(--ink)">Control</text></svg></div>
-        <h3>Example</h3><p>Sebuah server web (asset) memiliki software CMS yang belum di-update (vulnerability). Kelompok cybercrime (threat actor) menggunakan exploit publik yang menargetkan versi CMS tersebut (exploit) untuk melakukan defacement (attack), menyebabkan reputasi organisasi menurun (impact).</p>
-        <h3>Case Study</h3><p>Sebuah toko online menyimpan data pelanggan pada database yang dapat diakses tanpa autentikasi kuat dari jaringan internal. Setelah dinilai menggunakan risk matrix, tim keamanan menentukan likelihood MEDIUM (karena memerlukan akses internal) namun impact HIGH (data pelanggan dalam jumlah besar), sehingga risiko keseluruhan dikategorikan HIGH dan diprioritaskan untuk ditambahkan autentikasi database serta pembatasan akses jaringan.</p>
-        <h3>Key Takeaways</h3><ul style="list-style:disc;margin-left:20px"><li>Risiko terbentuk dari rantai: asset → threat → vulnerability → exploit → attack → impact.</li><li>Risk = fungsi dari likelihood dan impact, divisualisasikan lewat risk matrix.</li><li>Security control dipilih untuk mengurangi likelihood, impact, atau keduanya.</li><li>Tidak semua risiko perlu direspons dengan cara sama — prioritas ditentukan level risikonya.</li></ul>
+        <h2>🎯 Learning Objectives</h2>
+        <p style="margin-bottom:8px">Setelah menyelesaikan Module 02, mahasiswa mampu:</p>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi</th><th>Bloom's Level</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Mengklasifikasikan asset organisasi berdasarkan kategori dan menilai dampak CIA per asset</td><td>Apply</td></tr>
+            <tr><td>2</td><td>Mengidentifikasi threat source menggunakan taksonomi NIST SP 800-30 (adversarial, accidental, structural, environmental)</td><td>Understand</td></tr>
+            <tr><td>3</td><td>Membedakan vulnerability, exploit, dan attack vector pada sebuah skenario teknis</td><td>Analyze</td></tr>
+            <tr><td>4</td><td>Menentukan likelihood dan impact secara kualitatif menggunakan skala standar</td><td>Apply</td></tr>
+            <tr><td>5</td><td>Menghitung dan memplot risk level menggunakan risk matrix (likelihood × impact)</td><td>Apply</td></tr>
+            <tr><td>6</td><td>Membandingkan metodologi risk assessment NIST SP 800-30 dan ISO/IEC 27005</td><td>Analyze</td></tr>
+            <tr><td>7</td><td>Mengevaluasi opsi risk treatment (Accept, Mitigate, Transfer, Avoid) untuk risiko tertentu</td><td>Evaluate</td></tr>
+            <tr><td>8</td><td>Menyusun risk register untuk sebuah organisasi berdasarkan hasil asset dan risk identification</td><td>Create</td></tr>
+          </tbody>
+        </table>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 01</span>
+        <h2 style="margin-top:6px">Asset Classification &amp; Inventory</h2>
+        <p>Sebelum risiko dapat dinilai, organisasi harus tahu persis aset apa yang dimilikinya. <strong>Asset inventory</strong> adalah daftar lengkap dan terstruktur seluruh aset — data, sistem, orang, proses — beserta atribut yang relevan untuk keputusan keamanan: pemilik, lokasi, nilai, dan dampak CIA jika aset tersebut terganggu.</p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Kategori Asset</th><th>Contoh</th><th>Atribut Kunci untuk Inventory</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Data / Information</strong></td><td>Database mahasiswa, kredensial, kekayaan intelektual</td><td>Klasifikasi (publik/internal/rahasia), lokasi penyimpanan, retensi</td></tr>
+              <tr><td><strong>Software</strong></td><td>SIAKAD, LMS, aplikasi keuangan</td><td>Versi, vendor, siklus patch, dependency</td></tr>
+              <tr><td><strong>Hardware</strong></td><td>Server, laptop, router, IoT</td><td>Lokasi fisik, umur, garansi, firmware</td></tr>
+              <tr><td><strong>People</strong></td><td>Admin, developer, staf dengan akses privileged</td><td>Role, level akses, status kepegawaian</td></tr>
+              <tr><td><strong>Services/Process</strong></td><td>Backup, autentikasi, payment gateway</td><td>SLA, dependency, pemilik proses</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Setiap asset kemudian diberi <strong>skor dampak CIA</strong> (Low/Medium/High) — bukan berdasarkan seberapa "penting" aset itu terdengar, melainkan berdasarkan konsekuensi nyata jika confidentiality, integrity, atau availability-nya terganggu.</p>
+
+        <div class="callout">
+          <strong>Prinsip Praktis:</strong> "You can't protect what you don't know you have." Organisasi yang tidak memiliki asset inventory yang akurat secara sistematis tidak dapat melakukan risk assessment yang bermakna — mereka hanya menebak.
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 02</span>
+        <h2 style="margin-top:6px">Threat Source — Taksonomi NIST SP 800-30</h2>
+        <p>NIST SP 800-30 Rev. 1 (<em>Guide for Conducting Risk Assessments</em>) mengklasifikasikan threat source ke dalam empat kategori — sebuah kerangka yang lebih formal dibanding sekadar "threat actor" yang dibahas Module 01:</p>
+
+        <div class="controls-4">
+          <div class="ctrl-col ctrl-prev">
+            <h4>⚔ ADVERSARIAL</h4>
+            <p>Individu/kelompok dengan niat jahat</p>
+            <ul><li>Cybercriminal</li><li>Nation-state APT</li><li>Insider dengan niat buruk</li><li>Hacktivist</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-det">
+            <h4>⚠ ACCIDENTAL</h4>
+            <p>Kesalahan manusia tanpa niat jahat</p>
+            <ul><li>Salah konfigurasi</li><li>Human error saat deployment</li><li>Kehilangan perangkat</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-blue">
+            <h4>🏗 STRUCTURAL</h4>
+            <p>Kegagalan perangkat/sistem</p>
+            <ul><li>Kegagalan hardware</li><li>Bug software</li><li>Kegagalan pendingin data center</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-gray">
+            <h4>🌪 ENVIRONMENTAL</h4>
+            <p>Kejadian alam/lingkungan di luar kendali</p>
+            <ul><li>Gempa bumi, banjir</li><li>Kebakaran</li><li>Pemadaman listrik masal</li></ul>
+          </div>
+        </div>
+        <p style="font-size:.84rem">Klasifikasi ini penting karena <strong>kontrol yang tepat berbeda untuk tiap kategori</strong>: adversarial threat memerlukan kontrol keamanan aktif (firewall, MFA), sementara environmental threat memerlukan business continuity planning dan redundansi infrastruktur.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 03</span>
+        <h2 style="margin-top:6px">Vulnerability, Exploit &amp; Attack Vector</h2>
+        <p>Ketiga istilah ini sering tertukar, namun memiliki makna teknis yang berbeda dan wajib dipahami secara presisi oleh security analyst:</p>
+
+        <div class="threat-chain" role="img" aria-label="Hubungan vulnerability, exploit, attack vector, dan attack">
+          <div class="tc-step">
+            <span class="tc-label">VULNERABILITY</span>
+            Kelemahan yang ada pada sistem
+            <div class="tc-eg">CVE-2023-XXXX pada versi software tertentu</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">EXPLOIT</span>
+            Kode/metode yang memanfaatkan vulnerability
+            <div class="tc-eg">Exploit script, Metasploit module</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">ATTACK VECTOR</span>
+            Jalur yang digunakan untuk mengirim exploit
+            <div class="tc-eg">Email phishing, exposed RDP port, malicious USB</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">ATTACK</span>
+            Realisasi upaya kompromi sistem
+            <div class="tc-eg">Ransomware deployment, data exfiltration</div>
+          </div>
+        </div>
+
+        <div class="sub-note">⚠️ Vulnerability tanpa exploit yang tersedia memiliki risiko lebih rendah (meski tetap harus ditangani) dibanding vulnerability dengan exploit publik yang aktif digunakan — inilah alasan CISA KEV (Known Exploited Vulnerabilities) menjadi rujukan prioritas patch, bukan hanya CVSS score.</div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 04</span>
+        <h2 style="margin-top:6px">Likelihood &amp; Impact Assessment</h2>
+        <p>NIST SP 800-30 mendefinisikan <strong>likelihood</strong> sebagai kemungkinan sebuah threat event terjadi dan berhasil menyebabkan impact, dan <strong>impact</strong> sebagai besarnya kerugian yang ditimbulkan. Keduanya dapat dinilai secara <em>kualitatif</em> (Low/Medium/High) atau <em>kuantitatif</em> (nilai numerik/moneter).</p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Level</th><th>Likelihood (Kemungkinan Terjadi)</th><th>Impact (Dampak jika Terjadi)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Low</strong></td><td>Threat source memiliki kapabilitas/motivasi rendah; kontrol yang ada efektif mencegah</td><td>Kerugian minor, dapat dipulihkan tanpa gangguan signifikan</td></tr>
+              <tr><td><strong>Medium</strong></td><td>Threat source memiliki kapabilitas cukup; kontrol yang ada sebagian efektif</td><td>Kerugian sedang, membutuhkan effort recovery yang berarti</td></tr>
+              <tr><td><strong>High</strong></td><td>Threat source sangat termotivasi dan mampu; kontrol yang ada lemah/tidak ada</td><td>Kerugian besar — finansial, reputasi, legal, atau keselamatan</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-size:.84rem">Pendekatan <strong>kuantitatif</strong> (mis. Annualized Loss Expectancy / ALE = Single Loss Expectancy × Annual Rate of Occurrence) memberi angka yang lebih presisi untuk keputusan bisnis, namun membutuhkan data historis yang sering tidak tersedia — sehingga pendekatan <strong>kualitatif</strong> (seperti tabel di atas) lebih umum digunakan pada organisasi dengan maturity keamanan awal, termasuk kebanyakan institusi pendidikan.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 05</span>
+        <h2 style="margin-top:6px">Risk Matrix</h2>
+        <p>Risk matrix memvisualisasikan risk level sebagai perpotongan antara likelihood dan impact — alat paling umum digunakan dalam risk assessment kualitatif karena sederhana namun efektif untuk komunikasi dengan manajemen non-teknis.</p>
+
+        <div class="matrix-wrap">
+          <svg viewBox="0 0 400 320" width="100%" style="max-width:360px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Risk matrix 3x3: likelihood x impact">
+            <text x="200" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink-soft)">IMPACT →</text>
+            <text x="14" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink-soft)" transform="rotate(-90 14,160)">LIKELIHOOD →</text>
+            <!-- row High -->
+            <rect x="70" y="30" width="100" height="80" fill="var(--warn-amber-soft)" stroke="var(--warn-amber)"/>
+            <text x="120" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">MEDIUM</text>
+            <rect x="170" y="30" width="100" height="80" fill="var(--threat-red-soft)" stroke="var(--threat-red)"/>
+            <text x="220" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">HIGH</text>
+            <rect x="270" y="30" width="100" height="80" fill="var(--threat-red-soft)" stroke="var(--threat-red)"/>
+            <text x="320" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">HIGH</text>
+            <!-- row Medium -->
+            <rect x="70" y="110" width="100" height="80" fill="var(--signal-soft)" stroke="var(--signal)"/>
+            <text x="120" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">LOW</text>
+            <rect x="170" y="110" width="100" height="80" fill="var(--warn-amber-soft)" stroke="var(--warn-amber)"/>
+            <text x="220" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">MEDIUM</text>
+            <rect x="270" y="110" width="100" height="80" fill="var(--threat-red-soft)" stroke="var(--threat-red)"/>
+            <text x="320" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">HIGH</text>
+            <!-- row Low -->
+            <rect x="70" y="190" width="100" height="80" fill="var(--signal-soft)" stroke="var(--signal)"/>
+            <text x="120" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">LOW</text>
+            <rect x="170" y="190" width="100" height="80" fill="var(--signal-soft)" stroke="var(--signal)"/>
+            <text x="220" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">LOW</text>
+            <rect x="270" y="190" width="100" height="80" fill="var(--warn-amber-soft)" stroke="var(--warn-amber)"/>
+            <text x="320" y="235" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">MEDIUM</text>
+            <!-- axis labels -->
+            <text x="120" y="290" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">LOW</text>
+            <text x="220" y="290" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">MEDIUM</text>
+            <text x="320" y="290" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">HIGH</text>
+            <text x="50" y="75" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">HIGH</text>
+            <text x="50" y="155" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">MEDIUM</text>
+            <text x="50" y="235" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">LOW</text>
+          </svg>
+        </div>
+        <p style="font-size:.72rem;color:var(--ink-soft);text-align:center">Figure 1. Risk Matrix 3×3 — Likelihood × Impact. Source: Author's illustration based on NIST SP 800-30 Rev. 1.</p>
+
+        <p>Risiko yang jatuh pada zona <strong style="color:var(--threat-red)">HIGH</strong> (merah) memerlukan tindakan segera; zona <strong style="color:var(--warn-amber)">MEDIUM</strong> (amber) perlu direncanakan mitigasinya dalam jangka menengah; zona <strong style="color:var(--signal)">LOW</strong> (hijau) dapat dipantau atau diterima sesuai kebijakan risk appetite organisasi.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 06</span>
+        <h2 style="margin-top:6px">Metodologi: NIST SP 800-30 vs ISO/IEC 27005</h2>
+        <p>Kedua framework ini adalah rujukan paling banyak digunakan untuk risk assessment formal, dengan filosofi yang mirip namun struktur berbeda:</p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Aspek</th><th>NIST SP 800-30</th><th>ISO/IEC 27005</th></tr></thead>
+            <tbody>
+              <tr><td>Asal &amp; Konteks</td><td>Pemerintah AS; sering diwajibkan untuk agensi federal &amp; kontraktor</td><td>Standar internasional; melengkapi ISO/IEC 27001 (ISMS)</td></tr>
+              <tr><td>Pendekatan</td><td>Preskriptif: 4 langkah (Prepare, Conduct, Communicate, Maintain)</td><td>Proses berkelanjutan: Establish Context, Identify, Analyze, Evaluate, Treat</td></tr>
+              <tr><td>Threat Source</td><td>Taksonomi eksplisit (adversarial/accidental/structural/environmental)</td><td>Tidak preskriptif — organisasi menentukan sendiri</td></tr>
+              <tr><td>Integrasi</td><td>Berdiri sendiri, sering dipasangkan dengan NIST CSF/RMF</td><td>Bagian dari keluarga ISO 27000 (27001, 27002, dst.)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.84rem">Untuk kebutuhan pembelajaran ini, mahasiswa akan menggunakan pendekatan <strong>hybrid</strong>: taksonomi threat source dari NIST SP 800-30, dikombinasikan dengan siklus proses ISO/IEC 27005 (identify → analyze → evaluate → treat) sebagai alur kerja praktik.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 07</span>
+        <h2 style="margin-top:6px">Risk Treatment</h2>
+        <p>Setelah risiko dinilai, organisasi harus memutuskan bagaimana meresponsnya. ISO/IEC 27005 mendefinisikan empat opsi risk treatment:</p>
+
+        <div class="controls-4">
+          <div class="ctrl-col ctrl-cor">
+            <h4>✅ ACCEPT</h4>
+            <p>Risiko diterima secara sadar</p>
+            <ul><li>Risk level rendah</li><li>Biaya mitigasi &gt; potential loss</li><li>Didokumentasikan &amp; disetujui manajemen</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-prev">
+            <h4>🛡 MITIGATE</h4>
+            <p>Kurangi likelihood dan/atau impact</p>
+            <ul><li>Implementasi kontrol teknis</li><li>Training &amp; awareness</li><li>Paling umum digunakan</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-blue">
+            <h4>🔄 TRANSFER</h4>
+            <p>Pindahkan sebagian risiko ke pihak lain</p>
+            <ul><li>Cyber insurance</li><li>Outsourcing ke vendor bersertifikasi</li><li>SLA dengan penalti</li></ul>
+          </div>
+          <div class="ctrl-col ctrl-det">
+            <h4>🚫 AVOID</h4>
+            <p>Hentikan aktivitas yang menimbulkan risiko</p>
+            <ul><li>Tidak mengadopsi teknologi berisiko</li><li>Menghentikan layanan tertentu</li><li>Paling jarang dipilih (trade-off bisnis)</li></ul>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <strong>Bukan "Zero Risk":</strong> Tujuan risk management bukan menghilangkan seluruh risiko (mustahil dan tidak realistis secara biaya), melainkan mengelola risiko hingga berada pada level yang dapat diterima organisasi (<em>risk appetite</em>).
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 08</span>
+        <h2 style="margin-top:6px">Risk Register</h2>
+        <p>Risk register adalah dokumen terpusat yang mencatat seluruh risiko teridentifikasi beserta atribut penilaiannya — output formal dari proses risk assessment dan alat kerja utama seorang risk/security analyst sehari-hari.</p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Risk ID</th><th>Asset</th><th>Threat</th><th>Vulnerability</th><th>Likelihood</th><th>Impact</th><th>Risk Level</th><th>Treatment</th><th>Owner</th></tr></thead>
+            <tbody>
+              <tr><td>R-001</td><td>SIAKAD Server</td><td>Cybercriminal (ransomware)</td><td>Unpatched OS</td><td>Medium</td><td>High</td><td style="color:var(--threat-red);font-weight:600">High</td><td>Mitigate (patch + backup)</td><td>IT Infrastructure</td></tr>
+              <tr><td>R-002</td><td>Wi-Fi Kampus</td><td>Script kiddie</td><td>WPA2 lemah</td><td>Medium</td><td>Medium</td><td style="color:var(--warn-amber);font-weight:600">Medium</td><td>Mitigate (upgrade WPA3)</td><td>Network Team</td></tr>
+              <tr><td>R-003</td><td>CCTV IoT</td><td>Adversarial (botnet)</td><td>Default credential</td><td>High</td><td>Low</td><td style="color:var(--warn-amber);font-weight:600">Medium</td><td>Mitigate (ganti password)</td><td>Facility Team</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.84rem">Risk register bersifat <strong>living document</strong> — direview dan diperbarui secara berkala, bukan dibuat sekali lalu diabaikan. Mahasiswa akan membangun risk register mereka sendiri pada Practical Module 02, dan memperluasnya di module-module berikutnya.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">SECTION 09</span>
+        <h2 style="margin-top:6px">Real-World Case Studies</h2>
+
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-red">CASE 01 · LEGACY SYSTEM RISK</span>
+            <strong style="font-size:.92rem">Marriott / Starwood Data Breach (2018)</strong>
+          </div>
+          <div class="case-body">
+            <p>Pada September 2018, Marriott International mengumumkan bahwa database reservasi Starwood (yang diakuisisi Marriott tahun 2016) telah dikompromikan sejak 2014 — mengekspos data hingga 500 juta tamu, termasuk nomor paspor dan informasi kartu kredit. Investigasi menemukan bahwa akses tidak sah telah ada sejak sebelum akuisisi, namun tidak terdeteksi selama proses due diligence maupun integrasi sistem.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Database reservasi Starwood: 500 juta profil tamu</p></div>
+              <div class="ca-item"><span class="ca-key">THREAT SOURCE</span><p>Adversarial — diduga terkait aktor negara (espionage-motivated)</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>Sistem legacy Starwood yang tidak diaudit menyeluruh sebelum/sesudah akuisisi</p></div>
+              <div class="ca-item"><span class="ca-key">RISK ASSESSMENT GAP</span><p>Asset inventory tidak lengkap pasca-akuisisi; risiko sistem warisan tidak dinilai ulang</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT</span><p>Denda regulator (UK ICO: £18,4 juta), gugatan class action, kerugian reputasi</p></div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Lesson Learned:</strong> Merger &amp; akuisisi memerlukan <em>cybersecurity due diligence</em> — asset inventory dan risk assessment menyeluruh terhadap sistem yang diwarisi, bukan hanya due diligence finansial.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-amber">CASE 02 · THIRD-PARTY RISK</span>
+            <strong style="font-size:.92rem">British Airways Data Breach (2018)</strong>
+          </div>
+          <div class="case-body">
+            <p>Pada 2018, British Airways mengalami serangan Magecart — skrip JavaScript berbahaya disisipkan ke halaman pembayaran melalui komponen pihak ketiga, mencuri data kartu kredit ~400.000 pelanggan secara real-time selama pengisian formulir. UK Information Commissioner's Office (ICO) awalnya mengusulkan denda £183 juta (kemudian direvisi menjadi £20 juta akibat pandemi COVID-19).</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Halaman pembayaran web BA, data kartu kredit pelanggan</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>Kurangnya monitoring integritas skrip pihak ketiga pada halaman kritis</p></div>
+              <div class="ca-item"><span class="ca-key">ATTACK VECTOR</span><p>Supply-chain compromise melalui komponen JavaScript pihak ketiga</p></div>
+              <div class="ca-item"><span class="ca-key">RISK YANG TERLEWAT</span><p>Third-party/supply-chain risk tidak dimasukkan dalam risk register operasional</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT</span><p>Denda regulator, kerugian reputasi, kehilangan kepercayaan pelanggan</p></div>
+            </div>
+            <div class="callout warn" style="margin-top:10px"><strong>Lesson Learned:</strong> Asset inventory yang baik harus mencakup dependency pihak ketiga — bukan hanya aset yang dimiliki dan dikontrol langsung oleh organisasi.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-green">CASE 03 · APPLIED WALKTHROUGH</span>
+            <strong style="font-size:.92rem">University Smart Campus — Risk Assessment Ringkas</strong>
+          </div>
+          <div class="case-body">
+            <p>Menggunakan asset inventory yang dibangun pada Practical Module 01 (UND — Universitas Nusantara Digital), mari terapkan proses risk assessment pada satu asset: <strong>server SIAKAD</strong> yang menjalankan sistem operasi tanpa patch selama 6 bulan terakhir.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Server SIAKAD (High value — data akademik 8.000 mahasiswa)</p></div>
+              <div class="ca-item"><span class="ca-key">THREAT SOURCE</span><p>Adversarial (cybercriminal, ransomware-motivated)</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>OS tanpa patch 6 bulan — kemungkinan besar memiliki CVE publik yang dieksploitasi aktif</p></div>
+              <div class="ca-item"><span class="ca-key">LIKELIHOOD</span><p>Medium–High (exploit publik tersedia, tim IT hanya 3 orang)</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT</span><p>High (data akademik terenkripsi/bocor, operasional akademik lumpuh)</p></div>
+              <div class="ca-item"><span class="ca-key">RISK LEVEL &amp; TREATMENT</span><p>HIGH — Mitigate segera: jadwalkan patch, isolasi sementara jika perlu, tambah monitoring</p></div>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- THINK LIKE A SECURITY ANALYST -->
+        <h2>🔍 Think Like a Security Analyst</h2>
+        <p>Gunakan konsep Module 02 pada kelanjutan skenario Universitas Nusantara Digital (UND) dari Module 01.</p>
+
+        <div class="callout" style="margin-bottom:14px">
+          <strong>Skenario:</strong> Tim IT UND (3 orang) baru saja menyelesaikan asset inventory (Practical 01). Mereka menemukan: (1) server SIAKAD belum di-patch 6 bulan, (2) Wi-Fi kampus masih menggunakan WPA2 dengan password yang sama sejak 3 tahun lalu, (3) CCTV IoT menggunakan kredensial default pabrik, dan (4) tidak ada backup terjadwal untuk database SIAKAD.
+        </div>
+
+        <div class="analyst-box">
+          <h4>💡 Pertanyaan Analisis — Risk Assessment UND</h4>
+          <details>
+            <summary>1. Dari 4 temuan, urutkan berdasarkan risk level menggunakan risk matrix. Mana prioritas tertinggi?</summary>
+            <div class="analyst-answer">Server SIAKAD tanpa patch = <strong>HIGH</strong> (likelihood medium-high × impact high — data akademik kritis). Tidak ada backup = <strong>HIGH</strong> juga karena tanpa backup, insiden apa pun pada SIAKAD menjadi unrecoverable (memperbesar impact seluruh risiko lain). Wi-Fi WPA2 lama = <strong>MEDIUM</strong>. CCTV default credential = <strong>MEDIUM</strong> (likelihood tinggi tapi impact langsung lebih rendah, meski bisa menjadi pivot point).</div>
+          </details>
+          <details>
+            <summary>2. Threat source apa (taksonomi NIST SP 800-30) yang paling relevan untuk masing-masing temuan?</summary>
+            <div class="analyst-answer">Server tanpa patch &amp; CCTV default credential → <strong>Adversarial</strong> (dieksploitasi sengaja). Tidak ada backup → ini bukan threat source, melainkan <em>kontrol yang hilang</em> yang memperbesar impact dari threat source manapun (termasuk <strong>structural</strong>, seperti kegagalan hardware).</div>
+          </details>
+          <details>
+            <summary>3. Jika UND hanya punya budget untuk menangani 2 dari 4 temuan bulan ini, mana yang dipilih dan mengapa?</summary>
+            <div class="analyst-answer"><strong>Patch server SIAKAD</strong> (menutup vulnerability aktif dengan risk HIGH) dan <strong>setup backup terjadwal</strong> (mitigasi murah dengan dampak besar terhadap resilience — mengurangi impact SEMUA skenario risiko lain, bukan hanya satu). Wi-Fi dan CCTV tetap penting tapi risk level relatif lebih rendah untuk saat ini.</div>
+          </details>
+          <details>
+            <summary>4. Opsi risk treatment apa yang paling tepat untuk Wi-Fi WPA2 lama jika anggaran untuk upgrade WPA3 tidak tersedia tahun ini?</summary>
+            <div class="analyst-answer">Kombinasi <strong>Mitigate parsial</strong> (ganti password segera — kontrol murah tanpa perlu upgrade hardware, tambahkan network segmentation agar Wi-Fi kampus terpisah dari jaringan server) dan <strong>Accept sementara</strong> risiko residual dengan dokumentasi resmi dan rencana upgrade WPA3 tahun depan.</div>
+          </details>
+        </div>
+
+      </div><!-- end locked block -->
+
+      <!-- KNOWLEDGE CHECK -->
+      <div class="block" data-locked-unless="week02:material">
+        <h2>📝 Knowledge Check</h2>
+        <p style="margin-bottom:16px;font-size:.88rem">Ujilah pemahaman Anda. Jawab semua pertanyaan lalu klik Submit Quiz untuk melihat skor dan pembahasan.</p>
+        <div data-quiz="week02"></div>
       </div>
 
-      
+      <!-- KEY TAKEAWAYS + GLOSSARY + REFERENCES -->
+      <div class="block" data-locked-unless="week02:material">
+        <h2>🏁 Key Takeaways</h2>
+        <div class="key-box">
+          <h4>MODULE 02 — CORE INSIGHTS</h4>
+          <ul>
+            <li>Risk assessment formal dimulai dari asset inventory yang akurat — organisasi tidak dapat menilai risiko terhadap aset yang tidak mereka ketahui.</li>
+            <li>NIST SP 800-30 mengklasifikasikan threat source menjadi adversarial, accidental, structural, dan environmental — masing-masing memerlukan kontrol berbeda.</li>
+            <li>Vulnerability, exploit, dan attack vector adalah tiga hal berbeda dalam rantai menuju sebuah attack.</li>
+            <li>Risk = f(Likelihood, Impact), divisualisasikan melalui risk matrix untuk memprioritaskan mitigasi.</li>
+            <li>NIST SP 800-30 dan ISO/IEC 27005 adalah dua metodologi risk assessment paling banyak diadopsi, dengan filosofi mirip namun struktur berbeda.</li>
+            <li>Risk treatment memiliki empat opsi: Accept, Mitigate, Transfer, Avoid — tidak selalu berarti menghilangkan risiko sepenuhnya.</li>
+            <li>Risk register adalah living document yang mendokumentasikan seluruh risiko teridentifikasi dan menjadi alat kerja utama risk/security analyst.</li>
+          </ul>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <h2>📖 Glossary</h2>
+        <div class="glossary-grid">
+          <div class="g-item"><span class="g-term">Asset Inventory</span><p class="g-def">Daftar terstruktur seluruh aset organisasi beserta atribut yang relevan untuk keputusan keamanan.</p></div>
+          <div class="g-item"><span class="g-term">Threat Source</span><p class="g-def">Asal dari sebuah threat event, diklasifikasikan NIST SP 800-30 menjadi adversarial, accidental, structural, environmental.</p></div>
+          <div class="g-item"><span class="g-term">Exploit</span><p class="g-def">Kode, teknik, atau alat yang secara spesifik dirancang untuk memanfaatkan sebuah vulnerability.</p></div>
+          <div class="g-item"><span class="g-term">Attack Vector</span><p class="g-def">Jalur atau metode yang digunakan threat actor untuk mengirimkan exploit atau mendapatkan akses awal.</p></div>
+          <div class="g-item"><span class="g-term">Likelihood</span><p class="g-def">Kemungkinan sebuah threat event terjadi dan berhasil menghasilkan impact terhadap organisasi.</p></div>
+          <div class="g-item"><span class="g-term">Impact</span><p class="g-def">Besarnya kerugian — finansial, operasional, reputasi, atau legal — yang ditimbulkan jika sebuah risiko terealisasi.</p></div>
+          <div class="g-item"><span class="g-term">Risk Matrix</span><p class="g-def">Alat visual untuk menentukan risk level berdasarkan perpotongan likelihood dan impact.</p></div>
+          <div class="g-item"><span class="g-term">Risk Treatment</span><p class="g-def">Keputusan respons terhadap risiko yang teridentifikasi: Accept, Mitigate, Transfer, atau Avoid.</p></div>
+          <div class="g-item"><span class="g-term">Risk Appetite</span><p class="g-def">Tingkat risiko yang bersedia diterima organisasi dalam mengejar tujuan bisnisnya.</p></div>
+          <div class="g-item"><span class="g-term">Risk Register</span><p class="g-def">Dokumen terpusat yang mencatat seluruh risiko teridentifikasi beserta penilaian dan status treatment-nya.</p></div>
+          <div class="g-item"><span class="g-term">ALE (Annualized Loss Expectancy)</span><p class="g-def">Estimasi kerugian tahunan dari sebuah risiko, dihitung sebagai Single Loss Expectancy × Annual Rate of Occurrence.</p></div>
+          <div class="g-item"><span class="g-term">Supply-Chain Risk</span><p class="g-def">Risiko yang berasal dari vendor, komponen, atau layanan pihak ketiga yang digunakan organisasi.</p></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <h2>📚 References</h2>
+        <ul class="ref-list">
+          <li><strong>NIST SP 800-30 Rev. 1</strong> — NIST. (2012). <em>Guide for Conducting Risk Assessments</em>. <a href="https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final" target="_blank" rel="noopener">csrc.nist.gov</a></li>
+          <li><strong>ISO/IEC 27005:2022</strong> — International Organization for Standardization. <em>Information security, cybersecurity and privacy protection — Guidance on managing information security risks</em>. <a href="https://www.iso.org/standard/80585.html" target="_blank" rel="noopener">iso.org</a></li>
+          <li><strong>CISA KEV Catalog</strong> — CISA. <em>Known Exploited Vulnerabilities Catalog</em>. <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener">cisa.gov</a></li>
+          <li><strong>Marriott Breach — ICO Penalty Notice</strong> — UK Information Commissioner's Office. (2020). <em>Marriott International Inc Monetary Penalty Notice</em>. <a href="https://ico.org.uk/action-weve-taken/enforcement/marriott-international-inc/" target="_blank" rel="noopener">ico.org.uk</a></li>
+          <li><strong>British Airways Breach — ICO Penalty Notice</strong> — UK Information Commissioner's Office. (2020). <em>British Airways Monetary Penalty Notice</em>. <a href="https://ico.org.uk/action-weve-taken/enforcement/british-airways/" target="_blank" rel="noopener">ico.org.uk</a></li>
+          <li><strong>Textbook Reference</strong> — Whitman, M. E., &amp; Mattord, H. J. (2021). <em>Management of Information Security</em> (6th ed.). Cengage. ISBN: 978-0357509558</li>
+        </ul>
+      </div>
+
+      <!-- READY FOR PRACTICE -->
       <div class="block" style="background:var(--signal-soft);border-color:var(--signal)">
         <h2 style="margin-bottom:6px">READY FOR PRACTICE?</h2>
-        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Basic Risk Assessment</strong> untuk menerapkan konsep secara hands-on.</p>
+        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Asset and Risk Identification</strong> untuk membangun risk register lengkap menggunakan skenario University Smart Campus, melanjutkan asset inventory dari Module 01.</p>
         <a class="btn btn-primary" href="../practical/practical-02.html" data-practice-link>🧪 MULAI PRAKTIK</a>
       </div>
+
     </div>
   </div>
 </section>
@@ -109,5 +604,95 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
+
+<!-- Quiz Data: Week 02 -->
+<script type="application/json" data-quiz-data="week02">
+{
+  "passScore": 70,
+  "questions": [
+    {
+      "q": "Sebuah universitas memiliki server lama yang menjalankan aplikasi akademik penting namun sudah tidak didukung vendor (end-of-life). Dalam taksonomi NIST SP 800-30, risiko utama dari sistem ini paling tepat dikaitkan dengan threat source jenis apa jika tidak ada eksploitasi aktif namun sewaktu-waktu dapat gagal total?",
+      "options": [
+        "A. Adversarial",
+        "B. Accidental",
+        "C. Structural",
+        "D. Environmental"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "Apa perbedaan PALING TEPAT antara vulnerability dan exploit?",
+      "options": [
+        "A. Vulnerability adalah kelemahan pada sistem; exploit adalah kode/metode yang memanfaatkan kelemahan tersebut",
+        "B. Exploit selalu lebih berbahaya daripada vulnerability",
+        "C. Vulnerability hanya ada pada software, exploit hanya ada pada hardware",
+        "D. Keduanya adalah istilah yang identik dan dapat dipertukarkan"
+      ],
+      "correct": 0
+    },
+    {
+      "q": "Sebuah risiko memiliki likelihood MEDIUM dan impact HIGH. Menurut risk matrix standar, risk level yang paling tepat adalah...",
+      "options": [
+        "A. Low",
+        "B. Medium",
+        "C. High",
+        "D. Tidak dapat ditentukan tanpa data kuantitatif"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "Opsi risk treatment 'Transfer' PALING TEPAT dicontohkan oleh...",
+      "options": [
+        "A. Menghapus layanan yang berisiko",
+        "B. Membeli cyber insurance untuk memindahkan sebagian dampak finansial risiko ke pihak asuransi",
+        "C. Menerima risiko tanpa tindakan apapun",
+        "D. Memasang firewall tambahan"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "Manakah pernyataan yang PALING TEPAT menggambarkan perbedaan NIST SP 800-30 dan ISO/IEC 27005?",
+      "options": [
+        "A. Keduanya adalah standar yang identik dari organisasi yang sama",
+        "B. NIST SP 800-30 memiliki taksonomi threat source eksplisit, sementara ISO/IEC 27005 adalah bagian dari keluarga ISO 27000 yang melengkapi ISO 27001",
+        "C. ISO/IEC 27005 hanya berlaku untuk perusahaan Eropa",
+        "D. NIST SP 800-30 tidak dapat digunakan bersama risk matrix"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "[SKENARIO] Sebuah rumah sakit menemukan bahwa aplikasi rekam medis mereka memiliki CVE dengan skor CVSS 8.5 (High), namun exploit publik untuk CVE tersebut belum ditemukan di mana pun dan sistem hanya dapat diakses dari jaringan internal yang sangat terbatas. Bagaimana likelihood risiko ini seharusnya dinilai, dan mengapa?",
+      "options": [
+        "A. Selalu HIGH karena mengikuti CVSS score secara langsung",
+        "B. Kemungkinan lebih rendah dari yang disarankan CVSS semata, karena tidak ada exploit aktif dan eksposur terbatas pada jaringan internal — namun tetap perlu dipantau dan diprioritaskan untuk patch",
+        "C. Tidak relevan dinilai karena CVSS sudah cukup untuk memutuskan",
+        "D. Otomatis LOW karena berada di rumah sakit"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "[SKENARIO] Tim risk management sebuah bank menemukan bahwa vendor pihak ketiga yang mengelola sistem chat customer service memiliki akses API ke data transaksi pelanggan, namun vendor ini tidak pernah dimasukkan dalam risk register resmi bank. Apa langkah PALING TEPAT untuk ditindaklanjuti?",
+      "options": [
+        "A. Mengabaikannya karena vendor bukan bagian dari infrastruktur internal bank",
+        "B. Menambahkan vendor dan integrasi API tersebut ke asset inventory dan risk register, lalu menilai risikonya sebagai supply-chain/third-party risk",
+        "C. Langsung memutus kontrak vendor tanpa asesmen",
+        "D. Menunggu insiden terjadi terlebih dahulu sebelum menilai risiko"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "[HOTS] Sebuah startup fintech kecil memiliki risk register dengan 15 risiko, 6 di antaranya berkategori HIGH, namun anggaran keamanan mereka hanya cukup untuk menangani 2 risiko HIGH tahun ini. Pendekatan MANA yang mencerminkan risk-based decision making yang paling matang?",
+      "options": [
+        "A. Menangani 2 risiko HIGH secara acak agar cepat selesai",
+        "B. Mengabaikan seluruh risiko HIGH karena anggaran tidak cukup untuk semuanya",
+        "C. Melakukan penilaian lebih rinci (mis. estimasi ALE atau exposure aktual) pada keenam risiko HIGH untuk menentukan mana yang benar-benar memberikan risk reduction terbesar per biaya, mendokumentasikan risiko yang belum tertangani sebagai accepted risk sementara dengan persetujuan manajemen, dan merencanakan mitigasi bertahap",
+        "D. Menaikkan seluruh anggaran keamanan tanpa analisis lebih lanjut"
+      ],
+      "correct": 2
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

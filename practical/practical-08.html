@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 08 — UTS · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soal UTS — Klinik Sehat Nusantara · COM Cybersecurity Learning</title>
+<meta name="description" content="Soal UTS Module 08: Cybersecurity Assessment terintegrasi (asset, threat, vulnerability, risk, architecture) pada skenario Klinik Sehat Nusantara.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item current" data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item current" data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,24 +65,79 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 08</p>
-      <h1>UTS</h1>
+<div class="content">
+      <p class="eyebrow">UJIAN TENGAH SEMESTER · MODULE 08</p>
+      <h1>Soal UTS — Klinik Sehat Nusantara</h1>
+      <div class="meta-row"><span class="pill">⏱ Take-home, 3 hari</span><span class="pill">Individual</span>
+      <span class="pill">Bobot: 25% Nilai Akhir</span><span class="pill">Output: Cybersecurity Assessment Report</span></div>
 
       <div class="block" data-locked-unless="week08:practice">
-        
-        <h2 style="margin-top:0">🧪 Midterm Examination (UTS)</h2>
-        <p>Soal dan instruksi lengkap UTS akan dipublikasikan oleh dosen pengampu menjelang jadwal ujian.</p>
-    
+        <div class="callout warn"><strong>⚠️ Ketentuan Ujian:</strong> Dikerjakan individual. Skenario di bawah ini BELUM PERNAH dibahas di kelas — gunakan kemampuan analisis yang telah dilatih Module 01–07, bukan hafalan jawaban praktik sebelumnya. Dilarang bekerja sama dengan mahasiswa lain.</div>
+
+        <div class="scenario-box">
+          <h4>🏥 Skenario UTS: Klinik Sehat Nusantara</h4>
+          <p style="font-size:.86rem;margin-bottom:8px">Klinik Sehat Nusantara adalah klinik kesehatan swasta dengan 3 cabang di satu kota, melayani ~500 pasien per hari. Infrastruktur digital mereka:</p>
+          <div style="overflow-x:auto">
+            <table class="tbl" style="margin:0">
+              <thead><tr><th>#</th><th>Sistem/Asset</th><th>Keterangan</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Sistem Rekam Medis Elektronik (RME)</td><td>Menyimpan data kesehatan seluruh pasien, diakses dokter &amp; perawat</td></tr>
+                <tr><td>2</td><td>Sistem Pendaftaran Online</td><td>Website publik untuk booking jadwal dokter</td></tr>
+                <tr><td>3</td><td>Aplikasi Kasir/Billing</td><td>Memproses pembayaran, terhubung ke payment gateway pihak ketiga</td></tr>
+                <tr><td>4</td><td>Wi-Fi Klinik</td><td>Digunakan pasien di ruang tunggu dan staf untuk RME</td></tr>
+                <tr><td>5</td><td>Server Lokal RME</td><td>Berlokasi di cabang utama, versi OS sudah 2 tahun tanpa update</td></tr>
+                <tr><td>6</td><td>Laptop Dokter</td><td>Digunakan untuk akses RME dari 3 cabang, sebagian milik pribadi dokter (BYOD)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem;margin-top:8px">Kondisi keamanan saat ini: RME dapat diakses seluruh staf (dokter, perawat, admin) dengan password yang sama untuk semua pengguna ("agar mudah"). Wi-Fi pasien dan staf berada pada jaringan yang sama. Tidak ada firewall/IDS khusus, hanya router bawaan ISP. Belum pernah ada audit keamanan sejak klinik berdiri 5 tahun lalu.</p>
+        </div>
+
+        <div class="step-counter-reset">
+          <div class="step-block">
+            <h4>SOAL 1 — ASSET IDENTIFICATION (15%)</h4>
+            <p>Buat asset inventory lengkap untuk Klinik Sehat Nusantara (boleh menambah asset yang secara realistis pasti ada meski tidak disebutkan eksplisit, mis. jaringan internet, database). Klasifikasikan tiap asset dan berikan skor dampak CIA (Low/Medium/High) dengan justifikasi singkat.</p>
+          </div>
+          <div class="step-block">
+            <h4>SOAL 2 — THREAT MODELING (20%)</h4>
+            <p>Identifikasi minimal 3 threat source (gunakan taksonomi NIST SP 800-30: adversarial/accidental/structural/environmental) yang paling relevan untuk klinik ini. Petakan attack surface eksternal dan internal berdasarkan skenario.</p>
+          </div>
+          <div class="step-block">
+            <h4>SOAL 3 — VULNERABILITY ANALYSIS (20%)</h4>
+            <p>Identifikasi minimal 4 vulnerability konkret dari skenario di atas. Untuk masing-masing, jelaskan potensi exploit dan attack vector yang dapat memanfaatkannya.</p>
+          </div>
+          <div class="step-block">
+            <h4>SOAL 4 — RISK ASSESSMENT (25%)</h4>
+            <p>Untuk seluruh vulnerability pada Soal 3, tentukan likelihood dan impact, plot pada risk matrix, tentukan risk level, dan tentukan risk treatment (Accept/Mitigate/Transfer/Avoid) dengan justifikasi bisnis (ingat: klinik ini kemungkinan besar memiliki anggaran keamanan terbatas).</p>
+          </div>
+          <div class="step-block">
+            <h4>SOAL 5 — SECURITY ARCHITECTURE ANALYSIS (20%)</h4>
+            <p>Berdasarkan seluruh temuan di atas, rekomendasikan minimal 3 perbaikan arsitektur keamanan konkret (access control, network segmentation, dan/atau prinsip Zero Trust) yang paling berdampak untuk klinik ini. Jelaskan urutan prioritas implementasinya.</p>
+          </div>
+        </div>
+
+        <div class="output-box">
+          <h4>📋 DELIVERABLES</h4>
+          <ul>
+            <li>Cybersecurity Assessment Report terstruktur (1 dokumen, mengikuti urutan Soal 1–5)</li>
+            <li>Asset Inventory dengan skor CIA (Soal 1)</li>
+            <li>Threat Model — threat source + attack surface (Soal 2)</li>
+            <li>Vulnerability &amp; Attack Vector Analysis (Soal 3)</li>
+            <li>Risk Register + Risk Matrix + Risk Treatment (Soal 4)</li>
+            <li>Rekomendasi Security Architecture terprioritas (Soal 5)</li>
+          </ul>
+        </div>
+
+        <div class="callout" style="margin-top:16px"><strong>💡 Catatan:</strong> Jawaban terbaik bukan yang paling panjang, melainkan yang menunjukkan <em>alasan</em> di balik setiap keputusan (security reasoning) — persis seperti latihan "Think Like a Security Analyst" pada setiap module.</div>
+
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week08:practice" data-complete-label="UTS Submitted ✓">✓ Tandai UTS Selesai Dikumpulkan</button>
       </div>
 
-      <div class="block" style="display:flex;justify-content:space-between">
-        <a class="btn btn-outline" href="../weeks/week08.html">← Kembali ke Materi Minggu 08</a>
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <a class="btn btn-outline" href="../weeks/week08.html">← Kembali ke Info UTS</a>
+        <a class="btn btn-outline" href="../weeks/week09.html">Lanjut ke Minggu 09 →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -96,5 +155,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

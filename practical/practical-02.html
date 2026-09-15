@@ -3,10 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 02 — Asset, Threat, Vulnerability & Risk · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
+<title>Praktik Minggu 02 — Asset and Risk Identification · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 02: Asset and Risk Identification — membangun risk register formal untuk skenario University Smart Campus, melanjutkan asset inventory Module 01.">
 <link rel="stylesheet" href="../assets/css/style.css">
-
+<style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style>
 </head>
 <body>
 
@@ -29,29 +43,29 @@
     </div>
   </div>
 </nav>
+
 <section class="section" style="padding-top:36px">
   <div class="wrap detail-layout">
-    
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item current" data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item current" data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -62,51 +76,145 @@
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
     <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 02</p>
-      <h1>Asset, Threat, Vulnerability & Risk</h1>
+
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 02 · MODULE 02</p>
+      <h1>Asset and Risk Identification</h1>
+      <div class="meta-row">
+        <span class="pill">⏱ 45–60 menit</span>
+        <span class="pill">Individual / Kelompok 2 orang</span>
+        <span class="pill">Output: Risk Register</span>
+        <span class="pill">Skenario: University Smart Campus (lanjutan)</span>
+      </div>
 
       <div class="block" data-locked-unless="week02:practice">
-        
-        <h2 style="margin-top:0">🧪 Basic Risk Assessment</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Risk Assessment Sederhana</span></div>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu melakukan penilaian risiko sederhana menggunakan risk matrix dan mengusulkan security control yang sesuai.</p>
+        <div class="callout">
+          <strong>📌 Hubungan dengan Materi:</strong> Praktik ini menerapkan konsep Module 02 — asset classification, threat source (NIST SP 800-30), likelihood/impact assessment, risk matrix, dan risk treatment — dengan <strong>melanjutkan langsung</strong> asset inventory yang kamu bangun pada Practical Module 01.
+        </div>
 
-        <h3>Scenario</h3>
-        <p>Sebuah perpustakaan kampus menyediakan komputer publik untuk mahasiswa mengakses katalog online. Komputer tersebut menggunakan akun admin bersama tanpa password yang pernah diganti sejak instalasi tiga tahun lalu.</p>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu mengklasifikasikan asset, mengidentifikasi threat source dan vulnerability, menilai likelihood &amp; impact, memplot risiko pada risk matrix, menentukan risk treatment, dan menyusun <strong>Risk Register</strong> formal — seperti seorang risk analyst junior.</p>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Risk Matrix template (disediakan)</li></ul>
+        <div class="scenario-box">
+          <h4>🏫 Kelanjutan Skenario: Universitas Nusantara Digital (UND)</h4>
+          <p style="font-size:.86rem;margin-bottom:8px">Gunakan <strong>10 asset</strong> yang telah kamu identifikasi pada Practical Module 01 (Threat Landscape Analysis). Jika belum menyelesaikan Practical 01, gunakan tabel asset berikut sebagai dasar:</p>
+          <div style="overflow-x:auto">
+            <table class="tbl" style="margin:0">
+              <thead><tr><th>#</th><th>Asset</th><th>Kondisi Terkini</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Server SIAKAD</td><td>OS belum di-patch 6 bulan</td></tr>
+                <tr><td>2</td><td>Wi-Fi Kampus</td><td>WPA2, password sama sejak 3 tahun</td></tr>
+                <tr><td>3</td><td>CCTV IoT</td><td>Kredensial default pabrik</td></tr>
+                <tr><td>4</td><td>Database SIAKAD</td><td>Tidak ada backup terjadwal</td></tr>
+                <tr><td>5</td><td>Email Institusional</td><td>Tanpa MFA untuk staf</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem;margin-top:8px">Tim IT UND tetap berjumlah 3 orang dengan anggaran keamanan terbatas tahun ini.</p>
+        </div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Aktivitas individu berbasis skenario tertulis, tidak memerlukan akses sistem nyata.</div>
+        <div class="step-counter-reset">
 
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Identifikasi asset yang terlibat dalam skenario.</li><li>Identifikasi threat yang mungkin memanfaatkan situasi ini.</li><li>Identifikasi vulnerability spesifik pada skenario.</li><li>Tentukan likelihood (Low/Medium/High) dan impact (Low/Medium/High).</li><li>Tentukan risk level menggunakan risk matrix.</li><li>Usulkan minimal dua security control untuk menurunkan risiko.</li></ol>
+          <div class="step-block">
+            <h4>ASSET CLASSIFICATION</h4>
+            <p>Untuk setiap asset (gunakan minimal 8 asset dari inventory Practical 01, atau tabel di atas), tentukan:</p>
+            <ul style="list-style:disc;margin-left:20px">
+              <li>Kategori asset (Data, Software, Hardware, People, Service)</li>
+              <li>Skor dampak CIA (Low/Medium/High) untuk masing-masing Confidentiality, Integrity, Availability</li>
+            </ul>
+            <div class="template-block">
+<span class="tpl-label">TEMPLATE — ASSET CLASSIFICATION</span>
+Asset          | Kategori | Conf. | Integ. | Avail.
+---------------|----------|-------|--------|-------
+Server SIAKAD  | Software | High  | High   | High
+...            | ...      | ...   | ...    | ...
+            </div>
+          </div>
 
-        <h3>Expected Output</h3>
-        <p>Tabel risk assessment berisi asset, threat, vulnerability, likelihood, impact, risk level, dan rekomendasi security control.</p>
+          <div class="step-block">
+            <h4>THREAT SOURCE &amp; VULNERABILITY IDENTIFICATION</h4>
+            <p>Untuk setiap asset, identifikasi threat source menggunakan taksonomi NIST SP 800-30 (Adversarial/Accidental/Structural/Environmental) dan satu vulnerability spesifik yang relevan.</p>
+            <div class="template-block">
+<span class="tpl-label">TEMPLATE — THREAT &amp; VULNERABILITY</span>
+Asset          | Threat Source | Vulnerability
+---------------|----------------|----------------------------
+Server SIAKAD  | Adversarial    | OS belum di-patch 6 bulan
+...            | ...            | ...
+            </div>
+          </div>
 
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Apakah risk level akan berubah jika password diganti tapi masih dipakai bersama banyak mahasiswa? Jelaskan.</li><li>Kontrol mana yang paling murah untuk diterapkan namun berdampak besar?</li></ul>
+          <div class="step-block">
+            <h4>LIKELIHOOD &amp; IMPACT ASSESSMENT</h4>
+            <p>Nilai likelihood dan impact (Low/Medium/High) untuk setiap pasangan asset-threat-vulnerability, menggunakan skala pada Section 04 materi minggu ini. Berikan justifikasi singkat untuk setiap penilaian.</p>
+          </div>
 
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Mengapa akun bersama tanpa penggantian password tergolong vulnerability, bukan threat?</li><li>Sebutkan satu contoh kontrol preventif dan satu kontrol detektif untuk skenario ini.</li></ol>
+          <div class="step-block">
+            <h4>PLOT PADA RISK MATRIX</h4>
+            <p>Plot seluruh risiko pada risk matrix (gambar tangan, tabel, atau spreadsheet) dan tentukan risk level (Low/Medium/High) untuk masing-masing.</p>
+          </div>
 
-        <h3>Assignment</h3>
-        <p>Buat laporan risk assessment singkat (tabel + ringkasan 3-4 kalimat) yang merekomendasikan prioritas mitigasi.</p>
+          <div class="step-block">
+            <h4>RISK TREATMENT DECISION</h4>
+            <p>Untuk 3 risiko dengan level tertinggi, tentukan risk treatment (Accept/Mitigate/Transfer/Avoid) beserta justifikasi bisnis — pertimbangkan bahwa anggaran UND terbatas.</p>
+          </div>
 
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> Asset, threat, vulnerability teridentifikasi</label></li><li><label><input type="checkbox"> Likelihood & impact ditentukan</label></li><li><label><input type="checkbox"> Risk level sesuai risk matrix</label></li><li><label><input type="checkbox"> Minimal 2 security control diusulkan</label></li></ul>
+          <div class="step-block">
+            <h4>SUSUN RISK REGISTER</h4>
+            <p>Gabungkan seluruh hasil di atas menjadi satu Risk Register formal menggunakan template berikut:</p>
+            <div class="template-block">
+<span class="tpl-label">TEMPLATE — RISK REGISTER</span>
+Risk ID | Asset | Threat | Vulnerability | Likelihood | Impact | Risk Level | Treatment | Owner
+--------|-------|--------|---------------|------------|--------|------------|-----------|------
+R-001   | ...   | ...    | ...           | ...        | ...    | ...        | ...       | ...
+            </div>
+          </div>
 
-        <button class="btn btn-primary" data-complete="week02:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
-      </div>
+        </div><!-- end step-counter-reset -->
 
-      <div class="block" style="display:flex;justify-content:space-between">
+        <div class="output-box">
+          <h4>📋 EXPECTED OUTPUT — Risk Register (UND)</h4>
+          <ul>
+            <li>Tabel Asset Classification (min. 8 asset dengan CIA impact score)</li>
+            <li>Tabel Threat Source &amp; Vulnerability (min. 8 baris)</li>
+            <li>Likelihood &amp; Impact assessment dengan justifikasi</li>
+            <li>Risk Matrix terisi (visual atau tabel)</li>
+            <li>Risk Treatment decision untuk 3 risiko tertinggi + justifikasi</li>
+            <li>Risk Register lengkap (min. 8 baris, format Risk ID/Asset/Threat/Vulnerability/Likelihood/Impact/Risk Level/Treatment/Owner)</li>
+          </ul>
+        </div>
+
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Risiko mana pada risk register-mu yang paling "tersembunyi" — mudah diabaikan namun berpotensi berdampak besar?</li>
+          <li>Bagaimana keterbatasan anggaran UND memengaruhi keputusan risk treatment-mu dibanding jika anggaran tidak terbatas?</li>
+          <li>Jika satu risiko yang kamu beri status "Accept" ternyata terjadi minggu depan, bagaimana kamu mempertanggungjawabkan keputusan tersebut kepada manajemen?</li>
+        </ol>
+
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Minimal 8 asset diklasifikasikan dengan skor CIA impact</label></li>
+          <li><label><input type="checkbox"> Threat source menggunakan taksonomi NIST SP 800-30 yang benar</label></li>
+          <li><label><input type="checkbox"> Likelihood &amp; impact dinilai dengan justifikasi, bukan tebakan</label></li>
+          <li><label><input type="checkbox"> Seluruh risiko diplot pada risk matrix</label></li>
+          <li><label><input type="checkbox"> 3 risiko tertinggi memiliki risk treatment decision + justifikasi bisnis</label></li>
+          <li><label><input type="checkbox"> Risk Register lengkap dan menggunakan format standar (Risk ID hingga Owner)</label></li>
+        </ul>
+
+        <div class="callout warn" style="margin-top:16px">
+          <strong>📁 Portfolio Note:</strong> Risk Register ini akan digunakan kembali sebagai dasar analisis attack surface pada Module 03, dan terus diperluas hingga Module 16 (Final Project). Simpan dan kembangkan secara konsisten.
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week02:practice" data-complete-label="Practice Completed ✓">
+          ✓ Tandai Praktik Selesai
+        </button>
+
+      </div><!-- end locked block -->
+
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week02.html">← Kembali ke Materi Minggu 02</a>
+        <a class="btn btn-outline" href="../weeks/week03.html">Lanjut ke Minggu 03 →</a>
       </div>
+
     </div>
   </div>
 </section>

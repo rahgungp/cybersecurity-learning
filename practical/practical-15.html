@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 15 — Current Cybersecurity Trends · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praktik Minggu 15 — Cybersecurity Trend Analysis Brief · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 15: analisis mendalam satu tren cybersecurity terkini yang relevan bagi organisasi pilihan mahasiswa.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item current" data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item current" data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,56 +65,53 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 15</p>
-      <h1>Current Cybersecurity Trends</h1>
-
+<div class="content">
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 15 · MODULE 15</p>
+      <h1>Cybersecurity Trend Analysis Brief</h1>
+      <div class="meta-row"><span class="pill">⏱ 50 menit</span><span class="pill">Individual</span>
+      <span class="pill">Output: Trend Analysis Brief</span><span class="pill">Skenario: Organisasi Pilihan Sendiri</span></div>
       <div class="block" data-locked-unless="week15:practice">
-        
-        <h2 style="margin-top:0">🧪 Current Threat Briefing</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Current Threat Briefing</span></div>
+        <div class="callout"><strong>📌 Hubungan dengan Materi:</strong> Praktik ini menerapkan kerangka Technology → Threat → Scenario → Challenge → Defense dari Module 15 pada konteks organisasi pilihan mahasiswa sendiri.</div>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu memilih satu tren cybersecurity yang paling relevan bagi sebuah organisasi (boleh UND, boleh organisasi lain yang familiar — mis. tempat magang, bisnis keluarga), dan menyusun brief analisis mendalam.</p>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu meriset dan menyusun threat briefing terstruktur tentang satu isu cybersecurity terkini menggunakan sumber tepercaya.</p>
+        <div class="step-counter-reset">
+          <div class="step-block"><h4>PILIH ORGANISASI &amp; TREN</h4><p>Tentukan satu organisasi (boleh UND atau organisasi lain yang kamu pahami konteksnya) dan satu tren dari Module 15 (atau tren lain yang dapat kamu justifikasi dengan sumber kredibel) yang paling relevan bagi organisasi tersebut.</p></div>
+          <div class="step-block"><h4>JUSTIFIKASI RELEVANSI</h4><p>Jelaskan MENGAPA tren ini relevan secara spesifik untuk organisasi pilihanmu — hindari analisis generik yang bisa berlaku untuk organisasi manapun.</p></div>
+          <div class="step-block"><h4>SUSUN ANALISIS TECHNOLOGY → THREAT → SCENARIO</h4><p>Ikuti pola dari materi: jelaskan teknologi pendorong, ancaman baru yang muncul, dan skenario serangan konkret yang realistis bagi organisasi tersebut.</p></div>
+          <div class="step-block"><h4>IDENTIFIKASI CHALLENGE &amp; DEFENSE STRATEGY</h4><p>Jelaskan tantangan keamanan spesifik dan strategi pertahanan yang applicable — hubungkan dengan minimal 2 konsep dari Module 01-14 (mis. Zero Trust, Risk Assessment, Defense in Depth).</p></div>
+          <div class="step-block"><h4>CARI 1 SUMBER KREDIBEL PENDUKUNG</h4><p>Sertakan minimal 1 sumber kredibel terkini (laporan vendor keamanan, advisory resmi, atau berita dari outlet terpercaya) yang mendukung analisis trenmu.</p></div>
+        </div>
 
-        <h3>Scenario</h3>
-        <p>Mahasiswa memilih satu current cybersecurity issue, misalnya: AI-assisted phishing, AI-generated social engineering, cloud misconfiguration, supply-chain attack, identity attack, atau deepfake.</p>
+        <div class="output-box"><h4>📋 EXPECTED OUTPUT — Trend Analysis Brief</h4><ul>
+          <li>Organisasi &amp; tren pilihan + justifikasi relevansi spesifik</li>
+          <li>Analisis lengkap: Technology → New Threat → Attack Scenario</li>
+          <li>Security Challenge &amp; Defense Strategy, terhubung ke minimal 2 konsep Module 01-14</li>
+          <li>Minimal 1 sumber kredibel pendukung (dengan tautan/sitasi)</li>
+          <li>Panjang: 400-600 kata, ringkas dan padat (brief, bukan esai panjang)</li>
+        </ul></div>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Situs resmi CISA (cisa.gov)</li><li>Situs resmi OWASP (owasp.org)</li><li>MITRE ATT&CK (attack.mitre.org)</li></ul>
-
-        <h3>Environment</h3>
-        <div class="callout warn">Aktivitas riset menggunakan sumber publik tepercaya — bukan forum tidak resmi atau sumber tidak dapat diverifikasi.</div>
-
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Pilih satu isu cybersecurity terkini dari daftar contoh yang diberikan.</li><li>Cari informasi dari minimal satu sumber tepercaya (CISA/OWASP/MITRE) tentang isu tersebut.</li><li>Jelaskan attack vector dari isu yang dipilih.</li><li>Jelaskan potensi impact bagi organisasi.</li><li>Berikan satu contoh kasus (nyata atau ilustratif) yang relevan.</li><li>Usulkan metode deteksi dan mitigasi.</li></ol>
-
-        <h3>Expected Output</h3>
-        <p>Threat Briefing berisi: Threat, Attack Vector, Impact, Example, Detection, Mitigation — merujuk sumber yang digunakan.</p>
-
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengapa isu yang kamu pilih semakin relevan dalam beberapa tahun terakhir?</li><li>Kontrol apa yang paling realistis diterapkan organisasi kecil untuk mengurangi risiko ini?</li></ul>
-
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Sumber tepercaya apa yang kamu gunakan, dan mengapa sumber tersebut dianggap kredibel?</li><li>Apa perbedaan mendasar antara ancaman ini dengan ancaman 'klasik' yang sudah dipelajari di minggu-minggu sebelumnya?</li></ol>
-
-        <h3>Assignment</h3>
-        <p>Kumpulkan Threat Briefing (1 halaman) sesuai struktur yang ditentukan, lengkap dengan referensi sumber.</p>
-
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> Satu isu terkini dipilih</label></li><li><label><input type="checkbox"> Sumber tepercaya dirujuk</label></li><li><label><input type="checkbox"> Attack vector & impact dijelaskan</label></li><li><label><input type="checkbox"> Detection & mitigation diusulkan</label></li></ul>
-
-        <button class="btn btn-primary" data-complete="week15:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Jika kamu harus meyakinkan manajemen organisasi pilihanmu untuk berinvestasi mengatasi tren ini, argumen bisnis (bukan hanya teknis) apa yang akan kamu gunakan?</li>
+          <li>Sumber apa yang akan kamu pantau secara berkala setelah lulus untuk tetap update terhadap tren serupa di masa depan?</li>
+        </ol>
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Organisasi dan tren dipilih dengan justifikasi relevansi yang spesifik (bukan generik)</label></li>
+          <li><label><input type="checkbox"> Pola Technology → Threat → Scenario → Challenge → Defense lengkap</label></li>
+          <li><label><input type="checkbox"> Terhubung eksplisit ke minimal 2 konsep dari Module 01-14</label></li>
+          <li><label><input type="checkbox"> Minimal 1 sumber kredibel dicantumkan</label></li>
+          <li><label><input type="checkbox"> Panjang brief sesuai (400-600 kata)</label></li>
+        </ul>
+        <div class="callout warn" style="margin-top:16px"><strong>📁 Portfolio Note:</strong> Trend Analysis Brief ini dapat dimasukkan sebagai bagian "Security Improvement Roadmap" pada Final Project Module 16 — menunjukkan kesadaran terhadap ancaman masa depan, bukan hanya kondisi saat ini.</div>
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week15:practice" data-complete-label="Practice Completed ✓">✓ Tandai Praktik Selesai</button>
       </div>
-
-      <div class="block" style="display:flex;justify-content:space-between">
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week15.html">← Kembali ke Materi Minggu 15</a>
+        <a class="btn btn-outline" href="../weeks/week16.html">Lanjut ke Minggu 16 (Final Project) →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -128,5 +129,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

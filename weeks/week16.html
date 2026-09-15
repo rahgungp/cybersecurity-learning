@@ -1,15 +1,108 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minggu 16 — Final Project & Security Assessment · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minggu 16 — Final Project &amp; Security Assessment · COM Cybersecurity Learning</title>
+<meta name="description" content="Final Project — Comprehensive Security Assessment: integrasi seluruh Module 01-15 menjadi satu laporan keamanan menyeluruh untuk University Smart Campus.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+/* === Shared Week Supplemental Styles (established in Week 01) === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
-</head>
-<body>
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-node.hl-warn{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
 
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.controls-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-blue{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.ctrl-gray{background:var(--locked-gray-soft);border-color:var(--locked-gray)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}.ctrl-blue h4{color:var(--learn-blue)}.ctrl-gray h4{color:var(--locked-gray)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+.ctrl-col p{font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-green{background:var(--signal-soft);color:var(--signal)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+.matrix-wrap{display:flex;justify-content:center;margin:14px 0}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .controls-4{grid-template-columns:1fr 1fr}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +122,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item current" data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item current" data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,32 +152,106 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">MODULE 16 · MINGGU KE-16</p>
-      <h1>Final Project & Security Assessment</h1>
-      <div class="meta-row">
-        <span class="pill">NIST</span><span class="pill">OWASP</span><span class="pill">MITRE ATT&CK</span>
-        <span class="pill">Output: Security Assessment Report</span>
+<div class="content">
+      <p class="eyebrow">MODULE 16 · MINGGU KE-16 · EVALUASI AKHIR SEMESTER</p>
+      <h1>Final Project &amp; Security Assessment</h1>
+      <div class="meta-row"><span class="pill">Cakupan: Module 01–15</span><span class="pill">Bobot: 30% Nilai Akhir</span>
+      <span class="pill">Format: Individual/Kelompok + Presentasi</span><span class="pill">Output: Comprehensive Security Assessment Report</span></div>
+
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">MENGINTEGRASIKAN</span>
+            <span style="font-size:.86rem;font-weight:600">SELURUH Module 01–15</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">CAPSTONE</span>
+            <span style="font-size:.86rem;font-weight:600">Akhir Mata Kuliah Keamanan Siber</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Final Project BUKAN tugas dari nol — ini adalah <strong>integrasi</strong> dari seluruh artefak yang telah dibangun mahasiswa sepanjang semester: Risk Register (Module 02), Attack Surface Map (03), Access Control Matrix (04), Cryptographic Analysis (05), Network Findings (06), Zero Trust Design (07), Web Security Assessment (09), Malware/IOC Analysis (10), Vulnerability Assessment (11), Incident Response Playbook (12), Attack-Chain Mapping (13), Digital Forensics Report (14), dan Trend Analysis Brief (15) — seluruhnya untuk organisasi <strong>University Smart Campus (UND)</strong> yang sama, mengikuti prinsip <em>"build once, reuse, extend."</em></p>
       </div>
 
       <div class="block" data-locked-unless="week16:material">
-        <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengintegrasikan seluruh materi Minggu 1–15 ke dalam satu security assessment menyeluruh terhadap sebuah sistem studi kasus.</li></ul>
+        <h2>🎯 Learning Objectives yang Diuji</h2>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi Terintegrasi</th><th>Module Sumber</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Menyusun Executive Summary yang dapat dipahami audiens non-teknis</td><td>Sintesis seluruh module</td></tr>
+            <tr><td>2</td><td>Mengonsolidasikan Asset Inventory, Attack Surface Map, dan Threat Model</td><td>Module 01–03</td></tr>
+            <tr><td>3</td><td>Menyajikan Vulnerability Assessment dan Risk Register yang koheren</td><td>Module 02, 11</td></tr>
+            <tr><td>4</td><td>Merancang Security Architecture terpadu (access control, network, Zero Trust)</td><td>Module 04, 06, 07</td></tr>
+            <tr><td>5</td><td>Menyajikan Threat Actor Analysis dan pemetaan ATT&amp;CK</td><td>Module 03, 13</td></tr>
+            <tr><td>6</td><td>Mengonsolidasikan Detection Strategy dan Incident Response Plan</td><td>Module 12</td></tr>
+            <tr><td>7</td><td>Menyajikan Forensic Findings sebagai bagian dari narasi insiden utuh</td><td>Module 14</td></tr>
+            <tr><td>8</td><td>Menyusun Security Improvement Roadmap yang realistis dan terprioritas</td><td>Sintesis + Module 15</td></tr>
+            <tr><td>9</td><td>Mempresentasikan temuan secara profesional kepada "manajemen"</td><td>Keterampilan komunikasi</td></tr>
+          </tbody>
+        </table>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>Tentang Final Project</h3><p>Final Project mengintegrasikan seluruh kompetensi yang telah dipelajari sepanjang semester — mulai dari identifikasi aset dan risiko, analisis ancaman, access control, kriptografi, keamanan jaringan dan aplikasi, hingga monitoring dan forensik — ke dalam satu Security Assessment Report menyeluruh terhadap sebuah sistem studi kasus, merujuk pada framework NIST, OWASP, dan MITRE ATT&CK.</p>
-        
-        
-        
-        
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">STRUKTUR LAPORAN</span>
+        <h2 style="margin-top:6px">Comprehensive Security Assessment Report</h2>
+        <div class="eco-flow">
+          <div class="eco-node hl">1. Executive Summary</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">2. Asset Inventory &amp; Attack Surface Map</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">3. Threat Model &amp; Threat Actor Analysis</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">4. Vulnerability Assessment</div><div class="eco-arrow">↓</div>
+          <div class="eco-node hl-warn">5. Risk Register</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">6. Security Architecture (Access Control, Network, Zero Trust)</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">7. ATT&amp;CK Mapping (Insiden Studi Kasus)</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">8. Detection Strategy &amp; Incident Response Plan</div><div class="eco-arrow">↓</div>
+          <div class="eco-node">9. Forensic Findings</div><div class="eco-arrow">↓</div>
+          <div class="eco-node hl">10. Security Improvement Roadmap</div>
+        </div>
+        <p style="font-size:.84rem">Struktur ini SENGAJA mengikuti urutan modul-modul semester — mahasiswa pada dasarnya menyusun ulang (compile) pekerjaan yang sudah mereka lakukan menjadi satu narasi profesional yang koheren, bukan mengerjakan riset baru dari nol.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">PRESENTASI</span>
+        <h2 style="margin-top:6px">Ketentuan Presentasi</h2>
+        <div class="controls-3">
+          <div class="ctrl-col ctrl-blue"><h4>⏱ DURASI</h4><p>10 menit presentasi + 5 menit tanya jawab per kelompok/individu</p></div>
+          <div class="ctrl-col ctrl-cor"><h4>🎯 FOKUS</h4><p>Executive Summary + 3 temuan paling kritis + Roadmap — BUKAN membacakan seluruh laporan</p></div>
+          <div class="ctrl-col ctrl-prev"><h4>👔 AUDIENS</h4><p>Diperlakukan sebagai presentasi ke "manajemen UND" — bahasa harus jelas bagi audiens non-teknis</p></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">GRADING RUBRIC</span>
+        <h2 style="margin-top:6px">Rubrik Penilaian</h2>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Komponen</th><th>Bobot</th><th>Kriteria</th></tr></thead>
+            <tbody>
+              <tr><td>Kelengkapan &amp; Integrasi Laporan</td><td>25%</td><td>Seluruh 10 bagian ada, konsisten satu sama lain (bukan potongan lepas)</td></tr>
+              <tr><td>Kedalaman Analisis Teknis</td><td>25%</td><td>Risk assessment, vulnerability, dan architecture analysis akurat dan berbasis konsep yang tepat</td></tr>
+              <tr><td>Security Reasoning &amp; Justifikasi</td><td>20%</td><td>Setiap rekomendasi disertai alasan, bukan sekadar daftar kontrol generik</td></tr>
+              <tr><td>Security Improvement Roadmap</td><td>15%</td><td>Realistis, terprioritas, mempertimbangkan keterbatasan anggaran UND</td></tr>
+              <tr><td>Presentasi &amp; Komunikasi</td><td>15%</td><td>Jelas, terstruktur, dapat dipahami audiens non-teknis, menjawab pertanyaan dengan baik</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="key-box">
+          <h4>PRINSIP PENILAIAN UTAMA</h4>
+          <ul>
+            <li>Konsistensi lintas-bagian lebih dihargai dibanding kelengkapan detail satu bagian yang terisolasi.</li>
+            <li>Roadmap yang realistis (mempertimbangkan anggaran &amp; SDM terbatas UND, seperti telah dibahas sepanjang semester) lebih dihargai dibanding daftar rekomendasi "ideal" tanpa konteks.</li>
+            <li>Kemampuan menjelaskan "mengapa" — bukan hanya "apa" — adalah pembeda nilai A dan B.</li>
+          </ul>
+        </div>
       </div>
 
-      
-    </div>
-  </div>
-</section>
-
+      <div class="block" style="background:var(--warn-amber-soft);border-color:var(--warn-amber)">
+        <h2 style="margin-bottom:6px">📋 BRIEF LENGKAP FINAL PROJECT</h2>
+        <p>Instruksi lengkap, template laporan, dan jadwal presentasi tersedia pada halaman Praktik — dibuka oleh dosen sesuai jadwal akhir semester.</p>
+        <a class="btn btn-primary" href="../practical/practical-16.html" data-practice-link>📋 BUKA BRIEF FINAL PROJECT</a>
+      </div>
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -104,5 +269,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

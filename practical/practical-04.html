@@ -3,10 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 04 — Authentication & Access Control · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
+<title>Praktik Minggu 04 — Authentication &amp; Access Control Analysis · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 04: merancang Access Control Matrix berbasis RBAC dan least privilege untuk University Smart Campus.">
 <link rel="stylesheet" href="../assets/css/style.css">
-
+<style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style>
 </head>
 <body>
 
@@ -29,29 +43,29 @@
     </div>
   </div>
 </nav>
+
 <section class="section" style="padding-top:36px">
   <div class="wrap detail-layout">
-    
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item current" data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item current" data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -62,51 +76,122 @@
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
     <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 04</p>
-      <h1>Authentication & Access Control</h1>
+
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 04 · MODULE 04</p>
+      <h1>Authentication &amp; Access Control Analysis</h1>
+      <div class="meta-row">
+        <span class="pill">⏱ 45–60 menit</span>
+        <span class="pill">Individual / Kelompok 2 orang</span>
+        <span class="pill">Output: Access Control Matrix</span>
+        <span class="pill">Skenario: University Smart Campus (lanjutan)</span>
+      </div>
 
       <div class="block" data-locked-unless="week04:practice">
-        
-        <h2 style="margin-top:0">🧪 Access Control Analysis</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Access-Control Analysis</span></div>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu menganalisis mekanisme authentication dan authorization pada sebuah sistem serta mengevaluasi kesesuaiannya dengan prinsip least privilege.</p>
+        <div class="callout">
+          <strong>📌 Hubungan dengan Materi:</strong> Praktik ini menerapkan AAA, MFA, RBAC/ABAC, dan Least Privilege dari Module 04 pada layanan-layanan yang telah ditemukan pada Attack Surface Map Module 03.
+        </div>
 
-        <h3>Scenario</h3>
-        <p>Sebuah aplikasi manajemen tugas kampus memiliki tiga jenis pengguna: Mahasiswa, Dosen, dan Admin Akademik. Saat ini seluruh pengguna login dengan password saja, dan seluruh dosen memiliki akses yang sama seperti admin akademik.</p>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu menganalisis mekanisme authentication yang ada, merancang Access Control Matrix berbasis RBAC dan least privilege, serta merekomendasikan penerapan MFA yang tepat sasaran untuk University Smart Campus.</p>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Worksheet access-control (disediakan)</li></ul>
+        <div class="scenario-box">
+          <h4>🏫 Kelanjutan Skenario: Universitas Nusantara Digital (UND)</h4>
+          <p style="font-size:.86rem;margin-bottom:8px">Kondisi akses saat ini di UND (temuan dari Module 03 &amp; 04):</p>
+          <div style="overflow-x:auto">
+            <table class="tbl" style="margin:0">
+              <thead><tr><th>Sistem</th><th>Autentikasi Saat Ini</th><th>Masalah Akses</th></tr></thead>
+              <tbody>
+                <tr><td>SIAKAD</td><td>Password only</td><td>Semua dosen punya akses ubah nilai SEMUA mata kuliah</td></tr>
+                <tr><td>Admin SIAKAD</td><td>Password only, 4 tahun tidak diganti</td><td>Akses penuh tanpa audit log</td></tr>
+                <tr><td>LMS</td><td>Password only</td><td>Mahasiswa dapat melihat draf soal ujian dosen lain (misconfigured permission)</td></tr>
+                <tr><td>VPN Dosen</td><td>Password only</td><td>Semua dosen dapat akses VPN meski tidak sedang WFH</td></tr>
+                <tr><td>Cloud Storage (Google Workspace)</td><td>SSO Google, tanpa MFA wajib</td><td>Beberapa akun staf punya akses admin workspace tanpa perlu</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Analisis berbasis skenario tertulis, tidak memerlukan akses sistem nyata.</div>
+        <div class="step-counter-reset">
 
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Identifikasi siapa saja user dan apa role masing-masing.</li><li>Identifikasi resource yang perlu dilindungi (misal: nilai, jadwal, data pribadi).</li><li>Tentukan permission yang seharusnya dimiliki tiap role berdasarkan least privilege.</li><li>Evaluasi mekanisme authentication saat ini dan usulkan perbaikan (misal MFA).</li><li>Evaluasi mekanisme authorization saat ini dan usulkan perbaikan (misal RBAC).</li></ol>
+          <div class="step-block">
+            <h4>IDENTIFIKASI USER &amp; ROLE</h4>
+            <p>Daftar seluruh jenis pengguna UND (Mahasiswa, Dosen, Admin Akademik, IT Staff, Vendor) dan resource yang mereka butuhkan akses.</p>
+          </div>
 
-        <h3>Expected Output</h3>
-        <p>Tabel role-permission (RBAC matrix sederhana) dan rekomendasi perbaikan authentication & authorization.</p>
+          <div class="step-block">
+            <h4>EVALUASI AUTHENTICATION SAAT INI</h4>
+            <p>Untuk setiap sistem pada tabel skenario, evaluasi kekuatan mekanisme autentikasi saat ini (Low/Medium/High) dan jelaskan mengapa.</p>
+          </div>
 
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Risiko apa yang muncul karena dosen memiliki akses setara admin akademik?</li><li>Apakah MFA perlu diterapkan untuk semua role, atau cukup role tertentu? Jelaskan.</li></ul>
+          <div class="step-block">
+            <h4>RANCANG ACCESS CONTROL MATRIX (RBAC + LEAST PRIVILEGE)</h4>
+            <p>Untuk setiap role, tentukan permission yang SEHARUSNYA dimiliki (bukan kondisi saat ini) berdasarkan least privilege.</p>
+            <div class="template-block">
+<span class="tpl-label">TEMPLATE — ACCESS CONTROL MATRIX</span>
+Role          | Resource            | Permission (SEHARUSNYA)
+--------------|----------------------|---------------------------------------
+Dosen         | Nilai Mahasiswa      | Read/Write, HANYA kelas yang diampu
+Mahasiswa     | Nilai Sendiri        | Read only
+Admin Akademik| Seluruh Data SIAKAD  | Read/Write + wajib audit log
+...           | ...                  | ...
+            </div>
+          </div>
 
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Berikan satu contoh authorization yang salah meskipun authentication berhasil.</li><li>Apa risiko keamanan jika least privilege tidak diterapkan pada sistem ini?</li></ol>
+          <div class="step-block">
+            <h4>REKOMENDASI MFA</h4>
+            <p>Tentukan sistem/role mana yang WAJIB menggunakan MFA, mana yang opsional, dan justifikasi berdasarkan sensitivitas resource yang diakses.</p>
+          </div>
 
-        <h3>Assignment</h3>
-        <p>Susun Access-Control Analysis Report berisi RBAC matrix dan rekomendasi authentication/authorization.</p>
+          <div class="step-block">
+            <h4>REKOMENDASI SESSION &amp; PASSWORD POLICY</h4>
+            <p>Susun rekomendasi kebijakan: masa berlaku session, kebijakan rotasi password untuk akun privileged, dan mekanisme audit log (Accounting) untuk akun admin.</p>
+          </div>
 
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> User & role teridentifikasi</label></li><li><label><input type="checkbox"> RBAC matrix dibuat</label></li><li><label><input type="checkbox"> Rekomendasi authentication disertakan</label></li><li><label><input type="checkbox"> Rekomendasi authorization disertakan</label></li></ul>
+        </div>
 
-        <button class="btn btn-primary" data-complete="week04:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
+        <div class="output-box">
+          <h4>📋 EXPECTED OUTPUT — Access Control Matrix (UND)</h4>
+          <ul>
+            <li>Daftar User/Role dan resource yang dibutuhkan (min. 5 role)</li>
+            <li>Evaluasi kekuatan authentication saat ini per sistem (5 sistem)</li>
+            <li>Access Control Matrix lengkap berbasis least privilege (min. 8 baris)</li>
+            <li>Rekomendasi MFA per sistem/role beserta justifikasi</li>
+            <li>Rekomendasi session &amp; password policy</li>
+          </ul>
+        </div>
+
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Sistem mana di UND yang paling mendesak menerapkan MFA, dan mana yang bisa menyusul kemudian? Jelaskan alasan prioritas.</li>
+          <li>Bagaimana kondisi "akses admin tanpa audit log" pada SIAKAD memperbesar risiko yang sudah teridentifikasi di Risk Register Module 02?</li>
+          <li>Apa tantangan praktis (non-teknis) yang mungkin dihadapi UND saat menerapkan access control matrix yang lebih ketat kepada dosen yang sudah terbiasa dengan akses bebas?</li>
+        </ol>
+
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Seluruh role dan resource UND teridentifikasi</label></li>
+          <li><label><input type="checkbox"> Evaluasi authentication saat ini untuk 5 sistem selesai</label></li>
+          <li><label><input type="checkbox"> Access Control Matrix mengikuti prinsip least privilege (bukan kondisi saat ini)</label></li>
+          <li><label><input type="checkbox"> Rekomendasi MFA diberikan dengan justifikasi prioritas</label></li>
+          <li><label><input type="checkbox"> Rekomendasi session &amp; password policy disertakan</label></li>
+        </ul>
+
+        <div class="callout warn" style="margin-top:16px">
+          <strong>📁 Portfolio Note:</strong> Access Control Matrix ini menjadi rujukan saat membahas Zero Trust Architecture pada Module 07, dan akan diuji kembali pada UTS (Module 08).
+        </div>
+
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week04:practice" data-complete-label="Practice Completed ✓">
+          ✓ Tandai Praktik Selesai
+        </button>
+
       </div>
 
-      <div class="block" style="display:flex;justify-content:space-between">
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week04.html">← Kembali ke Materi Minggu 04</a>
+        <a class="btn btn-outline" href="../weeks/week05.html">Lanjut ke Minggu 05 →</a>
       </div>
+
     </div>
   </div>
 </section>

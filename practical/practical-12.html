@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 12 — Security Monitoring & Incident Response · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praktik Minggu 12 — Log Analysis / IR Simulation · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 12: analisis log dan penyusunan Incident Response Playbook untuk skenario University Smart Campus.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item current" data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item current" data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,56 +65,66 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 12</p>
-      <h1>Security Monitoring & Incident Response</h1>
-
+<div class="content">
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 12 · MODULE 12</p>
+      <h1>Log Analysis / Incident Response Simulation</h1>
+      <div class="meta-row"><span class="pill">⏱ 50–60 menit</span><span class="pill">Individual / Kelompok 2</span>
+      <span class="pill">Output: Incident Response Playbook</span><span class="pill">Skenario: University Smart Campus</span></div>
       <div class="block" data-locked-unless="week12:practice">
-        
-        <h2 style="margin-top:0">🧪 Security Log Analysis</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Log Analysis</span></div>
+        <div class="callout"><strong>📌 Hubungan dengan Materi:</strong> Praktik ini menerapkan log analysis dan NIST SP 800-61 Lifecycle dari Module 12 pada skenario insiden UND.</div>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu menganalisis sample log, mengonfirmasi indikasi insiden, dan menyusun Incident Response Playbook lengkap.</p>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu menganalisis sample log keamanan dan menentukan severity serta tindakan yang direkomendasikan mengikuti alur SOC workflow.</p>
+        <div class="scenario-box"><h4>🖥️ Dataset: Log VPN &amp; SIAKAD UND</h4>
+        <div style="overflow-x:auto"><table class="tbl" style="margin:0">
+          <thead><tr><th>Timestamp</th><th>Event</th><th>User</th><th>Source IP</th></tr></thead>
+          <tbody>
+            <tr><td>03:02:11</td><td>VPN LOGIN SUCCESS</td><td>dosen.budi</td><td>178.20.55.101 (luar negeri)</td></tr>
+            <tr><td>03:03:40</td><td>SIAKAD LOGIN SUCCESS (via VPN)</td><td>admin</td><td>10.0.0.5 (internal, via VPN)</td></tr>
+            <tr><td>03:05:02</td><td>SIAKAD — UPDATE grade table (x50)</td><td>admin</td><td>10.0.0.5</td></tr>
+            <tr><td>03:12:18</td><td>SIAKAD — EXPORT full student data</td><td>admin</td><td>10.0.0.5</td></tr>
+            <tr><td>08:45:00</td><td>dosen.budi melaporkan tidak pernah login pukul 3 pagi</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table></div></div>
 
-        <h3>Scenario</h3>
-        <p>Mahasiswa diberikan kumpulan sample log autentikasi seperti berikut:<br><br>2026-09-14 09:20:11 FAILED LOGIN user=admin source=192.168.1.50<br>2026-09-14 09:20:13 FAILED LOGIN user=admin source=192.168.1.50<br>2026-09-14 09:20:15 FAILED LOGIN user=admin source=192.168.1.50<br>2026-09-14 09:21:02 SUCCESSFUL LOGIN user=admin source=192.168.1.50<br>2026-09-14 14:05:40 SUCCESSFUL LOGIN user=budi.santoso source=10.0.0.22</p>
+        <div class="step-counter-reset">
+          <div class="step-block"><h4>DETECTION &amp; ANALYSIS</h4><p>Analisis kelima baris log. Apa indikasi bahwa ini adalah insiden nyata, bukan aktivitas sah? Tentukan scope insiden (sistem/data apa saja yang terdampak).</p></div>
+          <div class="step-block"><h4>SEVERITY CLASSIFICATION</h4><p>Tentukan severity insiden ini (Low/Medium/High/Critical) dengan justifikasi berdasarkan scope dan sensitivitas data yang terdampak.</p></div>
+          <div class="step-block"><h4>CONTAINMENT PLAN</h4><p>Susun langkah containment segera — ingat untuk TIDAK merusak bukti forensik (Module 14) dalam prosesnya.</p></div>
+          <div class="step-block"><h4>ERADICATION &amp; RECOVERY PLAN</h4><p>Susun langkah eradication (menghilangkan akses tidak sah) dan recovery (memulihkan layanan dengan aman).</p></div>
+          <div class="step-block"><h4>LESSONS LEARNED</h4><p>Identifikasi minimal 2 perbaikan kontrol preventif yang akan mencegah insiden serupa (hubungkan dengan Module 04: MFA, least privilege).</p></div>
+        </div>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Worksheet log analysis (disediakan)</li></ul>
+        <div class="output-box"><h4>📋 EXPECTED OUTPUT — Incident Response Playbook</h4><ul>
+          <li>Ringkasan Detection &amp; Analysis (scope insiden, evidence pendukung)</li>
+          <li>Severity classification + justifikasi</li>
+          <li>Containment Plan (langkah konkret, tanpa merusak bukti)</li>
+          <li>Eradication &amp; Recovery Plan</li>
+          <li>Minimal 2 Lessons Learned / rekomendasi perbaikan preventif</li>
+        </ul></div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Sample log simulasi — bukan log sistem produksi nyata.</div>
-
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Untuk setiap baris log, catat event, source, target (user), dan timestamp.</li><li>Tentukan severity tiap event (Low/Medium/High).</li><li>Identifikasi pola yang berpotensi menjadi threat (misal percobaan login berulang diikuti keberhasilan).</li><li>Tentukan tahap SOC workflow yang sesuai untuk pola tersebut (Triage/Investigation/Containment/dst).</li><li>Usulkan recommended action untuk pola yang mencurigakan.</li></ol>
-
-        <h3>Expected Output</h3>
-        <p>Tabel log analysis: Event, Source, Target, Timestamp, Severity, Possible Threat, Recommended Action.</p>
-
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengapa 3 failed login diikuti 1 successful login lebih mencurigakan dibanding 1 failed login saja?</li><li>Tahap SOC workflow mana yang paling penting dilakukan sebelum mengambil tindakan containment?</li></ul>
-
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Apa perbedaan antara event dan alert dalam konteks monitoring?</li><li>Mengapa dokumentasi (lessons learned) penting meskipun insiden sudah selesai ditangani?</li></ol>
-
-        <h3>Assignment</h3>
-        <p>Susun Log Analysis Report berdasarkan sample log di atas, lengkap dengan severity dan recommended action.</p>
-
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> Semua baris log dianalisis</label></li><li><label><input type="checkbox"> Severity ditentukan</label></li><li><label><input type="checkbox"> Pola mencurigakan diidentifikasi</label></li><li><label><input type="checkbox"> Recommended action diberikan</label></li></ul>
-
-        <button class="btn btn-primary" data-complete="week12:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Mengapa kredensial dosen.budi yang digunakan, padahal aktivitas mencurigakan (export data, ubah nilai) dilakukan atas nama akun "admin"?</li>
+          <li>Bagaimana kombinasi log VPN dan log SIAKAD (event correlation) membantu mengonfirmasi insiden ini dibanding hanya melihat salah satunya?</li>
+          <li>Apakah insiden ini perlu dilaporkan ke pihak eksternal (mis. mahasiswa yang datanya terdampak)? Pertimbangan apa yang relevan?</li>
+        </ol>
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Analisis Detection & Analysis lengkap dengan scope insiden</label></li>
+          <li><label><input type="checkbox"> Severity ditentukan dengan justifikasi</label></li>
+          <li><label><input type="checkbox"> Containment plan tidak merusak bukti forensik</label></li>
+          <li><label><input type="checkbox"> Eradication & Recovery plan jelas dan realistis</label></li>
+          <li><label><input type="checkbox"> Minimal 2 Lessons Learned diberikan</label></li>
+        </ul>
+        <div class="callout warn" style="margin-top:16px"><strong>📁 Portfolio Note:</strong> Insiden ini akan diinvestigasi lebih dalam menggunakan teknik digital forensics pada Module 14, dan TTP yang teridentifikasi akan dipetakan ke MITRE ATT&amp;CK pada Module 13.</div>
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week12:practice" data-complete-label="Practice Completed ✓">✓ Tandai Praktik Selesai</button>
       </div>
-
-      <div class="block" style="display:flex;justify-content:space-between">
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week12.html">← Kembali ke Materi Minggu 12</a>
+        <a class="btn btn-outline" href="../weeks/week13.html">Lanjut ke Minggu 13 →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -128,5 +142,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

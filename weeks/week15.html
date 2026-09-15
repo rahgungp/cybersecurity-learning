@@ -1,15 +1,121 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minggu 15 — Current Cybersecurity Trends · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
+<meta name="description" content="Module 15: AI-powered attacks/deepfake, evolusi ransomware, cloud-native/container security, API security, dan post-quantum cryptography.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+/* === Shared Week Supplemental Styles (established in Week 01) === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
-</head>
-<body>
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-node.hl-warn{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
 
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.controls-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-blue{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.ctrl-gray{background:var(--locked-gray-soft);border-color:var(--locked-gray)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}.ctrl-blue h4{color:var(--learn-blue)}.ctrl-gray h4{color:var(--locked-gray)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+.ctrl-col p{font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-green{background:var(--signal-soft);color:var(--signal)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+.matrix-wrap{display:flex;justify-content:center;margin:14px 0}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .controls-4{grid-template-columns:1fr 1fr}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style>
+<style>
+.trend-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:18px;background:var(--paper-raised)}
+.trend-head{padding:14px 18px;background:var(--pine-800);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.trend-head .t-icon{font-size:1.3rem}
+.trend-head strong{color:#fff;font-size:.98rem}
+.trend-head span.t-tag{font-family:var(--font-mono);font-size:.66rem;background:rgba(255,255,255,.15);color:#BFEFDA;padding:2px 8px;border-radius:999px}
+.trend-body{padding:16px 18px}
+.trend-row{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:.85rem}
+.trend-row:last-child{border-bottom:none}
+.trend-row .t-label{font-family:var(--font-mono);font-size:.68rem;color:var(--pine-600);font-weight:600;text-transform:uppercase;padding-top:2px}
+@media(max-width:640px){.trend-row{grid-template-columns:1fr}}
+</style>
+</head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +135,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item current" data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item current" data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,37 +165,182 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">MODULE 15 · MINGGU KE-15</p>
+<div class="content">
+      <p class="eyebrow">MODULE 15 · MINGGU KE-15 · LEVEL: UNDERSTAND / EVALUATE</p>
       <h1>Current Cybersecurity Trends</h1>
-      <div class="meta-row">
-        <span class="pill">CISA</span><span class="pill">OWASP</span><span class="pill">MITRE</span>
-        <span class="pill">Output: Current Threat Briefing</span>
+      <div class="meta-row"><span class="pill">AI Threats</span><span class="pill">Cloud-Native Security</span>
+      <span class="pill">Post-Quantum Crypto</span><span class="pill">Output: Trend Analysis Brief</span></div>
+
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">PRASYARAT</span>
+            <span style="font-size:.86rem;font-weight:600">Seluruh Module 01–14</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">NEXT MODULE →</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 16 — Final Project &amp; Security Assessment</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Module 01 menekankan bahwa <em>cybersecurity landscape terus berubah</em> — Module 15 kembali ke tema ini di akhir semester, kali ini menguji kemampuan mahasiswa menerapkan SELURUH kerangka analisis yang telah dipelajari (CIA, risk, attack surface, Zero Trust) pada ancaman yang bahkan belum ada saat semester dimulai. Ini persiapan mental menuju Final Project: cybersecurity bukan pengetahuan statis, melainkan kemampuan analisis yang terus relevan.</p>
       </div>
 
       <div class="block" data-locked-unless="week15:material">
         <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengenal tren ancaman siber terkini: AI-assisted attacks, cloud security, supply-chain attacks.</li><li>Menjelaskan risiko deepfake dan identity attack dalam konteks keamanan modern.</li><li>Menggunakan sumber tepercaya (CISA, OWASP, MITRE) untuk riset ancaman terkini.</li><li>Menyusun threat briefing terstruktur tentang satu isu cybersecurity terkini.</li></ul>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi</th><th>Bloom's Level</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Menjelaskan bagaimana AI generatif dimanfaatkan untuk serangan (deepfake, phishing otomatis)</td><td>Understand</td></tr>
+            <tr><td>2</td><td>Menganalisis evolusi model bisnis ransomware (double/triple extortion, RaaS)</td><td>Analyze</td></tr>
+            <tr><td>3</td><td>Menjelaskan tantangan keamanan spesifik cloud-native (container, Kubernetes)</td><td>Understand</td></tr>
+            <tr><td>4</td><td>Menjelaskan urgensi API security pada ekosistem aplikasi modern</td><td>Understand</td></tr>
+            <tr><td>5</td><td>Menjelaskan konsep dasar ancaman kriptografi pasca-quantum</td><td>Understand</td></tr>
+            <tr><td>6</td><td>Mengevaluasi tren mana yang paling relevan bagi konteks organisasi tertentu</td><td>Evaluate</td></tr>
+          </tbody>
+        </table>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>AI-Assisted Attacks & AI Security</h3><p>Kecerdasan buatan kini digunakan penyerang untuk membuat email phishing yang lebih meyakinkan, menghasilkan kode berbahaya lebih cepat, atau melakukan social engineering yang dipersonalisasi dalam skala besar. Di sisi lain, AI security juga membahas risiko terhadap sistem AI itu sendiri, seperti prompt injection atau data poisoning.</p><h3>Cloud & Supply-Chain Risks</h3><p>Cloud misconfiguration — seperti bucket penyimpanan yang salah diatur menjadi publik — tetap menjadi salah satu penyebab kebocoran data paling umum. Supply-chain attack menargetkan vendor atau komponen pihak ketiga yang dipercaya oleh banyak organisasi sekaligus, sehingga satu kompromi dapat berdampak luas ke seluruh pengguna komponen tersebut.</p><h3>Identity Attack & Deepfake</h3><p>Identity attack berfokus pada pencurian atau penyalahgunaan identitas digital, termasuk kredensial dan sesi login. Deepfake — konten audio/video yang dihasilkan AI untuk meniru seseorang — mulai dimanfaatkan dalam social engineering tingkat lanjut, misalnya memalsukan suara pimpinan perusahaan untuk meminta transfer dana mendesak.</p>
-        <div class="diagram"><svg viewBox="0 0 502 156" width="100%" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="85.0" y="33.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">AI-assisted</text><text x="85.0" y="47.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Phishing</text><rect x="176" y="10" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="251.0" y="33.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Cloud</text><text x="251.0" y="47.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Misconfiguration</text><rect x="342" y="10" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="417.0" y="33.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Supply-chain</text><text x="417.0" y="47.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Attack</text><rect x="10" y="86" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="85.0" y="116.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Identity Attack</text><rect x="176" y="86" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="251.0" y="109.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Deepfake Social</text><text x="251.0" y="123.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Engineering</text><rect x="342" y="86" width="150" height="60" rx="8" fill="none" stroke="var(--learn-blue)" stroke-width="2"/><text x="417.0" y="109.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Ransomware</text><text x="417.0" y="123.0" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--ink)">Evolution</text></svg></div>
-        <h3>Example</h3><p>Sebuah tim keuangan menerima panggilan video singkat yang tampak seperti CEO perusahaan, meminta transfer dana mendesak ke rekening baru — belakangan diketahui suara dan wajah tersebut adalah hasil deepfake, sebuah bentuk identity attack berbasis AI yang semakin sulit dibedakan dari aslinya.</p>
-        <h3>Case Study</h3><p>Sebuah organisasi mengalami kebocoran data setelah salah satu vendor pihak ketiga yang mengelola library open-source yang mereka gunakan disusupi oleh penyerang, yang menyisipkan kode berbahaya ke dalam update resmi library tersebut — sebuah contoh nyata supply-chain attack yang berdampak ke seluruh pengguna library itu, bukan hanya organisasi vendor itu sendiri.</p>
-        <h3>Key Takeaways</h3><ul style="list-style:disc;margin-left:20px"><li>AI mengubah skala dan kualitas serangan social engineering serta phishing.</li><li>Cloud misconfiguration dan supply-chain attack menjadi ancaman dengan dampak luas.</li><li>Deepfake memperkuat efektivitas identity attack dan social engineering tingkat lanjut.</li><li>Riset ancaman terkini sebaiknya merujuk sumber tepercaya seperti CISA, OWASP, dan MITRE.</li></ul>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <p style="font-size:.85rem">Setiap tren berikut disusun dengan pola: <strong>Teknologi Pendorong → Ancaman Baru → Skenario Serangan → Tantangan Keamanan → Strategi Pertahanan</strong> — memungkinkan analisis cepat terhadap ancaman yang terus bermunculan setelah mata kuliah ini berakhir.</p>
+
+        <div class="trend-card">
+          <div class="trend-head"><span class="t-icon">🤖</span><strong>AI-Powered Attacks &amp; Deepfake</strong><span class="t-tag">SOCIAL ENGINEERING EVOLUTION</span></div>
+          <div class="trend-body">
+            <div class="trend-row"><span class="t-label">Teknologi</span><span>AI generatif (voice cloning, text-to-video, LLM) yang semakin mudah diakses publik</span></div>
+            <div class="trend-row"><span class="t-label">Ancaman Baru</span><span>Deepfake suara/video untuk impersonasi eksekutif; phishing email yang dipersonalisasi otomatis dan bebas typo (sulit dideteksi cara tradisional)</span></div>
+            <div class="trend-row"><span class="t-label">Skenario Serangan</span><span>Staf keuangan menerima "panggilan video" dari CEO (deepfake) yang meminta transfer dana mendesak ke rekening baru</span></div>
+            <div class="trend-row"><span class="t-label">Tantangan Keamanan</span><span>Kontrol awareness tradisional ("kenali ciri phishing") makin tidak memadai karena AI menghilangkan tanda-tanda klasik</span></div>
+            <div class="trend-row"><span class="t-label">Strategi Pertahanan</span><span>Verifikasi out-of-band untuk transaksi kritis (mis. telepon balik ke nomor terverifikasi), kebijakan dual-approval untuk transfer besar — bukan hanya mengandalkan "mengenali" media palsu</span></div>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-head"><span class="t-icon">💰</span><strong>Evolusi Ransomware — Double/Triple Extortion</strong><span class="t-tag">BUSINESS MODEL SHIFT</span></div>
+          <div class="trend-body">
+            <div class="trend-row"><span class="t-label">Teknologi</span><span>Ransomware-as-a-Service (RaaS) — infrastruktur disewakan ke afiliasi (lih. pola Emotet, Module 10)</span></div>
+            <div class="trend-row"><span class="t-label">Ancaman Baru</span><span>Double extortion (enkripsi + ancam bocorkan data), triple extortion (+ DDoS atau kontak langsung ke pelanggan korban)</span></div>
+            <div class="trend-row"><span class="t-label">Skenario Serangan</span><span>Data dicuri sebelum dienkripsi; jika korban menolak bayar (karena punya backup, Module 02), attacker tetap mengancam bocorkan data ke publik</span></div>
+            <div class="trend-row"><span class="t-label">Tantangan Keamanan</span><span>Backup saja (mitigasi tradisional terhadap ransomware) tidak lagi cukup karena fokus bergeser ke pencegahan eksfiltrasi data</span></div>
+            <div class="trend-row"><span class="t-label">Strategi Pertahanan</span><span>Deteksi eksfiltrasi data (DLP, monitoring traffic keluar — Module 12), bukan hanya backup; segmentasi ketat membatasi data yang dapat dicuri sekaligus</span></div>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-head"><span class="t-icon">☁️</span><strong>Cloud-Native &amp; Container/Kubernetes Security</strong><span class="t-tag">INFRASTRUCTURE SHIFT</span></div>
+          <div class="trend-body">
+            <div class="trend-row"><span class="t-label">Teknologi</span><span>Container (Docker), orkestrasi (Kubernetes), infrastructure-as-code — arsitektur aplikasi modern yang sangat dinamis</span></div>
+            <div class="trend-row"><span class="t-label">Ancaman Baru</span><span>Container image dengan vulnerability tersembunyi, Kubernetes API server misconfigured terekspos publik, "noisy neighbor" antar-container</span></div>
+            <div class="trend-row"><span class="t-label">Skenario Serangan</span><span>Image container dari registry publik yang tidak diverifikasi mengandung malware tersembunyi (mirip supply-chain compromise, Module 03)</span></div>
+            <div class="trend-row"><span class="t-label">Tantangan Keamanan</span><span>Attack surface (Module 03) berubah dalam hitungan menit — kontrol keamanan tradisional yang statis tidak dapat mengikuti kecepatan ini</span></div>
+            <div class="trend-row"><span class="t-label">Strategi Pertahanan</span><span>Image scanning otomatis di pipeline CI/CD (shift-left, Module 09), microsegmentation (Module 07) di level container, least privilege pada service account</span></div>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-head"><span class="t-icon">🔌</span><strong>API Security</strong><span class="t-tag">EXPANDING ATTACK SURFACE</span></div>
+          <div class="trend-body">
+            <div class="trend-row"><span class="t-label">Teknologi</span><span>Aplikasi modern terdiri dari ratusan/ribuan API — mobile app, microservices, integrasi pihak ketiga</span></div>
+            <div class="trend-row"><span class="t-label">Ancaman Baru</span><span>"Shadow API" (API tidak terdokumentasi/tidak dipantau, lih. shadow IT Module 03), Broken Object Level Authorization (BOLA)</span></div>
+            <div class="trend-row"><span class="t-label">Skenario Serangan</span><span>API internal yang dibuat untuk kebutuhan sementara tim developer tetap aktif dan terekspos tanpa autentikasi memadai (mirip subdomain lama, Module 03)</span></div>
+            <div class="trend-row"><span class="t-label">Tantangan Keamanan</span><span>Inventory API yang lengkap sulit dijaga karena kecepatan pengembangan modern (banyak tim, banyak service)</span></div>
+            <div class="trend-row"><span class="t-label">Strategi Pertahanan</span><span>API discovery otomatis dan berkelanjutan (ASM, Module 03), OWASP API Security Top 10 (Module 09) sebagai checklist wajib sebelum rilis</span></div>
+          </div>
+        </div>
+
+        <div class="trend-card">
+          <div class="trend-head"><span class="t-icon">🔮</span><strong>Post-Quantum Cryptography</strong><span class="t-tag">CRYPTOGRAPHIC HORIZON</span></div>
+          <div class="trend-body">
+            <div class="trend-row"><span class="t-label">Teknologi</span><span>Komputer quantum yang secara teoretis dapat memecahkan algoritma asymmetric klasik (RSA, ECC — Module 05) jauh lebih cepat</span></div>
+            <div class="trend-row"><span class="t-label">Ancaman Baru</span><span>"Harvest now, decrypt later" — attacker mengumpulkan data terenkripsi SEKARANG untuk didekripsi begitu komputer quantum cukup kuat di masa depan</span></div>
+            <div class="trend-row"><span class="t-label">Skenario Serangan</span><span>Data sensitif jangka panjang (rahasia negara, rekam medis) yang dicuri hari ini tetap berharga untuk didekripsi 10-15 tahun mendatang</span></div>
+            <div class="trend-row"><span class="t-label">Tantangan Keamanan</span><span>Migrasi kriptografi pada skala besar memerlukan waktu bertahun-tahun — organisasi harus mulai bersiap SEBELUM ancaman benar-benar matang</span></div>
+            <div class="trend-row"><span class="t-label">Strategi Pertahanan</span><span>NIST telah menstandarkan algoritma Post-Quantum Cryptography (PQC) sejak 2024; organisasi dengan data sensitif jangka panjang mulai memetakan rencana migrasi PKI (Module 05)</span></div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <span class="section-label">CASE ANCHOR</span>
+        <h2 style="margin-top:6px">Real-World Case Studies</h2>
+        <div class="case-card">
+          <div class="case-head"><span class="case-tag case-red">CASE 01 · AI VOICE CLONING FRAUD</span><strong style="font-size:.92rem">Deepfake CEO Fraud — Perusahaan Energi Inggris (2019)</strong></div>
+          <div class="case-body">
+            <p>Menurut laporan yang dipublikasikan Wall Street Journal, CEO sebuah perusahaan energi berbasis Inggris ditipu oleh penyerang yang menggunakan teknologi AI voice cloning untuk meniru suara CEO perusahaan induk asal Jerman, meminta transfer dana darurat senilai €220.000 (~$243.000) ke rekening yang ternyata milik penyerang. Suara yang ditiru terdengar sangat meyakinkan, lengkap dengan aksen dan pola bicara khas targetnya.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">TEKNIK</span><p>AI voice cloning menggabungkan social engineering klasik (urgency, otoritas) dengan teknologi baru</p></div>
+              <div class="ca-item"><span class="ca-key">GAP KONTROL</span><p>Tidak ada verifikasi out-of-band untuk transfer dana darurat</p></div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Lesson Learned:</strong> Kontrol proses (dual-approval, verifikasi out-of-band) menjadi jauh lebih penting dibanding mengandalkan kemampuan manusia "mengenali" suara/wajah palsu, yang akan terus meningkat kualitasnya.</div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-head"><span class="case-tag case-amber">CASE 02 · SUPPLY-CHAIN MASS EXPLOITATION</span><strong style="font-size:.92rem">MOVEit / Cl0p (2023) — CVE-2023-34362</strong></div>
+          <div class="case-body">
+            <p>Kelompok ransomware Cl0p mengeksploitasi kerentanan zero-day pada software transfer file MOVEit (CVE-2023-34362) secara massal, memengaruhi ratusan organisasi di seluruh dunia — dari agensi pemerintah hingga perusahaan Fortune 500 — dalam satu kampanye tunggal, menunjukkan bagaimana satu kerentanan pada software yang digunakan luas dapat memiliki dampak berantai skala global.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">POLA</span><p>Satu vulnerability pada software pihak ketiga = ratusan organisasi terdampak sekaligus</p></div>
+              <div class="ca-item"><span class="ca-key">EVOLUSI TAKTIK</span><p>Fokus pada eksfiltrasi data massal, bukan enkripsi individual per korban — efisiensi skala</p></div>
+            </div>
+            <div class="callout warn" style="margin-top:10px"><strong>Lesson Learned:</strong> Supply-chain risk (Module 03) terus menjadi vektor favorit karena efisiensi serangan — satu vulnerability, ratusan korban sekaligus.</div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>🔍 Think Like a Security Analyst</h2>
+        <div class="callout" style="margin-bottom:14px"><strong>Skenario:</strong> UND mempertimbangkan migrasi SIAKAD ke arsitektur cloud-native berbasis container tahun depan, dan tim rektorat mendengar tentang "ancaman AI" dari berita namun belum yakin relevansinya bagi kampus.</div>
+        <div class="analyst-box">
+          <h4>💡 Pertanyaan Analisis — Trends UND</h4>
+          <details><summary>1. Dari kelima tren di atas, mana yang PALING relevan untuk UND dalam 1-2 tahun ke depan, dan mengapa?</summary><div class="analyst-answer">Cloud-native/Container security — karena UND berencana migrasi SIAKAD ke arsitektur ini, menjadikannya relevansi langsung dan mendesak, dibanding post-quantum crypto yang horizonnya lebih jauh (10-15 tahun).</div></details>
+          <details><summary>2. Bagaimana ancaman AI-powered social engineering dapat dijelaskan secara konkret dan relevan ke rektorat (bukan sekadar "berita AI")?</summary><div class="analyst-answer">Berikan skenario spesifik: staf keuangan UND bisa menerima telepon "suara Rektor" (AI voice cloning) meminta transfer dana mendesak — kontrol sederhana seperti kebijakan "selalu verifikasi ulang lewat kanal resmi untuk transfer di atas nominal tertentu" jauh lebih actionable dibanding sekadar "waspada AI".</div></details>
+          <details><summary>3. Prinsip dasar mana dari Module 01–14 yang TETAP RELEVAN untuk menghadapi tren manapun di masa depan, bahkan yang belum ada saat ini?</summary><div class="analyst-answer">Risk-based thinking (Module 02): asset apa yang dilindungi, dari ancaman apa, seberapa besar dampaknya — kerangka ini tetap berlaku terlepas dari teknologi ancaman spesifiknya. Demikian juga Defense in Depth (Module 07) dan prinsip Zero Trust tetap relevan menghadapi ancaman generasi berikutnya.</div></details>
+        </div>
+      </div><!-- end locked block -->
+
+      <div class="block" data-locked-unless="week15:material">
+        <h2>📝 Knowledge Check</h2>
+        <p style="margin-bottom:16px;font-size:.88rem">Ujilah pemahaman Anda. Jawab semua pertanyaan lalu klik Submit Quiz untuk melihat skor dan pembahasan.</p>
+        <div data-quiz="week15"></div>
       </div>
 
-      
+      <div class="block" data-locked-unless="week15:material">
+        <h2>🏁 Key Takeaways</h2>
+        <div class="key-box"><h4>MODULE 15 — CORE INSIGHTS</h4><ul>
+          <li>AI generatif meningkatkan kualitas serangan social engineering (deepfake) — kontrol proses lebih penting dibanding kemampuan "mengenali" media palsu.</li>
+          <li>Ransomware berevolusi ke double/triple extortion — backup saja tidak lagi cukup, deteksi eksfiltrasi data menjadi krusial.</li>
+          <li>Arsitektur cloud-native (container/Kubernetes) mengubah attack surface secara dinamis, memerlukan kontrol yang bergerak secepat infrastrukturnya (shift-left).</li>
+          <li>API security menjadi prioritas karena pertumbuhan jumlah API yang pesat dan risiko shadow API.</li>
+          <li>Post-quantum cryptography memerlukan perencanaan migrasi jangka panjang akibat risiko "harvest now, decrypt later".</li>
+          <li>Prinsip fundamental (risk-based thinking, Defense in Depth, Zero Trust) tetap relevan menghadapi ancaman masa depan yang belum diketahui bentuknya.</li>
+        </ul></div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📖 Glossary</h2>
+        <div class="glossary-grid">
+          <div class="g-item"><span class="g-term">Deepfake</span><p class="g-def">Media sintetis (audio/video) hasil AI yang meniru identitas seseorang secara meyakinkan.</p></div>
+          <div class="g-item"><span class="g-term">RaaS</span><p class="g-def">Ransomware-as-a-Service — model bisnis penyewaan infrastruktur ransomware kepada afiliasi.</p></div>
+          <div class="g-item"><span class="g-term">Double/Triple Extortion</span><p class="g-def">Model ransomware modern yang menggabungkan enkripsi, ancaman bocor data, dan tekanan tambahan (mis. DDoS).</p></div>
+          <div class="g-item"><span class="g-term">Shadow API</span><p class="g-def">API yang tidak terdokumentasi atau tidak dipantau oleh tim keamanan.</p></div>
+          <div class="g-item"><span class="g-term">Harvest Now, Decrypt Later</span><p class="g-def">Strategi mengumpulkan data terenkripsi saat ini untuk didekripsi setelah komputer quantum cukup kuat.</p></div>
+          <div class="g-item"><span class="g-term">Post-Quantum Cryptography</span><p class="g-def">Algoritma kriptografi yang dirancang tahan terhadap serangan komputer quantum.</p></div>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+        <h2>📚 References</h2>
+        <ul class="ref-list">
+          <li><strong>NIST — Post-Quantum Cryptography Standards</strong> — NIST. (2024). <em>FIPS 203/204/205</em>. <a href="https://csrc.nist.gov/projects/post-quantum-cryptography" target="_blank" rel="noopener">csrc.nist.gov</a></li>
+          <li><strong>Deepfake CEO Fraud — WSJ Report</strong> — The Wall Street Journal. (2019). <em>Fraudsters Used AI to Mimic CEO's Voice</em>. <a href="https://www.wsj.com/articles/fraudsters-use-ai-to-mimic-ceos-voice-in-unusual-cybercrime-case-11567157402" target="_blank" rel="noopener">wsj.com</a></li>
+          <li><strong>CVE-2023-34362 (MOVEit)</strong> — NIST NVD. <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-34362" target="_blank" rel="noopener">nvd.nist.gov</a></li>
+          <li><strong>OWASP API Security Top 10</strong> — OWASP Foundation. <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener">owasp.org</a></li>
+          <li><strong>ENISA Threat Landscape 2024</strong> — ENISA. <a href="https://www.enisa.europa.eu/topics/cyber-threats/enisa-threat-landscape" target="_blank" rel="noopener">enisa.europa.eu</a></li>
+        </ul>
+      </div>
+
       <div class="block" style="background:var(--signal-soft);border-color:var(--signal)">
         <h2 style="margin-bottom:6px">READY FOR PRACTICE?</h2>
-        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Current Threat Briefing</strong> untuk menerapkan konsep secara hands-on.</p>
+        <p>Lanjutkan ke <strong>Cybersecurity Trend Analysis Brief</strong> untuk menulis analisis mendalam terhadap satu tren yang paling relevan bagi organisasi pilihanmu.</p>
         <a class="btn btn-primary" href="../practical/practical-15.html" data-practice-link>🧪 MULAI PRAKTIK</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -109,5 +358,19 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+<script type="application/json" data-quiz-data="week15">
+{
+  "passScore": 70,
+  "questions": [
+    {"q":"Mengapa deepfake/AI voice cloning membuat kontrol keamanan tradisional (\"kenali ciri phishing\") makin tidak memadai?","options":["A. Karena deepfake hanya digunakan untuk hiburan","B. Karena AI dapat meniru suara/wajah dengan sangat meyakinkan, menghilangkan tanda-tanda klasik yang biasa dikenali manusia","C. Karena deepfake tidak dapat digunakan untuk penipuan","D. Karena kontrol tradisional sudah sepenuhnya usang untuk semua jenis ancaman"],"correct":1},
+    {"q":"'Triple extortion' pada ransomware modern menambahkan tekanan berupa...","options":["A. Hanya enkripsi data biasa","B. Ancaman bocorkan data DAN tekanan tambahan seperti DDoS atau kontak langsung ke pelanggan korban, selain enkripsi","C. Penghapusan data tanpa syarat","D. Tidak ada perbedaan dengan ransomware klasik"],"correct":1},
+    {"q":"Mengapa backup saja tidak lagi cukup menghadapi ransomware modern (double/triple extortion)?","options":["A. Backup tidak pernah efektif melawan ransomware","B. Karena fokus serangan modern bergeser ke ancaman membocorkan data curian, yang tidak dapat diselesaikan hanya dengan memulihkan dari backup","C. Backup hanya relevan untuk malware lama","D. Backup selalu cukup untuk semua jenis ransomware"],"correct":1},
+    {"q":"Risiko utama 'harvest now, decrypt later' terkait komputer quantum adalah...","options":["A. Data yang dienkripsi hari ini tidak akan pernah bisa didekripsi","B. Attacker dapat mengumpulkan data terenkripsi sekarang untuk didekripsi di masa depan begitu komputer quantum cukup kuat","C. Komputer quantum hanya mengancam data yang belum dienkripsi","D. Ancaman ini sudah terjadi secara luas saat ini"],"correct":1},
+    {"q":"Shadow API paling mirip konsepnya dengan istilah yang dipelajari di Module 03, yaitu...","options":["A. Zero Trust","B. Shadow IT — sistem/layanan yang tidak terdokumentasi atau tidak dipantau tim keamanan","C. Defense in Depth","D. Risk Matrix"],"correct":1},
+    {"q":"[SKENARIO] Sebuah perusahaan menerima 'panggilan video' dari CFO yang meminta transfer dana mendesak, namun kualitas video terlihat sedikit tidak natural di beberapa bagian wajah. Tindakan PALING TEPAT adalah...","options":["A. Langsung transfer karena terlihat seperti CFO asli","B. Melakukan verifikasi out-of-band (telepon ke nomor CFO yang sudah terverifikasi sebelumnya, bukan nomor yang diberikan dalam panggilan) sebelum melakukan transfer apa pun","C. Mengabaikan kejanggalan karena kemungkinan hanya masalah koneksi internet","D. Transfer sebagian dana sebagai kompromi"],"correct":1},
+    {"q":"[SKENARIO] Tim developer menggunakan container image dari registry publik tanpa verifikasi untuk mempercepat deployment aplikasi baru. Risiko APA yang paling relevan, dan bagaimana mitigasinya?","options":["A. Tidak ada risiko selama aplikasi berjalan normal","B. Image dapat mengandung vulnerability atau malware tersembunyi (mirip supply-chain compromise) — mitigasi dengan image scanning otomatis di pipeline CI/CD sebelum deployment","C. Risiko hanya berlaku untuk aplikasi finansial","D. Container secara otomatis aman karena terisolasi"],"correct":1},
+    {"q":"[HOTS] Mengingat bahwa teknologi ancaman terus berubah (AI, cloud-native, quantum), pendekatan pembelajaran keamanan siber MANA yang paling berkelanjutan bagi seorang praktisi di masa depan?","options":["A. Menghafal seluruh daftar ancaman dan tools terkini yang ada sekarang","B. Menguasai prinsip fundamental yang bertahan lintas teknologi (risk-based thinking, CIA Triad, Defense in Depth, Zero Trust) sebagai kerangka analisis yang dapat diterapkan pada ancaman apa pun yang muncul di masa depan, sambil terus mengikuti perkembangan teknis terkini","C. Hanya berfokus pada satu teknologi spesifik yang sedang populer saat ini","D. Mengabaikan tren baru karena prinsip dasar sudah cukup tanpa perlu update apa pun"],"correct":1}
+  ]
+}
+</script>
+</body></html>

@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 16 — Final Project & Security Assessment · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Final Project — Comprehensive Security Assessment UND · COM Cybersecurity Learning</title>
+<meta name="description" content="Brief lengkap Final Project Module 16: integrasi seluruh artefak Module 01-15 menjadi Comprehensive Security Assessment Report untuk UND.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item current" data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item current" data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,24 +65,71 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 16</p>
-      <h1>Final Project & Security Assessment</h1>
+<div class="content">
+      <p class="eyebrow">FINAL PROJECT · MODULE 16</p>
+      <h1>Brief — Comprehensive Security Assessment: UND</h1>
+      <div class="meta-row"><span class="pill">⏱ 2 minggu pengerjaan</span><span class="pill">Individual/Kelompok max 3</span>
+      <span class="pill">Bobot: 30% Nilai Akhir</span><span class="pill">Output: Report + Presentasi</span></div>
 
       <div class="block" data-locked-unless="week16:practice">
-        
-        <h2 style="margin-top:0">🧪 Final Security Assessment</h2>
-        <p>Instruksi, studi kasus, dan rubrik penilaian lengkap Final Project akan dipublikasikan oleh dosen pengampu menjelang jadwal pengerjaan proyek akhir.</p>
-    
+        <div class="callout"><strong>📌 Prinsip Utama: Build Once, Reuse, Extend.</strong> Final Project ini TIDAK meminta riset baru dari nol — tugas utamamu adalah mengumpulkan, menyelaraskan, dan menyempurnakan SELURUH artefak yang telah kamu buat di Practical Module 01–15 untuk Universitas Nusantara Digital (UND), menjadi satu laporan yang koheren.</div>
+
+        <div class="scenario-box">
+          <h4>🏫 Checklist Artefak yang Harus Kamu Kumpulkan Kembali</h4>
+          <div style="overflow-x:auto"><table class="tbl" style="margin:0">
+            <thead><tr><th>Module</th><th>Artefak</th><th>Digunakan di Bagian Laporan</th></tr></thead>
+            <tbody>
+              <tr><td>01</td><td>Threat Landscape Analysis</td><td>2. Asset Inventory &amp; Attack Surface</td></tr>
+              <tr><td>02</td><td>Risk Register</td><td>5. Risk Register</td></tr>
+              <tr><td>03</td><td>Attack Surface Map</td><td>2. Asset Inventory &amp; Attack Surface</td></tr>
+              <tr><td>04</td><td>Access Control Matrix</td><td>6. Security Architecture</td></tr>
+              <tr><td>05</td><td>Cryptographic Security Analysis</td><td>6. Security Architecture</td></tr>
+              <tr><td>06</td><td>Packet Analysis Report</td><td>6. Security Architecture</td></tr>
+              <tr><td>07</td><td>Secure Network Design (Zero Trust)</td><td>6. Security Architecture</td></tr>
+              <tr><td>09</td><td>Web Application Security Assessment</td><td>4. Vulnerability Assessment</td></tr>
+              <tr><td>10</td><td>Malware/IOC Analysis</td><td>7. ATT&amp;CK Mapping</td></tr>
+              <tr><td>11</td><td>Vulnerability Assessment</td><td>4. Vulnerability Assessment</td></tr>
+              <tr><td>12</td><td>Incident Response Playbook</td><td>8. Detection Strategy &amp; IR Plan</td></tr>
+              <tr><td>13</td><td>Attack-Chain Mapping</td><td>7. ATT&amp;CK Mapping</td></tr>
+              <tr><td>14</td><td>Digital Forensics Investigation Report</td><td>9. Forensic Findings</td></tr>
+              <tr><td>15</td><td>Trend Analysis Brief</td><td>10. Security Improvement Roadmap</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="step-counter-reset">
+          <div class="step-block"><h4>KUMPULKAN &amp; AUDIT ARTEFAK SENDIRI</h4><p>Kumpulkan seluruh 13 artefak di atas. Untuk artefak yang belum lengkap/kurang matang, sempurnakan terlebih dahulu sebelum diintegrasikan.</p></div>
+          <div class="step-block"><h4>TULIS EXECUTIVE SUMMARY</h4><p>Tulis ringkasan 1 halaman untuk audiens non-teknis (Rektorat UND): kondisi keamanan UND secara umum, 3 risiko paling kritis, dan 3 rekomendasi prioritas tertinggi.</p></div>
+          <div class="step-block"><h4>SUSUN 10 BAGIAN LAPORAN</h4><p>Ikuti struktur 10 bagian dari halaman Module 16 (Asset Inventory hingga Roadmap), mengisi setiap bagian dengan artefak yang relevan, DISELARASKAN agar konsisten satu sama lain (mis. jumlah asset yang disebut harus sama di semua bagian).</p></div>
+          <div class="step-block"><h4>RESOLUSI INKONSISTENSI</h4><p>Periksa seluruh artefak — jika ditemukan ketidaksesuaian antar-module (mis. risk level suatu asset berbeda antara Module 02 dan Module 11), tentukan dan jelaskan penilaian final yang paling akurat.</p></div>
+          <div class="step-block"><h4>SUSUN SECURITY IMPROVEMENT ROADMAP</h4><p>Prioritaskan seluruh rekomendasi dari Module 02–15 menjadi roadmap 3 fase (Segera/0-3 bulan, Menengah/3-9 bulan, Panjang/9+ bulan), mempertimbangkan anggaran UND yang terbatas.</p></div>
+          <div class="step-block"><h4>SIAPKAN PRESENTASI</h4><p>Susun slide presentasi (10 menit) berfokus pada Executive Summary, 3 temuan paling kritis, dan Roadmap — bukan membacakan seluruh laporan.</p></div>
+        </div>
+
+        <div class="output-box"><h4>📋 DELIVERABLES FINAL</h4><ul>
+          <li>Comprehensive Security Assessment Report (dokumen tunggal, 10 bagian terstruktur)</li>
+          <li>Executive Summary (1 halaman, bahasa non-teknis)</li>
+          <li>Security Improvement Roadmap (3 fase, terprioritas)</li>
+          <li>Slide presentasi (10 menit + 5 menit tanya jawab)</li>
+        </ul></div>
+
+        <h3>Pertanyaan Refleksi (disertakan di akhir laporan)</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Dari seluruh semester, artefak/analisis mana yang menurutmu paling penting bagi keamanan UND secara keseluruhan, dan mengapa?</li>
+          <li>Jika kamu benar-benar menjadi konsultan keamanan UND, satu langkah PERTAMA apa yang akan kamu sarankan sebelum hal lainnya?</li>
+          <li>Bagaimana pemahamanmu tentang cybersecurity berubah sejak Module 01 hingga sekarang?</li>
+        </ol>
+
+        <div class="callout" style="margin-top:16px"><strong>💡 Catatan Akhir:</strong> Laporan terbaik bukan yang paling tebal, melainkan yang menunjukkan bahwa kamu memahami UND sebagai satu organisasi utuh dengan risiko yang saling terkait — persis seperti bagaimana security analyst sungguhan bekerja.</div>
+
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week16:practice" data-complete-label="Final Project Submitted ✓">✓ Tandai Final Project Selesai Dikumpulkan</button>
       </div>
 
-      <div class="block" style="display:flex;justify-content:space-between">
-        <a class="btn btn-outline" href="../weeks/week16.html">← Kembali ke Materi Minggu 16</a>
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <a class="btn btn-outline" href="../weeks/week16.html">← Kembali ke Info Final Project</a>
+        <a class="btn btn-outline" href="../index.html">Kembali ke Beranda →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -96,5 +147,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>

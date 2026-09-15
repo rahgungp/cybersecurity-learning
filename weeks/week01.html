@@ -4,9 +4,116 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minggu 01 — Introduction to Cybersecurity · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
+<meta name="description" content="Module 01: Memahami cybersecurity sebagai ekosistem ancaman — CIA Triad, asset, threat, vulnerability, attack, risk, attack surface, threat actor, security controls, dan NIST CSF 2.0.">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* === Week 01 Supplemental Styles === */
+.cia-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.cia-card{border-radius:var(--radius-m);padding:18px}
+.cia-c{background:var(--learn-blue-soft);border:1px solid var(--learn-blue)}
+.cia-i{background:var(--warn-amber-soft);border:1px solid var(--warn-amber)}
+.cia-a{background:var(--signal-soft);border:1px solid var(--signal)}
+.cia-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.cia-card h4{font-size:.9rem;font-family:var(--font-mono);margin-bottom:5px;color:var(--ink)}
+.cia-card p{font-size:.82rem;margin:0 0 4px;max-width:none;color:var(--ink-soft)}
+.cia-ex{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-soft);opacity:.85}
 
+.eco-flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:14px 0}
+.eco-node{background:var(--paper);border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:9px 24px;font-family:var(--font-mono);font-size:.8rem;text-align:center;min-width:170px;color:var(--ink)}
+.eco-node.hl{background:var(--signal-soft);border-color:var(--signal);font-weight:600}
+.eco-node.hl-risk{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.eco-arrow{color:var(--pine-600);font-size:1rem;line-height:1.6;font-weight:bold}
+
+.scope-tree{font-family:var(--font-mono);font-size:.82rem;padding:18px;background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);overflow-x:auto}
+.scope-root{background:var(--pine-800);color:#fff;padding:7px 14px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.scope-branch{margin-left:24px;border-left:2px solid var(--pine-600);padding-left:14px;padding-top:4px}
+.scope-item{background:var(--paper-raised);border:1px solid var(--line);padding:5px 12px;border-radius:4px;display:inline-block;margin-bottom:6px}
+.scope-cyber{background:var(--paper-raised);border:1px solid var(--pine-600);padding:6px 14px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:8px;color:var(--ink)}
+.scope-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.scope-chip{background:var(--paper);border:1px solid var(--line);padding:4px 10px;border-radius:3px;color:var(--ink-soft)}
+
+.threat-chain{display:flex;align-items:stretch;flex-wrap:nowrap;overflow-x:auto;margin:14px 0;gap:0}
+.tc-step{background:var(--paper-raised);border:1px solid var(--line);border-right:none;padding:12px 14px;font-size:.8rem;min-width:110px;flex:1}
+.tc-step:first-child{border-radius:var(--radius-s) 0 0 var(--radius-s)}
+.tc-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius-s) var(--radius-s) 0}
+.tc-label{font-family:var(--font-mono);font-size:.66rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:3px}
+.tc-eg{font-size:.74rem;color:var(--ink-soft);margin-top:3px}
+.tc-sep{display:flex;align-items:center;color:var(--pine-600);font-size:.9rem;padding:0 3px;background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+.controls-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.ctrl-col{border-radius:var(--radius-m);padding:16px;border:1px solid var(--line)}
+.ctrl-prev{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.ctrl-det{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.ctrl-cor{background:var(--signal-soft);border-color:var(--signal)}
+.ctrl-col h4{font-family:var(--font-mono);font-size:.78rem;margin-bottom:8px}
+.ctrl-prev h4{color:var(--threat-red)}.ctrl-det h4{color:var(--warn-amber)}.ctrl-cor h4{color:var(--signal)}
+.ctrl-col li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:2px 0}
+.ctrl-col li::before{content:"·";margin-right:6px;color:var(--ink-soft)}
+
+.nist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.nist-fn{border-radius:var(--radius-s);padding:14px;border:1px solid var(--line);text-align:center}
+.nist-govern{background:var(--pine-800);border-color:var(--pine-800);grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:16px}
+.nist-identify{background:var(--learn-blue-soft);border-color:var(--learn-blue)}
+.nist-protect{background:var(--signal-soft);border-color:var(--signal)}
+.nist-detect{background:var(--warn-amber-soft);border-color:var(--warn-amber)}
+.nist-respond{background:var(--threat-red-soft);border-color:var(--threat-red)}
+.nist-recover{background:var(--paper);border-color:var(--line)}
+.nist-fn .nf-label{font-family:var(--font-mono);font-size:.74rem;font-weight:600;display:block;margin-bottom:4px}
+.nist-fn p{font-size:.76rem;margin:0;max-width:none}
+.nist-govern .nf-label,.nist-govern p{color:#fff}
+.nist-govern .nf-label{font-size:.85rem;margin:0}
+
+.case-card{border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin-bottom:16px;background:var(--paper-raised)}
+.case-head{padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-tag{font-family:var(--font-mono);font-size:.68rem;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.case-red{background:var(--threat-red-soft);color:var(--threat-red)}
+.case-blue{background:var(--learn-blue-soft);color:var(--learn-blue)}
+.case-amber{background:var(--warn-amber-soft);color:var(--warn-amber)}
+.case-body{padding:16px 18px}
+.case-analysis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.ca-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:8px 10px}
+.ca-key{font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:2px}
+.ca-item p{font-size:.78rem;margin:0;max-width:none}
+
+.analyst-box{background:var(--warn-amber-soft);border:1px solid var(--warn-amber);border-radius:var(--radius-m);padding:18px 20px;margin:14px 0}
+.analyst-box h4{color:var(--warn-amber);margin-bottom:12px;font-size:.95rem}
+.analyst-box details{margin-bottom:8px}
+.analyst-box summary{cursor:pointer;font-size:.88rem;font-weight:600;padding:5px 0;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.analyst-box summary::-webkit-details-marker{display:none}
+.analyst-box summary::before{content:"▶";font-size:.62rem;color:var(--warn-amber);transition:transform .2s;flex-shrink:0}
+.analyst-box details[open] summary::before{transform:rotate(90deg)}
+.analyst-answer{margin-top:6px;padding:10px 14px;background:var(--paper-raised);border-radius:var(--radius-s);font-size:.84rem;color:var(--ink-soft);border-left:3px solid var(--warn-amber)}
+
+.glossary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.g-item{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-s);padding:12px}
+.g-term{font-family:var(--font-mono);font-size:.74rem;color:var(--pine-600);font-weight:600;display:block;margin-bottom:4px}
+.g-def{font-size:.82rem;color:var(--ink-soft);margin:0;max-width:none}
+
+.key-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.key-box h4{color:var(--signal);margin-bottom:10px;font-size:.9rem;font-family:var(--font-mono)}
+.key-box ul{margin:0;padding:0}
+.key-box li{font-size:.86rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 18px;position:relative}
+.key-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.78rem}
+
+.ref-list{margin:0;padding:0}
+.ref-list li{font-size:.82rem;color:var(--ink-soft);list-style:none;padding:5px 0 5px 16px;position:relative;border-bottom:1px solid var(--line)}
+.ref-list li:last-child{border-bottom:none}
+.ref-list li::before{content:"[";position:absolute;left:0;color:var(--pine-600);font-family:var(--font-mono);font-size:.72rem;top:7px}
+.ref-list a{color:var(--pine-600);text-decoration:underline;text-underline-offset:2px}
+
+.section-label{display:inline-block;font-family:var(--font-mono);font-size:.68rem;background:var(--pine-800);color:#fff;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.sub-note{font-size:.78rem;font-family:var(--font-mono);color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:6px 10px;border-radius:var(--radius-s);margin-top:8px}
+
+@media(max-width:700px){
+  .cia-cards{grid-template-columns:1fr}
+  .controls-3{grid-template-columns:1fr}
+  .nist-grid{grid-template-columns:1fr 1fr}
+  .nist-govern{grid-column:1 / -1;flex-direction:column}
+  .glossary-grid{grid-template-columns:1fr}
+  .threat-chain{font-size:.72rem}
+  .tc-step{min-width:80px;padding:8px 8px}
+}
+</style>
 </head>
 <body>
 
@@ -29,29 +136,45 @@
     </div>
   </div>
 </nav>
+
 <section class="section" style="padding-top:36px">
   <div class="wrap detail-layout">
-    
+
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item current" data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li>
+    <li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li>
+    <li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li>
+    <li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li>
+    <li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li>
+    <li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li>
+    <li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li>
+    <li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li>
+    <li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li>
+    <li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li>
+    <li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li>
+    <li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li>
+    <li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li>
+    <li class="side-item " data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li>
+    <li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li>
+    <li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,43 +184,723 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
+
     <div class="content">
-      <p class="eyebrow">MODULE 01 · MINGGU KE-01</p>
+      <p class="eyebrow">MODULE 01 · MINGGU KE-01 · LEVEL: UNDERSTAND</p>
       <h1>Introduction to Cybersecurity</h1>
       <div class="meta-row">
-        <span class="pill">CIA Triad</span><span class="pill">NIST Cybersecurity Framework (NIST CSF) 2.0</span>
-        <span class="pill">Output: Security Asset Identification</span>
+        <span class="pill">CIA Triad</span>
+        <span class="pill">NIST CSF 2.0</span>
+        <span class="pill">Threat Ecosystem</span>
+        <span class="pill">Attack Surface</span>
+        <span class="pill">Output: Threat Landscape Analysis</span>
       </div>
 
+      <!-- MODULE CONTEXT -->
+      <div class="block">
+        <span class="section-label">MODULE CONTEXT</span>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:10px">
+          <div style="border:1px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--ink-soft);display:block;margin-bottom:4px">PRASYARAT</span>
+            <span style="font-size:.86rem;font-weight:600">Jaringan Komputer &amp; Sistem Operasi Dasar</span>
+          </div>
+          <div style="text-align:center;color:var(--pine-600);font-size:1.6rem">→</div>
+          <div style="border:1px solid var(--pine-600);border-radius:var(--radius-s);padding:12px 14px;background:var(--paper)">
+            <span style="font-family:var(--font-mono);font-size:.64rem;color:var(--pine-600);display:block;margin-bottom:4px">NEXT MODULE →</span>
+            <span style="font-size:.86rem;font-weight:600">Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</span>
+          </div>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;font-size:.85rem">Module 01 membangun fondasi konseptual seluruh mata kuliah. Pemahaman tentang <strong>CIA Triad</strong>, cybersecurity ecosystem, dan <strong>risk-based thinking</strong> menjadi prasyarat untuk analisis teknis pada module berikutnya. Konsep asset dan attack surface yang dipelajari di sini akan digunakan kembali mulai Module 02 hingga Module 16.</p>
+      </div>
+
+      <!-- MAIN CONTENT (LOCKED) -->
       <div class="block" data-locked-unless="week01:material">
-        <h2>🎯 Learning Objectives</h2>
-        <p>Setelah menyelesaikan materi ini, mahasiswa mampu:</p>
-        <ul style="list-style:disc;margin-left:20px"><li>Menjelaskan apa itu cybersecurity dan bedanya dengan information security.</li><li>Menjelaskan security landscape dan mengapa ancaman siber terus berkembang.</li><li>Menjelaskan security objectives melalui CIA Triad.</li><li>Mengidentifikasi aset informasi pada sebuah organisasi.</li></ul>
 
-        <h2 style="margin-top:1.6em">📖 THEORY</h2>
-        <h3>Apa itu Cybersecurity?</h3><p>Cybersecurity adalah praktik melindungi sistem, jaringan, aplikasi, dan data dari akses, perubahan, atau perusakan yang tidak sah. Cakupannya lebih luas dari sekadar melindungi dokumen atau file — cybersecurity juga melindungi infrastruktur digital seperti server, perangkat jaringan, dan layanan cloud yang menjadi tempat data tersebut mengalir dan diproses.</p><h3>Cybersecurity vs Information Security</h3><p>Information security (InfoSec) adalah disiplin yang lebih luas, mencakup keamanan informasi dalam bentuk apa pun — digital maupun fisik (misalnya dokumen kertas terkunci di lemari arsip). Cybersecurity adalah subset dari information security yang berfokus khusus pada ancaman terhadap sistem digital dan dunia siber.</p><h3>Security Landscape</h3><p>Security landscape menggambarkan kondisi ancaman siber yang terus berubah: jenis serangan baru, teknik penyerang yang makin canggih, serta permukaan serangan (attack surface) yang meluas seiring adopsi cloud, perangkat mobile, dan IoT. Memahami landscape ini membantu organisasi memprioritaskan pertahanan sesuai risiko yang benar-benar relevan.</p><h3>Security Objectives & CIA Triad</h3><p>Tiga tujuan utama keamanan informasi dikenal sebagai CIA Triad: Confidentiality (kerahasiaan) memastikan data hanya diakses pihak berwenang; Integrity (integritas) memastikan data tidak diubah tanpa izin dan tetap akurat; Availability (ketersediaan) memastikan sistem dan data dapat diakses saat dibutuhkan. Hampir semua kontrol keamanan dapat dipetakan ke salah satu — atau kombinasi — dari ketiga tujuan ini.</p><h3>Security Asset</h3><p>Aset keamanan (security asset) adalah segala sesuatu yang bernilai bagi organisasi dan perlu dilindungi: data, perangkat keras, perangkat lunak, kredensial, reputasi, hingga sumber daya manusia. Langkah pertama dalam membangun program keamanan yang efektif adalah mengidentifikasi dan menilai aset-aset ini.</p>
-        <div class="diagram"><svg viewBox="0 0 420 300" width="360" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="210,20 380,270 40,270" fill="none" stroke="var(--pine-600)" stroke-width="2"/>
-  <circle cx="210" cy="20" r="5" fill="var(--pine-600)"/>
-  <circle cx="380" cy="270" r="5" fill="var(--pine-600)"/>
-  <circle cx="40" cy="270" r="5" fill="var(--pine-600)"/>
-  <text x="210" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="var(--ink)">CONFIDENTIALITY</text>
-  <text x="70" y="295" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="var(--ink)">INTEGRITY</text>
-  <text x="350" y="295" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="var(--ink)">AVAILABILITY</text>
-</svg></div>
-        <h3>Example</h3><p>Sebuah kampus memiliki aset berupa server akademik (menyimpan data mahasiswa), laptop dosen, dan akun email institusi. Server akademik memiliki nilai confidentiality dan integrity tinggi karena berisi data pribadi dan nilai; email institusi memiliki nilai availability tinggi karena dipakai untuk komunikasi harian.</p>
-        <h3>Case Study</h3><p>Sebuah startup e-commerce baru menyadari mereka belum pernah mendaftar aset digital mereka secara formal — mereka tidak tahu persis berapa banyak server, API key, dan akun cloud yang aktif. Ketika terjadi insiden kecil pada satu server yang lupa dinonaktifkan, tim baru sadar bahwa tanpa inventaris aset, mereka tidak bisa menilai risiko maupun merespons insiden secara cepat.</p>
-        <h3>Key Takeaways</h3><ul style="list-style:disc;margin-left:20px"><li>Cybersecurity adalah bagian dari information security yang berfokus pada ancaman digital.</li><li>CIA Triad (Confidentiality, Integrity, Availability) menjadi tujuan dasar semua kontrol keamanan.</li><li>Security landscape terus berubah — pertahanan harus disesuaikan secara berkala.</li><li>Identifikasi aset adalah langkah pertama sebelum menilai risiko dan merancang kontrol.</li></ul>
+        <!-- LEARNING OBJECTIVES -->
+        <h2>🎯 Learning Objectives</h2>
+        <p style="margin-bottom:8px">Setelah menyelesaikan Module 01, mahasiswa mampu:</p>
+        <table class="tbl" style="margin-bottom:0">
+          <thead><tr><th>#</th><th>Kompetensi</th><th>Bloom's Level</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Menjelaskan definisi, cakupan, dan perbedaan cybersecurity, information security, dan network security</td><td>Understand</td></tr>
+            <tr><td>2</td><td>Menjelaskan tiga tujuan keamanan informasi menggunakan CIA Triad beserta contoh pelanggaran tiap aspek</td><td>Understand</td></tr>
+            <tr><td>3</td><td>Mengidentifikasi asset, threat, vulnerability, attack, impact, dan risk pada skenario organisasi</td><td>Apply</td></tr>
+            <tr><td>4</td><td>Menganalisis hubungan antara asset dan attack surface pada sistem digital</td><td>Analyze</td></tr>
+            <tr><td>5</td><td>Mengklasifikasikan threat actor berdasarkan motivasi dan target serangan</td><td>Analyze</td></tr>
+            <tr><td>6</td><td>Menjelaskan tiga kategori security control: preventive, detective, corrective</td><td>Understand</td></tr>
+            <tr><td>7</td><td>Menjelaskan enam fungsi NIST Cybersecurity Framework 2.0</td><td>Understand</td></tr>
+            <tr><td>8</td><td>Menganalisis insiden siber nyata menggunakan kerangka CIA Triad dan threat ecosystem</td><td>Analyze</td></tr>
+          </tbody>
+        </table>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 1: WHAT IS CYBERSECURITY -->
+        <span class="section-label">SECTION 01</span>
+        <h2 style="margin-top:6px">Apa itu Cybersecurity?</h2>
+
+        <h3>Definisi</h3>
+        <p>Cybersecurity adalah praktik melindungi sistem komputer, jaringan, aplikasi, dan data dari akses tidak sah, kerusakan, modifikasi, atau pengungkapan yang dapat merugikan individu, organisasi, maupun masyarakat. Berbeda dengan sekadar melindungi file di komputer lokal, cybersecurity mencakup keseluruhan ekosistem digital: server, jaringan, layanan cloud, perangkat IoT, API, hingga identitas pengguna.</p>
+        <div class="callout">
+          <strong>NIST Definition:</strong> "The prevention of damage to, protection of, and restoration of computers, electronic communications systems, electronic communications services, wire communication, and electronic communication, including information contained therein, to ensure its availability, integrity, authentication, confidentiality, and nonrepudiation." — NIST IR 7298 Rev. 3
+        </div>
+
+        <h3>Cakupan Cybersecurity dalam Information Security</h3>
+        <p>Information security (InfoSec) adalah disiplin yang lebih luas — mencakup keamanan informasi dalam bentuk apa pun, termasuk dokumen fisik dan proses administratif. Cybersecurity adalah subset dari InfoSec yang berfokus pada ancaman terhadap sistem digital dan infrastruktur cyber.</p>
+
+        <div class="diagram" aria-label="Hierarki cakupan cybersecurity dalam information security">
+          <div class="scope-tree">
+            <div class="scope-root">INFORMATION SECURITY</div>
+            <div class="scope-branch">
+              <div class="scope-item" style="background:var(--paper);border-color:var(--line);color:var(--ink-soft)">Physical &amp; Administrative Security</div>
+              <br>
+              <div class="scope-cyber">CYBERSECURITY</div>
+              <div class="scope-branch">
+                <div class="scope-chips">
+                  <span class="scope-chip">Network Security</span>
+                  <span class="scope-chip">Application Security</span>
+                  <span class="scope-chip">Cloud Security</span>
+                  <span class="scope-chip">Endpoint Security</span>
+                  <span class="scope-chip">IoT Security</span>
+                  <span class="scope-chip">OT / ICS Security</span>
+                  <span class="scope-chip">Identity Security</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:.72rem;color:var(--ink-soft);margin:8px 0 0;max-width:none;text-align:center">Figure 1. Cybersecurity sebagai subset Information Security. Source: Author's illustration based on NIST SP 800-53.</p>
+        </div>
+
+        <h3>Perbandingan Cakupan</h3>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead>
+              <tr><th>Domain</th><th>Fokus Utama</th><th>Contoh Kontrol</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Information Security</strong></td><td>Semua bentuk informasi (digital &amp; fisik)</td><td>Kebijakan, klassifikasi data, kontrol fisik, pelatihan</td></tr>
+              <tr><td><strong>Cybersecurity</strong></td><td>Ancaman digital terhadap sistem &amp; data</td><td>Firewall, enkripsi, IAM, monitoring, incident response</td></tr>
+              <tr><td><strong>Network Security</strong></td><td>Keamanan infrastruktur jaringan</td><td>Firewall, IDS/IPS, VPN, network segmentation</td></tr>
+              <tr><td><strong>Application Security</strong></td><td>Keamanan software dan aplikasi web/mobile</td><td>Secure coding, SAST/DAST, WAF, OWASP controls</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout warn">
+          <strong>Catatan Penting:</strong> Batas antara domain ini bersifat cair dan saling beririsan. Seorang cybersecurity professional perlu memahami semua domain, meskipun mungkin berspesialisasi pada satu area tertentu.
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 2: LANDSCAPE -->
+        <span class="section-label">SECTION 02</span>
+        <h2 style="margin-top:6px">Cybersecurity Landscape &amp; Evolusi Ancaman</h2>
+
+        <p>Cybersecurity landscape menggambarkan kondisi ancaman yang terus berubah seiring perkembangan teknologi. Semakin banyak sistem yang terhubung ke internet, semakin luas attack surface yang harus dijaga.</p>
+
+        <div class="diagram" aria-label="Evolusi cybersecurity landscape dari traditional IT hingga AI-enabled systems">
+          <div style="width:100%;font-family:var(--font-mono);font-size:.78rem">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0">
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;background:var(--paper-raised);border:1px solid var(--line);border-radius:4px;margin-bottom:4px;width:100%">
+                <span style="color:var(--ink-soft);width:60px;font-size:.7rem">1990s</span>
+                <span>Traditional IT — Server &amp; PC lokal, jaringan terbatas</span>
+                <span style="margin-left:auto;color:var(--signal);font-size:.7rem">Attack Surface: Minimal</span>
+              </div>
+              <div style="display:flex;justify-content:center;color:var(--pine-600);font-size:.8rem;padding:2px 0">↓</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;background:var(--paper-raised);border:1px solid var(--line);border-radius:4px;margin-bottom:4px;width:100%">
+                <span style="color:var(--ink-soft);width:60px;font-size:.7rem">2000s</span>
+                <span>Internet &amp; Web — Email, website, e-commerce mulai menyebar</span>
+                <span style="margin-left:auto;color:var(--warn-amber);font-size:.7rem">Attack Surface: Growing</span>
+              </div>
+              <div style="display:flex;justify-content:center;color:var(--pine-600);font-size:.8rem;padding:2px 0">↓</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;background:var(--paper-raised);border:1px solid var(--line);border-radius:4px;margin-bottom:4px;width:100%">
+                <span style="color:var(--ink-soft);width:60px;font-size:.7rem">2010s</span>
+                <span>Cloud &amp; Mobile — Data tersebar di cloud, BYOD, SaaS, API</span>
+                <span style="margin-left:auto;color:var(--warn-amber);font-size:.7rem">Attack Surface: Large</span>
+              </div>
+              <div style="display:flex;justify-content:center;color:var(--pine-600);font-size:.8rem;padding:2px 0">↓</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;background:var(--paper-raised);border:1px solid var(--line);border-radius:4px;margin-bottom:4px;width:100%">
+                <span style="color:var(--ink-soft);width:60px;font-size:.7rem">2015+</span>
+                <span>IoT &amp; OT — Miliaran perangkat terhubung: kamera, sensor, SCADA</span>
+                <span style="margin-left:auto;color:var(--threat-red);font-size:.7rem">Attack Surface: Massive</span>
+              </div>
+              <div style="display:flex;justify-content:center;color:var(--pine-600);font-size:.8rem;padding:2px 0">↓</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;background:var(--pine-800);border:1px solid var(--pine-600);border-radius:4px;width:100%">
+                <span style="color:#8FB8A6;width:60px;font-size:.7rem">2020+</span>
+                <span style="color:#BFEFDA">AI-enabled systems, supply chain complexity, hybrid work, ransomware-as-a-service</span>
+                <span style="margin-left:auto;color:var(--threat-red);font-size:.7rem">Attack Surface: Extreme</span>
+              </div>
+            </div>
+            <p style="font-size:.7rem;color:var(--ink-soft);margin:8px 0 0;max-width:none;text-align:center">Figure 2. Evolusi cybersecurity landscape dan pertumbuhan attack surface. Source: Author's illustration based on ENISA Threat Landscape 2024.</p>
+          </div>
+        </div>
+
+        <p>Implikasinya: <strong>strategi keamanan tidak bisa statis</strong>. Apa yang aman pada 2010 mungkin tidak lagi aman pada 2025. Ini adalah alasan mengapa cybersecurity bukan sekadar produk yang dibeli, melainkan sebuah <em>program berkelanjutan</em>.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 3: CIA TRIAD -->
+        <span class="section-label">SECTION 03</span>
+        <h2 style="margin-top:6px">Security Objectives — CIA Triad</h2>
+
+        <p>CIA Triad adalah tiga tujuan fundamental keamanan informasi. Hampir semua kontrol keamanan dapat ditelusuri kembali ke salah satu atau kombinasi dari ketiganya. CIA bukan hanya framework teoritis — ini adalah lens untuk menganalisis dan menilai insiden siber.</p>
+
+        <div class="diagram" aria-label="CIA Triad triangle showing Confidentiality at top, Integrity at bottom-left, and Availability at bottom-right">
+          <svg viewBox="0 0 420 290" width="100%" style="max-width:380px" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="210,22 385,270 35,270" fill="none" stroke="var(--pine-600)" stroke-width="2.5"/>
+            <circle cx="210" cy="22" r="5" fill="var(--pine-600)"/>
+            <circle cx="385" cy="270" r="5" fill="var(--pine-600)"/>
+            <circle cx="35" cy="270" r="5" fill="var(--pine-600)"/>
+            <text x="210" y="14" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--learn-blue)" font-weight="600">CONFIDENTIALITY</text>
+            <text x="48" y="287" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--warn-amber)" font-weight="600">INTEGRITY</text>
+            <text x="370" y="287" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="var(--signal)" font-weight="600">AVAILABILITY</text>
+            <text x="210" y="148" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">CIA</text>
+            <text x="210" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink-soft)">TRIAD</text>
+            <line x1="120" y1="195" x2="180" y2="168" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="115" y="205" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="var(--ink-soft)">Integrity</text>
+            <text x="115" y="215" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="var(--ink-soft)">vs Avail.</text>
+            <line x1="300" y1="195" x2="240" y2="168" stroke="var(--line)" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="308" y="205" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="var(--ink-soft)">Conf.</text>
+            <text x="308" y="215" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="var(--ink-soft)">vs Avail.</text>
+          </svg>
+        </div>
+
+        <div class="cia-cards">
+          <div class="cia-card cia-c">
+            <span class="cia-icon">🔐</span>
+            <h4>CONFIDENTIALITY</h4>
+            <p>Data hanya dapat diakses oleh pihak yang memiliki otorisasi.</p>
+            <p class="cia-ex">Pelanggaran: data breach, unauthorized access, credential theft, insider threat</p>
+          </div>
+          <div class="cia-card cia-i">
+            <span class="cia-icon">✏️</span>
+            <h4>INTEGRITY</h4>
+            <p>Data tidak diubah tanpa izin dan tetap akurat serta dapat dipercaya.</p>
+            <p class="cia-ex">Pelanggaran: database tampering, log modification, man-in-the-middle, website defacement</p>
+          </div>
+          <div class="cia-card cia-a">
+            <span class="cia-icon">🟢</span>
+            <h4>AVAILABILITY</h4>
+            <p>Sistem dan data dapat diakses oleh pengguna yang berwenang saat dibutuhkan.</p>
+            <p class="cia-ex">Pelanggaran: ransomware, DDoS attack, hardware failure, power outage</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Tension dalam CIA Triad:</strong> Kadang ketiga tujuan ini saling bertentangan. Meningkatkan confidentiality (menambah enkripsi) bisa menurunkan availability (akses lebih lambat). Security analyst harus membuat keputusan berbasis risiko: mana yang harus diprioritaskan sesuai konteks organisasi.
+        </div>
+
+        <h3>Penerapan CIA Triad pada Skenario</h3>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Insiden</th><th>C</th><th>I</th><th>A</th><th>Keterangan</th></tr></thead>
+            <tbody>
+              <tr><td>Ransomware mengenkripsi seluruh file server</td><td>✗</td><td>✗</td><td>✓ Violated</td><td>File tidak dapat diakses (Availability)</td></tr>
+              <tr><td>Attacker mengubah nilai mahasiswa di database</td><td>✗</td><td>✓ Violated</td><td>✗</td><td>Data diubah tanpa izin (Integrity)</td></tr>
+              <tr><td>Data pelanggan bocor ke dark web</td><td>✓ Violated</td><td>✗</td><td>✗</td><td>Data diakses pihak tidak berwenang (Confidentiality)</td></tr>
+              <tr><td>DDoS menyebabkan website tidak dapat diakses 6 jam</td><td>✗</td><td>✗</td><td>✓ Violated</td><td>Layanan tidak tersedia (Availability)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 4: ECOSYSTEM -->
+        <span class="section-label">SECTION 04</span>
+        <h2 style="margin-top:6px">Cybersecurity Ecosystem</h2>
+
+        <p>Cybersecurity bukan sekadar kumpulan tools. Ini adalah sebuah ekosistem dengan komponen yang saling berhubungan. Memahami hubungan antar-komponen adalah keterampilan fundamental seorang security analyst.</p>
+
+        <div class="diagram" aria-label="Cybersecurity ecosystem flow dari asset hingga security control">
+          <div style="width:100%;max-width:380px">
+            <div class="eco-flow">
+              <div class="eco-node hl">ASSETS</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">memiliki</span></div>
+              <div class="eco-node">ATTACK SURFACE</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">mengandung</span></div>
+              <div class="eco-node">VULNERABILITY</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">dieksploitasi oleh</span></div>
+              <div class="eco-node">THREAT ACTOR (via TTP)</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">menghasilkan</span></div>
+              <div class="eco-node">ATTACK</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">menyebabkan</span></div>
+              <div class="eco-node">IMPACT</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">membentuk</span></div>
+              <div class="eco-node hl-risk">RISK</div>
+              <div class="eco-arrow">↓ &nbsp;<span style="font-size:.7rem;color:var(--ink-soft)">dimitigasi oleh</span></div>
+              <div class="eco-node hl">SECURITY CONTROL</div>
+            </div>
+            <p style="font-size:.7rem;color:var(--ink-soft);margin:8px 0 0;max-width:none;text-align:center">Figure 3. Cybersecurity ecosystem: hubungan antara komponen ancaman dan mitigasi. Source: Author's illustration.</p>
+          </div>
+        </div>
+
+        <p>Setiap keputusan keamanan — mulai dari menginstal patch hingga memilih arsitektur sistem — harus dapat dihubungkan kembali ke ekosistem ini: <em>aset mana yang dilindungi, dari ancaman apa, melalui kontrol apa.</em></p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 5: ASSET, THREAT, VULN, ATTACK, IMPACT, RISK -->
+        <span class="section-label">SECTION 05</span>
+        <h2 style="margin-top:6px">Asset, Threat, Vulnerability, Attack &amp; Risk</h2>
+
+        <h3>Asset</h3>
+        <p>Asset adalah segala sesuatu yang memiliki nilai bagi organisasi dan perlu dilindungi. Identifikasi asset adalah langkah pertama dalam setiap program keamanan — <em>kamu tidak bisa melindungi apa yang tidak kamu ketahui.</em></p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Kategori</th><th>Contoh</th><th>CIA Prioritas</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Information Assets</strong></td><td>Database mahasiswa, kredensial, kode sumber, rekam medis</td><td>Confidentiality, Integrity</td></tr>
+              <tr><td><strong>Technology Assets</strong></td><td>Server, laptop, router, cloud instance, aplikasi</td><td>Availability, Integrity</td></tr>
+              <tr><td><strong>Human Assets</strong></td><td>Admin, developer, karyawan, mahasiswa</td><td>Confidentiality (credentials)</td></tr>
+              <tr><td><strong>Physical Assets</strong></td><td>Data center, ruang server, IoT device, CCTV</td><td>Availability</td></tr>
+              <tr><td><strong>Business Assets</strong></td><td>Reputasi, proses bisnis, ketersediaan layanan</td><td>Availability, Confidentiality</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Threat → Vulnerability → Attack → Impact → Risk</h3>
+        <p>Lima konsep ini membentuk rantai logis yang harus dipahami secara utuh:</p>
+
+        <div class="threat-chain" role="img" aria-label="Rantai konsep dari threat hingga risk">
+          <div class="tc-step">
+            <span class="tc-label">THREAT</span>
+            Potensi penyebab kerugian
+            <div class="tc-eg">Ransomware group, phishing campaign</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">VULNERABILITY</span>
+            Kelemahan yang dapat dimanfaatkan
+            <div class="tc-eg">Software usang, password lemah, misconfiguration</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">ATTACK</span>
+            Tindakan nyata memanfaatkan vulnerability
+            <div class="tc-eg">Exploit CVE, phishing email, brute force</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">IMPACT</span>
+            Konsekuensi jika serangan berhasil
+            <div class="tc-eg">Data bocor, sistem mati, kerugian finansial</div>
+          </div>
+          <div class="tc-sep">→</div>
+          <div class="tc-step">
+            <span class="tc-label">RISK</span>
+            Likelihood × Impact
+            <div class="tc-eg">High CVSS + internet-facing = HIGH RISK</div>
+          </div>
+        </div>
+
+        <div class="sub-note">
+          ⚠️ Perbedaan kritis: <strong>Threat ≠ Attack ≠ Vulnerability</strong>. Ransomware adalah threat. Password lemah adalah vulnerability. Ketika ransomware berhasil masuk melalui password lemah, itu adalah attack. Tidak semua threat berhasil menjadi attack — kontrol keamanan berfungsi memutus rantai ini.
+        </div>
+
+        <h3>Risk sebagai Fungsi Kontekstual</h3>
+        <p>Risk tidak dapat ditentukan hanya dari CVSS score. Konteks sangat menentukan:</p>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Server</th><th>CVSS</th><th>Eksposur</th><th>Fungsi</th><th>Risk Aktual</th></tr></thead>
+            <tbody>
+              <tr><td>Server A</td><td>9.8 (Critical)</td><td>Hanya internal network</td><td>Dev testing</td><td><span style="color:var(--warn-amber);font-weight:600">Medium</span></td></tr>
+              <tr><td>Server B</td><td>6.5 (Medium)</td><td>Internet-facing</td><td>Payment processing</td><td><span style="color:var(--threat-red);font-weight:600">High</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.84rem">Server B harus diprioritaskan — meskipun CVSS-nya lebih rendah, kombinasi eksposur internet dan fungsi kritikal menghasilkan risk aktual yang lebih tinggi.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 6: ATTACK SURFACE -->
+        <span class="section-label">SECTION 06</span>
+        <h2 style="margin-top:6px">Attack Surface</h2>
+
+        <p>Attack surface adalah kumpulan seluruh titik yang dapat digunakan attacker untuk memperoleh akses atau memengaruhi sistem. Setiap komponen yang terhubung ke internet — langsung maupun tidak langsung — potensial memperluas attack surface.</p>
+
+        <div class="diagram" aria-label="Peta attack surface sebuah organisasi digital">
+          <svg viewBox="0 0 520 310" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <!-- Internet -->
+            <rect x="175" y="8" width="170" height="34" rx="5" fill="none" stroke="var(--threat-red)" stroke-width="2"/>
+            <text x="260" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="var(--threat-red)">INTERNET / ATTACKER</text>
+            <!-- Lines from internet to entry points -->
+            <line x1="210" y1="42" x2="90" y2="90" stroke="var(--threat-red)" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <line x1="260" y1="42" x2="260" y2="90" stroke="var(--threat-red)" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <line x1="310" y1="42" x2="430" y2="90" stroke="var(--threat-red)" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <!-- Entry point: Website/API -->
+            <rect x="20" y="90" width="140" height="32" rx="4" fill="var(--learn-blue-soft)" stroke="var(--learn-blue)" stroke-width="1.5"/>
+            <text x="90" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--learn-blue)">Website / API</text>
+            <!-- Entry point: Email -->
+            <rect x="200" y="90" width="120" height="32" rx="4" fill="var(--warn-amber-soft)" stroke="var(--warn-amber)" stroke-width="1.5"/>
+            <text x="260" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--warn-amber)">Email</text>
+            <!-- Entry point: VPN/Remote -->
+            <rect x="360" y="90" width="140" height="32" rx="4" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.5"/>
+            <text x="430" y="111" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--pine-600)">VPN / Remote</text>
+            <!-- Lines to internal -->
+            <line x1="90" y1="122" x2="90" y2="165" stroke="var(--line)" stroke-width="1.5"/>
+            <line x1="260" y1="122" x2="220" y2="165" stroke="var(--line)" stroke-width="1.5"/>
+            <line x1="430" y1="122" x2="390" y2="165" stroke="var(--line)" stroke-width="1.5"/>
+            <!-- Internal systems -->
+            <rect x="20" y="165" width="140" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="90" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Database</text>
+            <rect x="180" y="165" width="120" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="240" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Cloud Storage</text>
+            <rect x="320" y="165" width="150" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="395" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Endpoint Devices</text>
+            <!-- Lines to bottom -->
+            <line x1="90" y1="195" x2="90" y2="238" stroke="var(--line)" stroke-width="1.5"/>
+            <line x1="395" y1="195" x2="430" y2="238" stroke="var(--line)" stroke-width="1.5"/>
+            <!-- Bottom row -->
+            <rect x="20" y="238" width="140" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="90" y="258" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">Third-Party / Supply</text>
+            <rect x="175" y="238" width="160" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="255" y="258" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="var(--ink-soft)">← ORGANIZATIONAL →</text>
+            <text x="255" y="268" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="var(--pine-600)">ATTACK SURFACE</text>
+            <rect x="360" y="238" width="130" height="30" rx="4" fill="var(--paper-raised)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="425" y="258" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="var(--ink)">IoT / CCTV</text>
+            <!-- Outer attack surface boundary -->
+            <rect x="5" y="82" width="510" height="196" rx="8" fill="none" stroke="var(--threat-red)" stroke-width="1" stroke-dasharray="6,4" opacity=".4"/>
+          </svg>
+          <p style="font-size:.7rem;color:var(--ink-soft);margin:8px 0 0;max-width:none;text-align:center">Figure 4. Peta attack surface organisasi digital. Setiap titik koneksi adalah potensi entry point bagi attacker. Source: Author's illustration.</p>
+        </div>
+
+        <p>Prinsip <strong>Attack Surface Reduction</strong> adalah tujuan utama security architecture: kurangi jumlah titik eksposur, nonaktifkan layanan yang tidak diperlukan, dan segmentasi jaringan untuk membatasi lateral movement jika terjadi breach.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 7: THREAT ACTOR -->
+        <span class="section-label">SECTION 07</span>
+        <h2 style="margin-top:6px">Threat Actor</h2>
+
+        <p>Threat actor adalah individu, kelompok, atau entitas yang berpotensi melancarkan ancaman. Memahami siapa penyerangnya membantu dalam menentukan kontrol yang tepat dan memprioritaskan aset yang paling rentan diserang.</p>
+
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead>
+              <tr><th>Threat Actor</th><th>Motivasi</th><th>Kapabilitas</th><th>Target Umum</th><th>Contoh TTP</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Cybercriminal</strong></td>
+                <td>Finansial</td>
+                <td>Medium–High</td>
+                <td>Bank, e-commerce, individu</td>
+                <td>Ransomware, phishing, credential theft</td>
+              </tr>
+              <tr>
+                <td><strong>Nation-State APT</strong></td>
+                <td>Strategis / Espionage</td>
+                <td>Very High</td>
+                <td>Pemerintah, infrastruktur kritis</td>
+                <td>Supply chain attack, zero-day exploit</td>
+              </tr>
+              <tr>
+                <td><strong>Hacktivist</strong></td>
+                <td>Ideologi / Protes</td>
+                <td>Low–Medium</td>
+                <td>Perusahaan, pemerintah</td>
+                <td>DDoS, defacement, data leak</td>
+              </tr>
+              <tr>
+                <td><strong>Insider Threat</strong></td>
+                <td>Finansial / Dendam</td>
+                <td>Medium (privileged access)</td>
+                <td>Organisasi sendiri</td>
+                <td>Data exfiltration, sabotage</td>
+              </tr>
+              <tr>
+                <td><strong>Script Kiddie</strong></td>
+                <td>Eksperimen / Reputasi</td>
+                <td>Low</td>
+                <td>Sistem yang mudah dieksploitasi</td>
+                <td>Known exploit tools, scanning</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:.84rem">TTP = Tactics, Techniques, and Procedures. Framework MITRE ATT&amp;CK mendokumentasikan TTP dari berbagai threat actor dan akan dibahas mendalam mulai Module 03.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 8: SECURITY CONTROLS -->
+        <span class="section-label">SECTION 08</span>
+        <h2 style="margin-top:6px">Security Controls</h2>
+
+        <p>Security control adalah mekanisme — teknis, administratif, atau fisik — yang diterapkan untuk mengurangi risiko. Security control tidak menghilangkan risiko; mereka <em>mengurangi likelihood, mengurangi impact, atau keduanya.</em></p>
+
+        <div class="controls-3">
+          <div class="ctrl-col ctrl-prev">
+            <h4>🛡 PREVENTIVE</h4>
+            <p style="font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)">Mencegah serangan terjadi</p>
+            <ul>
+              <li>Firewall &amp; network segmentation</li>
+              <li>Multi-Factor Authentication (MFA)</li>
+              <li>Enkripsi data (at rest &amp; in transit)</li>
+              <li>Patch management</li>
+              <li>Access control &amp; least privilege</li>
+              <li>Security awareness training</li>
+            </ul>
+          </div>
+          <div class="ctrl-col ctrl-det">
+            <h4>🔍 DETECTIVE</h4>
+            <p style="font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)">Mendeteksi serangan yang sedang/sudah terjadi</p>
+            <ul>
+              <li>IDS / IPS (Intrusion Detection)</li>
+              <li>SIEM (Security Information &amp; Event Management)</li>
+              <li>Log monitoring &amp; analysis</li>
+              <li>Antivirus / EDR</li>
+              <li>Vulnerability scanning</li>
+              <li>Security audit</li>
+            </ul>
+          </div>
+          <div class="ctrl-col ctrl-cor">
+            <h4>🔧 CORRECTIVE</h4>
+            <p style="font-size:.78rem;margin-bottom:8px;max-width:none;color:var(--ink-soft)">Memulihkan sistem setelah insiden</p>
+            <ul>
+              <li>Backup &amp; disaster recovery</li>
+              <li>Incident response plan</li>
+              <li>Patch &amp; remediation</li>
+              <li>Forensic investigation</li>
+              <li>Business continuity plan</li>
+              <li>Post-incident review</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Defense in Depth:</strong> Tidak ada satu kontrol yang sempurna. Prinsip defense in depth menggunakan <em>multiple layers</em> dari ketiga kategori kontrol sehingga jika satu lapisan gagal, lapisan lain masih memberikan perlindungan.
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 9: NIST CSF 2.0 -->
+        <span class="section-label">SECTION 09</span>
+        <h2 style="margin-top:6px">NIST Cybersecurity Framework 2.0</h2>
+
+        <p>NIST CSF 2.0 (dirilis Februari 2024) adalah framework sukarela yang memberikan panduan bagi organisasi untuk mengelola dan mengurangi risiko cybersecurity. Ini adalah salah satu framework yang paling banyak diadopsi di dunia, baik oleh sektor publik maupun swasta.</p>
+
+        <div class="nist-grid" role="img" aria-label="Enam fungsi NIST Cybersecurity Framework 2.0">
+          <div class="nist-fn nist-govern">
+            <div>
+              <span class="nf-label">GOVERN</span>
+              <p>Fondasi: kebijakan, risk management, governance, peran &amp; tanggung jawab keamanan. (Fungsi baru di CSF 2.0)</p>
+            </div>
+          </div>
+          <div class="nist-fn nist-identify">
+            <span class="nf-label">IDENTIFY</span>
+            <p>Pahami aset, risiko, dan konteks bisnis organisasi</p>
+          </div>
+          <div class="nist-fn nist-protect">
+            <span class="nf-label">PROTECT</span>
+            <p>Implementasikan kontrol untuk mencegah atau membatasi dampak insiden</p>
+          </div>
+          <div class="nist-fn nist-detect">
+            <span class="nf-label">DETECT</span>
+            <p>Kembangkan kemampuan mendeteksi aktivitas anomali dan insiden keamanan</p>
+          </div>
+          <div class="nist-fn nist-respond">
+            <span class="nf-label">RESPOND</span>
+            <p>Ambil tindakan terhadap insiden yang terdeteksi secara cepat dan terkoordinasi</p>
+          </div>
+          <div class="nist-fn nist-recover">
+            <span class="nf-label">RECOVER</span>
+            <p>Pulihkan kapabilitas dan layanan yang terdampak insiden keamanan</p>
+          </div>
+        </div>
+        <p style="font-size:.7rem;color:var(--ink-soft);margin:0;max-width:none">Figure 5. NIST CSF 2.0 Core Functions. Source: NIST Cybersecurity Framework 2.0 (2024), <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">nist.gov/cyberframework</a>.</p>
+
+        <p>Perubahan utama CSF 2.0 vs 1.1: penambahan fungsi <strong>GOVERN</strong> sebagai fondasi yang mengakui bahwa cybersecurity adalah keputusan strategis, bukan hanya masalah IT. CSF 2.0 juga memperluas cakupan dari sektor infrastruktur kritis ke semua jenis organisasi.</p>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- SECTION 10: CASE STUDIES -->
+        <span class="section-label">SECTION 10</span>
+        <h2 style="margin-top:6px">Real-World Case Studies</h2>
+
+        <p>Analisis insiden nyata adalah cara terbaik untuk memahami bagaimana konsep-konsep cybersecurity diterapkan dalam praktik. Tiga kasus berikut merepresentasikan kategori serangan yang berbeda.</p>
+
+        <!-- Case 1: WannaCry -->
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-red">CASE 01 · RANSOMWARE</span>
+            <strong style="font-size:.92rem">WannaCry Ransomware Attack (2017)</strong>
+          </div>
+          <div class="case-body">
+            <p>Pada Mei 2017, ransomware WannaCry menyebar secara global dan menginfeksi lebih dari 230.000 komputer di 150 negara dalam hitungan jam. Target termasuk National Health Service (NHS) Inggris, Telefónica, dan Deutsche Bahn.</p>
+            <p>WannaCry mengeksploitasi kerentanan <strong>EternalBlue</strong> (CVE-2017-0144) pada protokol SMBv1 Windows. Exploit ini dikembangkan oleh NSA dan bocor ke publik oleh kelompok Shadow Brokers. Microsoft telah merilis patch (MS17-010) dua bulan sebelumnya — namun banyak sistem belum di-patch.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Sistem Windows, data rumah sakit, operasional NHS</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>CVE-2017-0144, SMBv1 tidak di-patch, sistem Windows XP</p></div>
+              <div class="ca-item"><span class="ca-key">ATTACK</span><p>Self-propagating ransomware via EternalBlue exploit</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT — CIA</span><p>Availability ↓↓ (sistem tidak dapat diakses), Integrity ↓ (file dienkripsi)</p></div>
+              <div class="ca-item"><span class="ca-key">BUSINESS IMPACT</span><p>NHS: ribuan operasi dibatalkan, kerugian £92 juta. Global: ~$4 miliar</p></div>
+              <div class="ca-item"><span class="ca-key">ROOT CAUSE</span><p>Patch management failure + penggunaan sistem legacy (Windows XP)</p></div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Lesson Learned:</strong> Patch management yang tertunda adalah salah satu penyebab terbesar insiden siber besar. Kerentanan yang sudah memiliki patch tersedia tidak seharusnya menjadi vektor serangan yang sukses.</div>
+          </div>
+        </div>
+
+        <!-- Case 2: SolarWinds -->
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-blue">CASE 02 · SUPPLY CHAIN ATTACK</span>
+            <strong style="font-size:.92rem">SolarWinds SUNBURST Attack (2020)</strong>
+          </div>
+          <div class="case-body">
+            <p>Pada Desember 2020, terungkap bahwa attacker — kemudian diidentifikasi sebagai kelompok APT yang terkait negara Rusia (Cozy Bear / APT29) — menyusup ke software update SolarWinds Orion sejak Maret 2020. Update yang terinfeksi backdoor "SUNBURST" dikirim ke ~18.000 pelanggan, termasuk agensi pemerintah AS (Treasury, Commerce, DHS) dan perusahaan Fortune 500.</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Software supply chain SolarWinds, jaringan 18.000+ organisasi</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>Build pipeline SolarWinds tidak memiliki code integrity verification yang memadai</p></div>
+              <div class="ca-item"><span class="ca-key">ATTACK</span><p>Injeksi backdoor SUNBURST ke legitimate software update (supply chain compromise)</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT — CIA</span><p>Confidentiality ↓↓ (espionage, data exfiltration dari banyak organisasi)</p></div>
+              <div class="ca-item"><span class="ca-key">THREAT ACTOR</span><p>Nation-state APT (APT29 / Cozy Bear), highly sophisticated, long dwell time: 9+ bulan</p></div>
+              <div class="ca-item"><span class="ca-key">ROOT CAUSE</span><p>Kurangnya supply chain security controls; kepercayaan berlebih pada vendor software</p></div>
+            </div>
+            <div class="callout warn" style="margin-top:10px"><strong>Lesson Learned:</strong> Trust tidak bisa diasumsikan, bahkan terhadap software dari vendor terpercaya. Zero Trust architecture dan supply chain security menjadi prioritas pasca-SolarWinds.</div>
+          </div>
+        </div>
+
+        <!-- Case 3: Tokopedia Data Breach -->
+        <div class="case-card">
+          <div class="case-head">
+            <span class="case-tag case-amber">CASE 03 · DATA BREACH</span>
+            <strong style="font-size:.92rem">Tokopedia Data Breach (2020)</strong>
+          </div>
+          <div class="case-body">
+            <p>Pada Mei 2020, data dari ~91 juta pengguna Tokopedia — salah satu platform e-commerce terbesar Indonesia — bocor dan dijual di forum dark web. Data yang bocor mencakup nama, email, nomor telepon, dan hash password. Tokopedia mengkonfirmasi adanya "upaya pencurian data."</p>
+            <div class="case-analysis">
+              <div class="ca-item"><span class="ca-key">ASSET</span><p>Database pengguna Tokopedia: 91 juta akun</p></div>
+              <div class="ca-item"><span class="ca-key">VULNERABILITY</span><p>Tidak dipublikasikan secara lengkap; kemungkinan melibatkan kelemahan pada lapisan akses data</p></div>
+              <div class="ca-item"><span class="ca-key">ATTACK</span><p>Unauthorized database access, data exfiltration</p></div>
+              <div class="ca-item"><span class="ca-key">IMPACT — CIA</span><p>Confidentiality ↓↓ (91 juta data pengguna bocor ke dark web)</p></div>
+              <div class="ca-item"><span class="ca-key">BUSINESS IMPACT</span><p>Kerugian reputasi, risiko credential stuffing attack terhadap pengguna</p></div>
+              <div class="ca-item"><span class="ca-key">LESSON</span><p>Data minimization, encryption at rest, dan anomaly detection pada akses database sangat kritis</p></div>
+            </div>
+            <div class="callout" style="margin-top:10px"><strong>Relevansi Lokal:</strong> Insiden ini menunjukkan bahwa ancaman siber bersifat global dan langsung relevan bagi pengguna layanan digital Indonesia. Data breach bukan hanya masalah perusahaan — ini masalah privasi jutaan individu.</div>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- THINK LIKE A SECURITY ANALYST -->
+        <h2>🔍 Think Like a Security Analyst</h2>
+        <p>Gunakan konsep dari Module 01 untuk menganalisis skenario berikut. Coba jawab dulu sebelum membuka jawaban referensi.</p>
+
+        <div class="callout" style="margin-bottom:14px">
+          <strong>Skenario:</strong> Sebuah universitas memiliki infrastruktur digital berikut: website publik, Learning Management System (LMS), sistem informasi akademik (SIAKAD), email institusional, WiFi kampus, VPN untuk dosen, cloud storage (Google Workspace), dan sistem CCTV berbasis IoT. Universitas tersebut baru saja mengadopsi sistem pembayaran SPP online.
+        </div>
+
+        <div class="analyst-box">
+          <h4>💡 Pertanyaan Analisis — University Smart Campus</h4>
+
+          <details>
+            <summary>1. Apa aset paling kritis dari perspektif CIA Triad?</summary>
+            <div class="analyst-answer">
+              <strong>SIAKAD (Sistem Informasi Akademik)</strong> adalah aset paling kritis karena menyimpan data nilai, status kelulusan, dan rekam akademik mahasiswa — memerlukan <em>Integrity</em> tinggi (tidak boleh dimanipulasi) dan <em>Confidentiality</em> tinggi (PDPA/privasi). Sistem pembayaran SPP online memerlukan <em>Availability</em> dan <em>Integrity</em> tinggi karena berhubungan langsung dengan finansial. Database email institusional memiliki nilai Confidentiality tinggi karena mengandung komunikasi sensitif.
+            </div>
+          </details>
+
+          <details>
+            <summary>2. Titik attack surface mana yang paling berisiko?</summary>
+            <div class="analyst-answer">
+              <strong>WiFi kampus</strong> berisiko tinggi karena dapat diakses ribuan mahasiswa tanpa autentikasi kuat — menjadi vektor lateral movement ke jaringan internal. <strong>Email institusional</strong> adalah vektor phishing utama. <strong>Sistem CCTV IoT</strong> sering memiliki default credential dan firmware yang tidak di-patch, menjadi entry point yang sering diabaikan. <strong>Third-party payment gateway</strong> memperkenalkan supply chain risk.
+            </div>
+          </details>
+
+          <details>
+            <summary>3. Threat actor mana yang paling mungkin menargetkan universitas ini?</summary>
+            <div class="analyst-answer">
+              <strong>Cybercriminal</strong> (ransomware) karena universitas sering memiliki kemampuan bayar tebusan dan data berharga. <strong>Hacktivist</strong> jika universitas memiliki kontroversi publik (target: website defacement). <strong>Insider threat</strong> (mahasiswa atau staf) yang ingin memanipulasi nilai. <strong>Script kiddie</strong> yang mencoba exploit yang sudah diketahui pada sistem yang tidak di-patch.
+            </div>
+          </details>
+
+          <details>
+            <summary>4. Jika anggaran keamanan terbatas, kontrol mana yang harus diprioritaskan?</summary>
+            <div class="analyst-answer">
+              Prioritaskan berdasarkan <em>risk reduction per biaya</em>: (1) <strong>MFA pada semua akun admin &amp; dosen</strong> — murah, efektif melawan credential attacks. (2) <strong>Patch management schedule</strong> — gratis, mengurangi exploitable vulnerabilities. (3) <strong>Segmentasi jaringan WiFi</strong> — pisahkan guest WiFi dari jaringan internal. (4) <strong>Backup terjadwal &amp; tested</strong> untuk SIAKAD — critical untuk recovery dari ransomware. (5) <strong>Security awareness training</strong> untuk staf — mengurangi phishing risk.
+            </div>
+          </details>
+
+          <details>
+            <summary>5. Bagaimana CIA Triad memetakan risiko pada sistem pembayaran SPP online?</summary>
+            <div class="analyst-answer">
+              <strong>Confidentiality:</strong> Data kartu kredit dan data finansial mahasiswa harus dilindungi (PCI-DSS compliance). <strong>Integrity:</strong> Nominal pembayaran dan status lunas/belum harus akurat — manipulasi kecil pun dapat berdampak besar pada mahasiswa. <strong>Availability:</strong> Sistem harus tersedia saat deadline pembayaran SPP, downtime pada momen kritis dapat mengganggu proses akademik ratusan mahasiswa.
+            </div>
+          </details>
+        </div>
+
+      </div><!-- end locked block -->
+
+      <!-- KNOWLEDGE CHECK (SEPARATE BLOCK, SAME LOCK) -->
+      <div class="block" data-locked-unless="week01:material">
+        <h2>📝 Knowledge Check</h2>
+        <p style="margin-bottom:16px;font-size:.88rem">Ujilah pemahaman Anda. Jawab semua pertanyaan lalu klik Submit Quiz untuk melihat skor dan pembahasan.</p>
+        <div data-quiz="week01"></div>
       </div>
 
-      
+      <!-- KEY TAKEAWAYS + GLOSSARY + REFERENCES -->
+      <div class="block" data-locked-unless="week01:material">
+
+        <!-- KEY TAKEAWAYS -->
+        <h2>🏁 Key Takeaways</h2>
+        <div class="key-box">
+          <h4>MODULE 01 — CORE INSIGHTS</h4>
+          <ul>
+            <li>Cybersecurity adalah subset dari Information Security yang berfokus pada ancaman digital — cakupannya meliputi network, application, cloud, endpoint, IoT, dan OT security.</li>
+            <li>CIA Triad (Confidentiality, Integrity, Availability) adalah lens utama untuk menganalisis setiap insiden keamanan dan merancang kontrol.</li>
+            <li>Semakin banyak konektivitas digital → attack surface bertambah → kompleksitas keamanan meningkat. Ini bukan alasan untuk tidak berkoneksi, melainkan alasan untuk lebih sadar terhadap risiko.</li>
+            <li>Risk = f(Likelihood, Impact, Context). CVSS score saja tidak cukup — konteks eksposur dan kekritisan fungsi sangat menentukan prioritas.</li>
+            <li>Security controls terbagi menjadi tiga: Preventive (stop), Detective (find), Corrective (recover). Program keamanan yang efektif membutuhkan ketiganya.</li>
+            <li>NIST CSF 2.0 menyediakan bahasa bersama untuk cybersecurity governance: Govern → Identify → Protect → Detect → Respond → Recover.</li>
+            <li>Cybersecurity adalah disiplin yang terus berubah — insiden seperti WannaCry, SolarWinds, dan data breach lokal menunjukkan bahwa ancaman nyata, dampak nyata, dan tidak ada organisasi yang kebal.</li>
+          </ul>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- GLOSSARY -->
+        <h2>📖 Glossary</h2>
+        <div class="glossary-grid">
+          <div class="g-item"><span class="g-term">Asset</span><p class="g-def">Segala sesuatu yang memiliki nilai bagi organisasi dan perlu dilindungi. Bisa berupa data, sistem, proses, maupun manusia.</p></div>
+          <div class="g-item"><span class="g-term">Threat</span><p class="g-def">Potensi penyebab kejadian yang dapat merugikan asset. Threat bisa berasal dari manusia (attacker) maupun non-manusia (bencana alam, kegagalan hardware).</p></div>
+          <div class="g-item"><span class="g-term">Vulnerability</span><p class="g-def">Kelemahan atau celah pada sistem, proses, atau konfigurasi yang dapat dimanfaatkan oleh threat actor untuk menyebabkan impact negatif.</p></div>
+          <div class="g-item"><span class="g-term">Attack</span><p class="g-def">Tindakan nyata yang dilakukan oleh threat actor untuk mengeksploitasi vulnerability, mengakibatkan compromise atau impact terhadap asset.</p></div>
+          <div class="g-item"><span class="g-term">Risk</span><p class="g-def">Fungsi dari likelihood sebuah threat berhasil dan dampak (impact) yang ditimbulkan. Risk dikurangi melalui security controls yang tepat.</p></div>
+          <div class="g-item"><span class="g-term">Attack Surface</span><p class="g-def">Kumpulan seluruh titik (entry point) pada sebuah sistem atau organisasi yang dapat digunakan attacker untuk memperoleh akses atau memengaruhi sistem.</p></div>
+          <div class="g-item"><span class="g-term">CIA Triad</span><p class="g-def">Tiga tujuan fundamental keamanan informasi: Confidentiality (kerahasiaan), Integrity (integritas), dan Availability (ketersediaan).</p></div>
+          <div class="g-item"><span class="g-term">Threat Actor</span><p class="g-def">Individu, kelompok, atau entitas yang berpotensi melancarkan serangan. Dikategorikan berdasarkan motivasi dan kapabilitas: cybercriminal, nation-state, hacktivist, insider, script kiddie.</p></div>
+          <div class="g-item"><span class="g-term">TTP</span><p class="g-def">Tactics, Techniques, and Procedures — cara kerja spesifik seorang threat actor. Didokumentasikan oleh framework MITRE ATT&amp;CK.</p></div>
+          <div class="g-item"><span class="g-term">Incident</span><p class="g-def">Kejadian yang mengancam atau melanggar kebijakan keamanan suatu organisasi, dan memerlukan respons. Tidak semua event adalah incident.</p></div>
+          <div class="g-item"><span class="g-term">Security Control</span><p class="g-def">Mekanisme teknis, administratif, atau fisik yang diterapkan untuk mengurangi risiko. Dibagi menjadi preventive, detective, dan corrective.</p></div>
+          <div class="g-item"><span class="g-term">Defense in Depth</span><p class="g-def">Strategi keamanan menggunakan multiple layers of controls sehingga kegagalan satu lapisan tidak menyebabkan kompromi total pada sistem.</p></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--line);margin:24px 0">
+
+        <!-- REFERENCES -->
+        <h2>📚 References</h2>
+        <ul class="ref-list">
+          <li><strong>NIST CSF 2.0</strong> — National Institute of Standards and Technology. (2024). <em>The NIST Cybersecurity Framework 2.0</em>. <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">nist.gov/cyberframework</a></li>
+          <li><strong>NIST SP 800-30</strong> — NIST. (2012). <em>Guide for Conducting Risk Assessments</em>. <a href="https://csrc.nist.gov/publications/detail/sp/800-30/rev-1/final" target="_blank" rel="noopener">csrc.nist.gov</a></li>
+          <li><strong>ENISA Threat Landscape 2024</strong> — European Union Agency for Cybersecurity. (2024). <em>ENISA Threat Landscape 2024</em>. <a href="https://www.enisa.europa.eu/topics/cyber-threats/enisa-threat-landscape" target="_blank" rel="noopener">enisa.europa.eu</a></li>
+          <li><strong>MITRE ATT&amp;CK</strong> — MITRE Corporation. (2024). <em>ATT&amp;CK Matrix for Enterprise</em>. <a href="https://attack.mitre.org" target="_blank" rel="noopener">attack.mitre.org</a></li>
+          <li><strong>WannaCry Analysis</strong> — CISA. (2017). <em>Alert (TA17-132A): Indicators Associated With WannaCry Ransomware</em>. <a href="https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware" target="_blank" rel="noopener">cisa.gov</a></li>
+          <li><strong>SolarWinds Report</strong> — CISA. (2021). <em>Alert (AA21-008A): Detecting Post-Compromise Threat Activity in Microsoft Cloud Environments (SolarWinds)</em>. <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-008a" target="_blank" rel="noopener">cisa.gov</a></li>
+          <li><strong>CVE-2017-0144 (EternalBlue)</strong> — NIST NVD. <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-0144" target="_blank" rel="noopener">nvd.nist.gov/vuln/detail/CVE-2017-0144</a></li>
+          <li><strong>Textbook Reference</strong> — Stallings, W., &amp; Brown, L. (2018). <em>Computer Security: Principles and Practice</em> (4th ed.). Pearson. ISBN: 978-0134794105</li>
+        </ul>
+
+      </div><!-- end key takeaways block -->
+
+      <!-- READY FOR PRACTICE -->
       <div class="block" style="background:var(--signal-soft);border-color:var(--signal)">
         <h2 style="margin-bottom:6px">READY FOR PRACTICE?</h2>
-        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Security Asset Identification</strong> untuk menerapkan konsep secara hands-on.</p>
+        <p>Setelah mempelajari materi minggu ini, lanjutkan ke <strong>Threat Landscape Analysis</strong> untuk menerapkan konsep CIA Triad, asset identification, dan threat ecosystem secara hands-on menggunakan skenario University Smart Campus.</p>
         <a class="btn btn-primary" href="../practical/practical-01.html" data-practice-link>🧪 MULAI PRAKTIK</a>
       </div>
-    </div>
-  </div>
+
+    </div><!-- end .content -->
+  </div><!-- end .wrap.detail-layout -->
 </section>
 
 <footer>
@@ -117,5 +920,95 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
+
+<!-- Quiz Data: Week 01 -->
+<script type="application/json" data-quiz-data="week01">
+{
+  "passScore": 70,
+  "questions": [
+    {
+      "q": "Sebuah rumah sakit mengalami serangan ransomware yang mengenkripsi seluruh file di server rekam medis, sehingga dokter tidak dapat mengakses data pasien selama 8 jam. Aspek CIA Triad mana yang PALING UTAMA dilanggar?",
+      "options": [
+        "A. Confidentiality — data pasien terekspos ke pihak luar",
+        "B. Integrity — data pasien diubah tanpa izin",
+        "C. Availability — sistem tidak dapat diakses saat dibutuhkan",
+        "D. Authentication — autentikasi pengguna gagal"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "Apa perbedaan PALING TEPAT antara Cybersecurity dan Information Security?",
+      "options": [
+        "A. Cybersecurity hanya mencakup perlindungan perangkat keras (hardware)",
+        "B. Information Security mencakup semua bentuk informasi termasuk fisik; Cybersecurity adalah subset yang berfokus pada ancaman digital",
+        "C. Cybersecurity hanya relevan untuk perusahaan besar dan pemerintah",
+        "D. Information Security tidak mencakup keamanan jaringan komputer"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "Seorang attacker menemukan bahwa server web universitas menjalankan versi PHP yang usang dengan kerentanan yang sudah terdokumentasi. Attacker kemudian menggunakan exploit publik untuk mengunggah web shell ke server tersebut. Dalam skenario ini, apa yang dimaksud dengan 'vulnerability'?",
+      "options": [
+        "A. Attacker yang melakukan serangan",
+        "B. Web shell yang berhasil diunggah ke server",
+        "C. Versi PHP yang usang dengan kerentanan terdokumentasi",
+        "D. Aksi menggunakan exploit publik"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "Server A memiliki CVSS score 9.8 (Critical) tetapi hanya dapat diakses dari jaringan internal dan digunakan untuk testing. Server B memiliki CVSS score 6.5 (Medium) tetapi internet-facing dan memproses transaksi pembayaran. Mana yang harus DIPRIORITASKAN untuk di-patch?",
+      "options": [
+        "A. Server A, karena CVSS score-nya lebih tinggi",
+        "B. Server B, karena kombinasi eksposur internet dan fungsi kritis menghasilkan risk aktual yang lebih tinggi",
+        "C. Keduanya sama prioritasnya",
+        "D. Tidak perlu patch karena bisa diatasi dengan firewall saja"
+      ],
+      "correct": 1
+    },
+    {
+      "q": "Sebuah universitas memasang firewall untuk memblokir traffic berbahaya, IDS untuk mendeteksi aktivitas mencurigakan, dan sistem backup otomatis untuk pemulihan jika terjadi insiden. Secara berurutan, ketiga kontrol ini termasuk kategori...",
+      "options": [
+        "A. Detective, Preventive, Corrective",
+        "B. Preventive, Corrective, Detective",
+        "C. Preventive, Detective, Corrective",
+        "D. Corrective, Detective, Preventive"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "[SKENARIO] Selama 3 bulan, seorang insider (staf IT) secara diam-diam mengubah data nilai mahasiswa di SIAKAD tanpa sepengetahuan siapapun. Perubahan sangat kecil dan tidak terdeteksi. Aspek CIA mana yang dilanggar dan mengapa sistem monitoring standar mungkin gagal mendeteksinya?",
+      "options": [
+        "A. Availability — karena sistem mengalami downtime",
+        "B. Confidentiality — karena data diakses oleh pihak yang tidak berwenang",
+        "C. Integrity — karena data diubah tanpa otorisasi; monitoring gagal karena akses staf IT adalah legitimate, sehingga tidak memicu alert",
+        "D. Authentication — karena staf IT berhasil melewati proses login"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "[SKENARIO] Sebuah startup e-commerce di Indonesia baru saja mengintegrasikan payment gateway pihak ketiga ke dalam platform mereka. Tim security mengkhawatirkan risiko baru dari integrasi ini. Dari perspektif attack surface, apa RISIKO UTAMA yang diperkenalkan oleh integrasi tersebut?",
+      "options": [
+        "A. Tidak ada risiko karena payment gateway pihak ketiga lebih aman dari sistem sendiri",
+        "B. Hanya risiko Availability — payment gateway mungkin down",
+        "C. Perluasan attack surface melalui supply chain: keamanan platform kini bergantung pada keamanan vendor pihak ketiga yang mungkin memiliki vulnerability berbeda",
+        "D. Risiko hanya pada Confidentiality data kartu kredit"
+      ],
+      "correct": 2
+    },
+    {
+      "q": "[HOTS] Sebuah kota pintar (smart city) memindahkan sistem manajemen lampu lalu lintas ke platform cloud. Sistem ini mengontrol 500+ persimpangan di seluruh kota. Dari perspektif CIA Triad, threat actor yang relevan, dan NIST CSF 2.0, pernyataan MANA yang mencerminkan security reasoning yang paling tepat?",
+      "options": [
+        "A. Karena di cloud, keamanan sepenuhnya menjadi tanggung jawab cloud provider",
+        "B. Pindah ke cloud otomatis mengurangi attack surface karena cloud provider memiliki keamanan lebih baik",
+        "C. Sistem ini memiliki kritikalitas Availability sangat tinggi (safety impact) dan menarik bagi nation-state; Shared Responsibility Model harus dinegosiasi secara eksplisit, fungsi PROTECT dan DETECT NIST CSF harus diprioritaskan, dan attack surface baru (API cloud, IoT sensors, network) harus diidentifikasi dalam threat model",
+        "D. CIA Triad tidak berlaku untuk sistem IoT dan OT — framework yang berbeda digunakan"
+      ],
+      "correct": 2
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

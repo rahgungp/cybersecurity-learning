@@ -1,15 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praktik Minggu 14 — Digital Forensics Fundamentals · COM Cybersecurity Learning</title>
-<meta name="description" content="Platform pembelajaran mata kuliah Keamanan Siber, Program Studi Teknik Komputer, Universitas Warmadewa.">
-<link rel="stylesheet" href="../assets/css/style.css">
-
-</head>
-<body>
-
+<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praktik Minggu 14 — Digital Forensic Investigation · COM Cybersecurity Learning</title>
+<meta name="description" content="Hands-on Module 14: chain of custody, timeline analysis, dan laporan investigasi forensik lengkap untuk skenario University Smart Campus.">
+<link rel="stylesheet" href="../assets/css/style.css"><style>
+.step-block{counter-increment:step-counter;background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;position:relative;padding-left:60px}
+.step-block::before{content:counter(step-counter);position:absolute;left:16px;top:18px;width:28px;height:28px;border-radius:50%;background:var(--pine-800);color:#fff;font-family:var(--font-mono);font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+.step-counter-reset{counter-reset:step-counter}
+.step-block h4{font-size:.92rem;margin-bottom:6px;font-family:var(--font-mono);color:var(--pine-600)}
+.step-block p,.step-block li{font-size:.86rem}
+.output-box{background:var(--signal-soft);border:1px solid var(--signal);border-radius:var(--radius-m);padding:16px 18px;margin:14px 0}
+.output-box h4{color:var(--signal);font-family:var(--font-mono);font-size:.82rem;margin-bottom:8px}
+.output-box li{font-size:.84rem;color:var(--ink-soft);list-style:none;padding:3px 0 3px 16px;position:relative}
+.output-box li::before{content:"✓";color:var(--signal);position:absolute;left:0;font-size:.76rem}
+.template-block{background:var(--paper);border:1px dashed var(--line);border-radius:var(--radius-s);padding:16px;margin:10px 0;font-family:var(--font-mono);font-size:.78rem;overflow-x:auto;white-space:pre}
+.template-block .tpl-label{color:var(--pine-600);font-weight:600;display:block;margin-bottom:6px;font-size:.72rem;white-space:normal}
+.scenario-box{background:var(--learn-blue-soft);border:1px solid var(--learn-blue);border-radius:var(--radius-m);padding:16px 18px;margin:12px 0}
+.scenario-box h4{color:var(--learn-blue);font-size:.9rem;margin-bottom:8px}
+</style></head><body>
 <nav class="nav">
   <div class="wrap">
     <a href="../index.html" class="brand">
@@ -29,29 +35,27 @@
     </div>
   </div>
 </nav>
-<section class="section" style="padding-top:36px">
-  <div class="wrap detail-layout">
-    
+<section class="section" style="padding-top:36px"><div class="wrap detail-layout">
 <aside class="sidebar">
   <h4>COURSE CONTENT</h4>
   <ul>
     <li class="side-item " data-week="week01" onclick="location.href='../weeks/week01.html'">
-          <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
-          <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability & Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
-          <span class="ic">○</span> Minggu 03 — Threat Landscape & Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
-          <span class="ic">○</span> Minggu 04 — Authentication & Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
-          <span class="ic">○</span> Minggu 05 — Cryptography & Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
-          <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
-          <span class="ic">○</span> Minggu 07 — Secure Architecture & Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
-          <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
-          <span class="ic">○</span> Minggu 09 — Web & Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
-          <span class="ic">○</span> Minggu 10 — Endpoint & Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
-          <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
-          <span class="ic">○</span> Minggu 12 — Security Monitoring & Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
-          <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item current" data-week="week14" onclick="location.href='../weeks/week14.html'">
-          <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
-          <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
-          <span class="ic">○</span> Minggu 16 — Final Project & Security Assessment</li>
+      <span class="ic">○</span> Minggu 01 — Introduction to Cybersecurity</li><li class="side-item " data-week="week02" onclick="location.href='../weeks/week02.html'">
+      <span class="ic">○</span> Minggu 02 — Asset, Threat, Vulnerability &amp; Risk</li><li class="side-item " data-week="week03" onclick="location.href='../weeks/week03.html'">
+      <span class="ic">○</span> Minggu 03 — Threat Landscape &amp; Attack Surface</li><li class="side-item " data-week="week04" onclick="location.href='../weeks/week04.html'">
+      <span class="ic">○</span> Minggu 04 — Authentication &amp; Access Control</li><li class="side-item " data-week="week05" onclick="location.href='../weeks/week05.html'">
+      <span class="ic">○</span> Minggu 05 — Cryptography &amp; Data Protection</li><li class="side-item " data-week="week06" onclick="location.href='../weeks/week06.html'">
+      <span class="ic">○</span> Minggu 06 — Network Security Fundamentals</li><li class="side-item " data-week="week07" onclick="location.href='../weeks/week07.html'">
+      <span class="ic">○</span> Minggu 07 — Secure Architecture &amp; Zero Trust</li><li class="side-item " data-week="week08" onclick="location.href='../weeks/week08.html'">
+      <span class="ic">○</span> Minggu 08 — UTS</li><li class="side-item " data-week="week09" onclick="location.href='../weeks/week09.html'">
+      <span class="ic">○</span> Minggu 09 — Web &amp; Application Security</li><li class="side-item " data-week="week10" onclick="location.href='../weeks/week10.html'">
+      <span class="ic">○</span> Minggu 10 — Endpoint &amp; Malware Security</li><li class="side-item " data-week="week11" onclick="location.href='../weeks/week11.html'">
+      <span class="ic">○</span> Minggu 11 — Vulnerability Management</li><li class="side-item " data-week="week12" onclick="location.href='../weeks/week12.html'">
+      <span class="ic">○</span> Minggu 12 — Security Monitoring &amp; Incident Response</li><li class="side-item " data-week="week13" onclick="location.href='../weeks/week13.html'">
+      <span class="ic">○</span> Minggu 13 — Cyber Attack Lifecycle</li><li class="side-item current" data-week="week14" onclick="location.href='../weeks/week14.html'">
+      <span class="ic">○</span> Minggu 14 — Digital Forensics Fundamentals</li><li class="side-item " data-week="week15" onclick="location.href='../weeks/week15.html'">
+      <span class="ic">○</span> Minggu 15 — Current Cybersecurity Trends</li><li class="side-item " data-week="week16" onclick="location.href='../weeks/week16.html'">
+      <span class="ic">○</span> Minggu 16 — Final Project &amp; Security Assessment</li>
   </ul>
   <hr class="side-rule">
   <h4>LEGEND</h4>
@@ -61,56 +65,70 @@
   <hr class="side-rule">
   <p style="font-size:.76rem">Status materi dikontrol oleh dosen melalui <a href="../admin/login.html" style="color:var(--pine-600)">Admin Panel</a>.</p>
 </aside>
-    <div class="content">
-      <p class="eyebrow">PRACTICAL LAB · MINGGU 14</p>
-      <h1>Digital Forensics Fundamentals</h1>
-
+<div class="content">
+      <p class="eyebrow">PRACTICAL LAB · MINGGU 14 · MODULE 14</p>
+      <h1>Digital Forensic Investigation</h1>
+      <div class="meta-row"><span class="pill">⏱ 60 menit</span><span class="pill">Individual / Kelompok 2</span>
+      <span class="pill">Output: Digital Forensics Investigation Report</span><span class="pill">Skenario: University Smart Campus</span></div>
       <div class="block" data-locked-unless="week14:practice">
-        
-        <h2 style="margin-top:0">🧪 Mini Digital Forensic Investigation</h2>
-        <div class="meta-row"><span class="pill">⏱ 45–60 menit</span><span class="pill">Referensi Output: Mini Forensic Investigation</span></div>
+        <div class="callout"><strong>📌 Hubungan dengan Materi:</strong> Praktik ini menyusun laporan forensik formal berdasarkan seluruh evidence UND yang terkumpul dari Module 12–14, menerapkan chain of custody dan timeline analysis.</div>
+        <h2 style="margin-top:1.2em">🎯 Objective</h2>
+        <p>Mahasiswa mampu menyusun dokumentasi chain of custody, merekonstruksi timeline dari dataset artefak, dan menghasilkan laporan investigasi forensik yang koheren.</p>
+        <div class="callout warn"><strong>⚠️ Safe Lab Rule:</strong> Praktik ini menggunakan dataset skenario tertulis (bukan sampel malware/sistem nyata) — sepenuhnya aman dikerjakan di perangkat mana pun.</div>
 
-        <h3>Objective</h3>
-        <p>Mahasiswa mampu melakukan mini investigasi forensik menggunakan dataset artefak yang aman dan menyusun laporan temuan.</p>
+        <div class="scenario-box"><h4>🔍 Dataset Evidence: Laptop dosen.budi (EVD-2026-001)</h4>
+        <p style="font-size:.86rem;margin-bottom:8px">Berikut kumpulan artefak mentah (belum diurutkan) yang ditemukan tim investigasi:</p>
+        <div style="overflow-x:auto"><table class="tbl" style="margin:0">
+          <thead><tr><th>Artefak</th><th>Timestamp</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Scheduled Task</td><td>T-3 hari, 14:20:33</td><td>Task "WindowsUpdateCheck" dibuat, menjalankan script tersembunyi tiap boot</td></tr>
+            <tr><td>Email (Inbox)</td><td>T-3 hari, 14:02:10</td><td>Dari: "akademik-und-notif@gmai1.com" (perhatikan ejaan), lampiran .xlsm</td></tr>
+            <tr><td>File Access Log</td><td>T-3 hari, 14:15:47</td><td>"Jadwal_Ujian_Revisi.xlsm" dibuka, macro security warning muncul</td></tr>
+            <tr><td>Process Log</td><td>T-3 hari, 14:16:02</td><td>powershell.exe dijalankan oleh EXCEL.EXE (parent process tidak biasa)</td></tr>
+            <tr><td>Browser History</td><td>T-3 hari, 14:16:10</td><td>Koneksi ke domain "cdn-msupdate[.]net" (bukan domain Microsoft resmi)</td></tr>
+            <tr><td>VPN Log</td><td>Hari-H, 03:02:11</td><td>Login VPN dari IP 178.20.55.101 (geolocation: luar negeri)</td></tr>
+            <tr><td>SIAKAD App Log</td><td>Hari-H, 03:05:02–03:12:18</td><td>Update 50 record nilai + export data mahasiswa penuh</td></tr>
+          </tbody>
+        </table></div></div>
 
-        <h3>Scenario</h3>
-        <p>Mahasiswa diberikan dataset simulasi berisi daftar file artifacts (nama file, timestamp dibuat/diubah/diakses), sebagian riwayat browser, dan catatan koneksi jaringan sederhana dari sebuah 'komputer investigasi' fiktif.</p>
+        <div class="step-counter-reset">
+          <div class="step-block"><h4>ISI FORMULIR CHAIN OF CUSTODY</h4><p>Buat entri chain of custody untuk evidence EVD-2026-001, dimulai dari pengambilan laptop hingga analisis (gunakan nama fiktif untuk petugas).</p></div>
+          <div class="step-block"><h4>SUSUN TIMELINE KRONOLOGIS</h4><p>Urutkan SELURUH artefak di atas secara kronologis (bukan urutan tabel) menjadi satu timeline utuh.</p></div>
+          <div class="step-block"><h4>IDENTIFIKASI RED FLAG PADA SETIAP ARTEFAK</h4><p>Untuk setiap baris, jelaskan apa yang mencurigakan secara teknis (mis. mengapa domain "gmai1.com" adalah red flag).</p></div>
+          <div class="step-block"><h4>HUBUNGKAN KE KILL CHAIN &amp; ATT&amp;CK (Module 13)</h4><p>Petakan setiap artefak pada timeline ke tahap Kill Chain dan technique ATT&amp;CK yang sesuai — lengkapi tabel yang sudah dimulai di Module 13.</p></div>
+          <div class="step-block"><h4>SUSUN KESIMPULAN INVESTIGASI</h4><p>Tulis kesimpulan: apa yang terjadi, sejak kapan, bagaimana initial access terjadi, dan apa dampak akhirnya — dalam bentuk narasi yang runtut dan didukung evidence.</p></div>
+        </div>
 
-        <h3>Tools</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Autopsy (opsional, untuk eksplorasi mandiri)</li><li>Wireshark (opsional)</li><li>Dataset forensik simulasi (disediakan)</li></ul>
+        <div class="output-box"><h4>📋 EXPECTED OUTPUT — Digital Forensics Investigation Report</h4><ul>
+          <li>Formulir Chain of Custody terisi lengkap</li>
+          <li>Timeline kronologis lengkap (seluruh 7 artefak terurut benar)</li>
+          <li>Red flag/indikator mencurigakan untuk setiap artefak</li>
+          <li>Tabel lengkap Kill Chain × ATT&amp;CK × Evidence (melengkapi Module 13)</li>
+          <li>Narasi kesimpulan investigasi yang koheren</li>
+        </ul></div>
 
-        <h3>Environment</h3>
-        <div class="callout warn">Dataset simulasi/sample yang aman — bukan perangkat atau data pihak lain yang sesungguhnya.</div>
-
-        <h3>Instructions</h3>
-        <ol style="margin-left:20px"><li>Susun daftar file artifacts beserta timestamp-nya dari dataset yang diberikan.</li><li>Identifikasi aktivitas yang tampak tidak biasa (misal file diakses di luar jam kerja normal).</li><li>Susun timeline kronologis dari seluruh artefak yang relevan.</li><li>Hubungkan network artifacts (jika ada) dengan aktivitas pada timeline.</li><li>Simpulkan temuan utama dari investigasi ini.</li></ol>
-
-        <h3>Expected Output</h3>
-        <p>Forensic Findings Report berisi timeline kronologis, artefak kunci yang mendukung, dan kesimpulan investigasi.</p>
-
-        <h3>Analysis</h3>
-        <ul style="list-style:disc;margin-left:20px"><li>Mengapa urutan waktu (timeline) sangat penting dalam investigasi forensik?</li><li>Apa yang membedakan bukti yang meyakinkan dari sekadar kebetulan dalam data artefak?</li></ul>
-
-        <h3>Questions</h3>
-        <ol style="margin-left:20px"><li>Apa perbedaan antara disk forensics dan memory forensics?</li><li>Mengapa chain of custody penting meskipun investigasi hanya bersifat internal?</li></ol>
-
-        <h3>Assignment</h3>
-        <p>Susun Forensic Findings Report lengkap dengan timeline dan kesimpulan berdasarkan dataset yang diberikan.</p>
-
-        <h3>Checklist</h3>
-        <ul style="list-style:none;margin-left:0"><li><label><input type="checkbox"> Artefak dari dataset didokumentasikan</label></li><li><label><input type="checkbox"> Timeline kronologis disusun</label></li><li><label><input type="checkbox"> Aktivitas tidak biasa diidentifikasi</label></li><li><label><input type="checkbox"> Kesimpulan investigasi diberikan</label></li></ul>
-
-        <button class="btn btn-primary" data-complete="week14:practice" data-complete-label="Practice Completed ✓">Complete Practice</button>
-    
+        <h3>Pertanyaan Analisis</h3>
+        <ol style="margin-left:20px;font-size:.88rem">
+          <li>Bukti mana yang PALING KUAT menunjukkan ini adalah serangan bertarget (bukan acak), dan mengapa?</li>
+          <li>Domain "cdn-msupdate[.]net" dan email "gmai1.com" menggunakan teknik typosquatting/domain spoofing. Bagaimana teknik ini bekerja secara psikologis terhadap korban?</li>
+          <li>Berdasarkan laporan investigasi lengkap ini, apa REKOMENDASI PALING PENTING yang harus disampaikan ke manajemen UND?</li>
+        </ol>
+        <h3>Checklist Sebelum Submit</h3>
+        <ul style="list-style:none;margin-left:0">
+          <li><label><input type="checkbox"> Chain of custody terisi lengkap dan logis</label></li>
+          <li><label><input type="checkbox"> Timeline seluruh 7 artefak terurut kronologis dengan benar</label></li>
+          <li><label><input type="checkbox"> Red flag dijelaskan untuk setiap artefak</label></li>
+          <li><label><input type="checkbox"> Pemetaan Kill Chain/ATT&amp;CK lengkap dan konsisten dengan Module 13</label></li>
+          <li><label><input type="checkbox"> Narasi kesimpulan investigasi jelas dan didukung evidence</label></li>
+        </ul>
+        <div class="callout warn" style="margin-top:16px"><strong>📁 Portfolio Note:</strong> Laporan investigasi forensik ini menjadi salah satu komponen utama Final Project (Module 16) — akan diintegrasikan dengan seluruh temuan Module 02–15 menjadi satu Security Assessment Report komprehensif.</div>
+        <button class="btn btn-primary" style="margin-top:8px" data-complete="week14:practice" data-complete-label="Practice Completed ✓">✓ Tandai Praktik Selesai</button>
       </div>
-
-      <div class="block" style="display:flex;justify-content:space-between">
+      <div class="block" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
         <a class="btn btn-outline" href="../weeks/week14.html">← Kembali ke Materi Minggu 14</a>
+        <a class="btn btn-outline" href="../weeks/week15.html">Lanjut ke Minggu 15 →</a>
       </div>
-    </div>
-  </div>
-</section>
-
+</div></div></section>
 <footer>
   <div class="wrap">
     <p>© 2026 COM Cybersecurity Learning — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan, Universitas Warmadewa.</p>
@@ -128,5 +146,4 @@
 <script src="../assets/js/notes.js"></script>
 <script src="../assets/js/quiz.js"></script>
 <script src="../assets/js/main.js"></script>
-</body>
-</html>
+</body></html>
