@@ -1,4 +1,4 @@
-# COM Cybersecurity Learning Platform
+# T.KOM Cybersecurity Learning Platform
 
 Platform pembelajaran digital untuk mata kuliah **Keamanan Siber (P)** — kode `63350300`,
 3 SKS, Semester V — Program Studi Teknik Komputer, Fakultas Teknik dan Perencanaan,
