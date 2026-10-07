@@ -71,44 +71,44 @@ const courseConfig = {
 
   week09: {
     title: "Web & Application Security",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week10: {
     title: "Endpoint & Malware Security",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week11: {
     title: "Vulnerability Management",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week12: {
     title: "Security Monitoring & Incident Response",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week13: {
     title: "Cyber Attack Lifecycle",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week14: {
     title: "Digital Forensics Fundamentals",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week15: {
     title: "Current Cybersecurity Trends",
-    material: true,
-    practice: true
+    material: false,
+    practice: false
   },
 
   week16: {
