@@ -71,20 +71,20 @@ const courseConfig = {
 
   week09: {
     title: "Web & Application Security",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week10: {
     title: "Endpoint & Malware Security",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week11: {
     title: "Vulnerability Management",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week12: {
