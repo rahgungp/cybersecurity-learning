@@ -65,8 +65,8 @@ const courseConfig = {
 
   week08: {
     title: "UTS",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week09: {
@@ -89,32 +89,32 @@ const courseConfig = {
 
   week12: {
     title: "Security Monitoring & Incident Response",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week13: {
     title: "Cyber Attack Lifecycle",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week14: {
     title: "Digital Forensics Fundamentals",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week15: {
     title: "Current Cybersecurity Trends",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   },
 
   week16: {
     title: "Final Project & Security Assessment",
-    material: false,
-    practice: false
+    material: true,
+    practice: true
   }
 
 };
